@@ -7,10 +7,10 @@ import React, { useState } from "react";
 import { SearchResult } from "../page";
 import { motion } from "framer-motion";
 import CloudImg from "./CloudImg";
-import AlbumButton from './Albumbutton'
+import AlbumButton from "./Albumbutton";
 import { Album } from "../layout";
 import AddToAlbum from "./AddToAlbum";
-
+import UploadAlert from "./UploadAlert";
 
 function Gallery({
   results,
@@ -20,7 +20,10 @@ function Gallery({
   rootFolders: Album[];
 }) {
   const [selected, setSelected] = useState<SearchResult[]>([]);
-  const [addToAlbumDialogue, setAddToAlbumDialogue] = useState<boolean>(false)
+  const [addToAlbumDialogue, setAddToAlbumDialogue] = useState<boolean>(false);
+  const [uploaded, setUploaded] = useState<boolean>(false);
+  const [existsInAnotherAlbum, setExistsInAnotherAlbum] =
+    useState<boolean>(false);
   const columns = (colIdx: number) => {
     return results.resources.filter((resource, idx) => {
       return idx % 4 === colIdx;
@@ -31,15 +34,20 @@ function Gallery({
     const imageId = selectedImage;
     const currentlySelected = isSelected(imageId);
     if (currentlySelected) {
-      setSelected((prev: any) => prev.filter((id: SearchResult) => id !== imageId));
+      setSelected((prev: any) =>
+        prev.filter((id: SearchResult) => id !== imageId)
+      );
     } else {
       setSelected((prev: any) => [...prev, imageId]);
     }
+    setUploaded(false);
+    setExistsInAnotherAlbum(false)
+    setAddToAlbumDialogue(false)
   };
-  
+
   const handleAddToAlbum = () => {
-    setAddToAlbumDialogue(true)
-  }
+    setAddToAlbumDialogue(true);
+  };
 
   const isSelected = (imageId: SearchResult) => {
     for (const selectedImgs of selected) {
@@ -70,13 +78,28 @@ function Gallery({
     },
   };
 
-  
-
   return (
     <section className="">
-      {selected.length > 0 ? <AlbumButton handleAddToAlbum={handleAddToAlbum} /> : null}
-      
-      {addToAlbumDialogue ? <AddToAlbum setSelected={setSelected} setAddToAlbumDialogue={setAddToAlbumDialogue} imageData={selected} rootFolders={rootFolders}/> : null}
+      {selected.length > 0 ? (
+        <AlbumButton handleAddToAlbum={handleAddToAlbum} />
+      ) : null}
+
+      {addToAlbumDialogue ? (
+        <AddToAlbum
+          setUploaded={setUploaded}
+          setExistsInAnotherAlbum={setExistsInAnotherAlbum}
+          setSelected={setSelected}
+          setAddToAlbumDialogue={setAddToAlbumDialogue}
+          imageData={selected}
+          rootFolders={rootFolders}
+        />
+      ) : null}
+      {uploaded ? (
+        <UploadAlert alertType="added to album" setUploaded={setUploaded} />
+      ) :
+      existsInAnotherAlbum ? (
+        <UploadAlert alertType="exists in album" setUploaded={setUploaded} />
+      ) : null}
       <motion.div className="grid grid-cols-4 gap-4 p-4">
         {[columns(0), columns(1), columns(2), columns(3)].map((col, idx) => (
           <motion.div

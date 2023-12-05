@@ -23,7 +23,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const rootFolders: Album[] = await cloudinary.v2.api.root_folders();
-  console.log(rootFolders)
+
   return (
     <html lang="en">
       <body className={inter.className}>
