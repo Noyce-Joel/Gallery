@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, SetStateAction, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
@@ -8,16 +8,23 @@ import { addToAlbum, createAlbum } from "./actions";
 import cloudinary from "cloudinary";
 import { Album } from "../layout";
 import { removeHyphens } from "./Nav";
+import { useRouter } from "next/navigation";
+import UploadAlert from './UploadAlert'
 export default function AddToAlbum({
   rootFolders,
   imageData,
+  setAddToAlbumDialogue,
+  setSelected,
 }: {
   rootFolders: any;
   imageData: SearchResult[];
+  setAddToAlbumDialogue: React.Dispatch<SetStateAction<boolean>>
+  setSelected: React.Dispatch<SetStateAction<SearchResult[]>>
 }) {
   const [open, setOpen] = useState(true);
   const [albumName, setAlbumName] = useState<string>("");
-
+  const [uploaded, setUploaded] = useState<boolean>(false)
+  const router= useRouter()
   const hasSpace = (path: string) => {
     if (path.includes(" ")) {
       const newAlbumName = path.replace(/ /g, "-");
@@ -41,11 +48,19 @@ export default function AddToAlbum({
     } else {
       await createAlbum(hasSpace(albumName), imageData);
     }
+
+    setTimeout(() => {
+      router.refresh()}, 1000)
+    setUploaded(true)
+    setAddToAlbumDialogue(false)
+    setSelected([])
   };
 
   const albums: Album[] = rootFolders.folders;
 
   return (
+    <>
+    {uploaded ? <UploadAlert setUploaded={setUploaded}/> : null}
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
         <Transition.Child
@@ -154,5 +169,6 @@ export default function AddToAlbum({
         </div>
       </Dialog>
     </Transition.Root>
+    </>
   );
 }

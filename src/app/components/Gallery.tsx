@@ -11,6 +11,7 @@ import AlbumButton from './Albumbutton'
 import { Album } from "../layout";
 import AddToAlbum from "./AddToAlbum";
 
+
 function Gallery({
   results,
   rootFolders,
@@ -35,7 +36,7 @@ function Gallery({
       setSelected((prev: any) => [...prev, imageId]);
     }
   };
-
+  
   const handleAddToAlbum = () => {
     setAddToAlbumDialogue(true)
   }
@@ -69,11 +70,13 @@ function Gallery({
     },
   };
 
+  
+
   return (
     <section className="">
       {selected.length > 0 ? <AlbumButton handleAddToAlbum={handleAddToAlbum} /> : null}
       
-      {addToAlbumDialogue ? <AddToAlbum imageData={selected} rootFolders={rootFolders}/> : null}
+      {addToAlbumDialogue ? <AddToAlbum setSelected={setSelected} setAddToAlbumDialogue={setAddToAlbumDialogue} imageData={selected} rootFolders={rootFolders}/> : null}
       <motion.div className="grid grid-cols-4 gap-4 p-4">
         {[columns(0), columns(1), columns(2), columns(3)].map((col, idx) => (
           <motion.div
