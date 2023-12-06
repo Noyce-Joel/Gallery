@@ -4,16 +4,23 @@ import AddToAlbum from "./AddToAlbum";
 import { SearchResult } from "../page";
 import { useRouter } from "next/navigation";
 
-export default function AlbumButton({handleAddToAlbum}:{handleAddToAlbum: () => void}) {
-  const router = useRouter();
+export default function SelectAllButton({
+  handleSelectAll,
+  images,
+  selected,
+}: {
+  handleSelectAll: () => void;
+  images: SearchResult[];
+  selected: SearchResult[];
+}) {
   return (
-    <div className="absolute right-10 top-[100px] z-20">
+    <div className="absolute right-44 top-[40px] z-20">
       <button
-        onClick={() => handleAddToAlbum()}
+        onClick={handleSelectAll}
         type="button"
         className="rounded-xl flex group-hover gap-3 p-4 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
-        Add to Album
+        {selected.length > 0 ? <span>Unselect</span> : <span>Select all</span>}
       </button>
     </div>
   );

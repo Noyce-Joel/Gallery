@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { SearchResult } from "../page";
 import Heart from "./Heart";
 import DropDown from './DropDown'
+import AlbumName from './AlbumName'
+import { Album } from "../layout";
 function CloudImg({
   imageData,
   rootFolders,
@@ -17,12 +19,15 @@ function CloudImg({
       className="flex relative"
       
     >
-      <CldImage src={imageData.public_id} {...props} />
+      <CldImage src={imageData?.public_id} {...props} />
 
       {hover ? (
         <div className="flex">
           <Heart imageData={imageData} />
           <DropDown rootFolders={rootFolders} imageData={imageData} />
+          {imageData.public_id.includes('/') ? 
+          <AlbumName album={imageData.public_id} name={imageData.public_id}/>
+          : null}
         </div>
       ) : (
         <div className="hidden">

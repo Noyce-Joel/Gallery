@@ -34,7 +34,7 @@ export default async function RootLayout({
           {/* <Home rootFolders={rootFolders} /> */}
           {children}
         </div>
-        <div className="absolute right-10 top-10">
+        <div className="absolute right-10 top-[40px]">
           <Upload />
         </div>
       </body>

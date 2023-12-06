@@ -10,13 +10,22 @@ import { Album } from "../layout";
 import { removeHyphens } from "./Nav";
 import { useRouter } from "next/navigation";
 import UploadAlert from "./UploadAlert";
+
+export const isInAnotherAlbum = (imageData: SearchResult[]) => {
+  for (const image of imageData) {
+    if (image.public_id.includes("/")) {
+      return true;
+    } else return false;
+  }
+};
+
 export default function AddToAlbum({
   rootFolders,
   imageData,
   setAddToAlbumDialogue,
   setSelected,
   setUploaded,
-  setExistsInAnotherAlbum
+  setExistsInAnotherAlbum,
 }: {
   rootFolders: any;
   imageData: SearchResult[];
@@ -27,7 +36,7 @@ export default function AddToAlbum({
 }) {
   const [open, setOpen] = useState(true);
   const [albumName, setAlbumName] = useState<string>("");
-  
+
   const router = useRouter();
   const hasSpace = (path: string) => {
     if (path.includes(" ")) {
@@ -37,20 +46,18 @@ export default function AddToAlbum({
   };
   console.log(imageData);
 
-  const isInAnotherAlbum = (imageData: SearchResult[]) => {
-    for (const image of imageData) {
-      if (image.public_id.includes("/")) {
-        return true;
-      } else return false;
-    }
-  };
-
   const handleAddToAlbum = async () => {
     setOpen(false);
+   
+    
     if (isInAnotherAlbum(imageData)) {
       setExistsInAnotherAlbum(true);
       return null;
     }
+    setTimeout(() => {
+      setUploaded(true);
+      setSelected([]);
+    }, 2000)
     if (albumName === "") {
       const selectedAlbums = albums.filter((album) => {
         const checkedAlbum = document.getElementById(
@@ -62,17 +69,13 @@ export default function AddToAlbum({
       for (const selectedAlbum of selectedAlbums) {
         await addToAlbum(selectedAlbum.name, imageData);
       }
-      setUploaded(true);
-      setSelected([]);
-      setAddToAlbumDialogue(false)
-      setAlbumName("")
     } else {
       await createAlbum(hasSpace(albumName), imageData);
-      setUploaded(true);
-      setSelected([]);
-      setAddToAlbumDialogue(false)
-      setAlbumName("")
     }
+    
+    
+    setAddToAlbumDialogue(false);
+    setAlbumName("");
     router.refresh()
   };
 
@@ -81,7 +84,14 @@ export default function AddToAlbum({
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={setOpen}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => {
+            setOpen;
+            setAddToAlbumDialogue(false);
+          }}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

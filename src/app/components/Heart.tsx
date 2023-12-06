@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const FullHeart = (props: ComponentProps<"div">) => {
   return (
     <div {...props}>
-      <HeartIcon className="h-8 w-8 flex absolute right-3 top-2 text-orange-500 hover:scale-125 ease-in-out duration-200" />
+      <HeartIcon className="h-8 w-8 flex absolute right-1 top-2 text-orange-500 hover:scale-125 ease-in-out duration-200" />
     </div>
   );
 };
@@ -16,7 +16,7 @@ const FullHeart = (props: ComponentProps<"div">) => {
 const EmptyHeart = (props: ComponentProps<"div">) => {
   return (
     <div {...props}>
-      <HeartIconE className="h-8 w-8 absolute right-3 top-2 text-orange-500 hover:scale-125 ease-in-out transition-transform duration-200" />
+      <HeartIconE className="h-8 w-8 absolute right-1 top-2 text-orange-500 hover:scale-125 ease-in-out transition-transform duration-200" />
     </div>
   );
 };
