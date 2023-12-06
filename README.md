@@ -16,7 +16,7 @@ TailwindCSS
 
 Next-Cloudinary API 🔥
 
-Create a cloudinary login and access your cloudinary API key 🔑
+# Create a cloudinary login and access your cloudinary API key 🔑
 
 Then run it locally on your development server 🏃‍♂️
 
