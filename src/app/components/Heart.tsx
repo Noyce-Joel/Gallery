@@ -21,12 +21,12 @@ const EmptyHeart = (props: ComponentProps<"div">) => {
   );
 };
 
-export default function Heart({imageData}: {imageData: SearchResult}) {
+export default function Heart({ imageData }: { imageData: SearchResult }) {
   const [favourite, setFavourite] = useState(
-    imageData.tags.includes('favourite')
+    imageData.tags.includes("favourite")
   );
-    const [transition, startTransition] = useTransition();
-    const router = useRouter()
+  const [transition, startTransition] = useTransition();
+  const router = useRouter();
   return (
     <>
       {favourite ? (
@@ -34,10 +34,8 @@ export default function Heart({imageData}: {imageData: SearchResult}) {
           onClick={() => {
             setFavourite(false);
             startTransition(() => {
-                tagFavourite(false, imageData.public_id);
-                
-            })
-            
+              tagFavourite(false, imageData.public_id);
+            });
           }}
         />
       ) : (
@@ -45,10 +43,8 @@ export default function Heart({imageData}: {imageData: SearchResult}) {
           onClick={() => {
             setFavourite(true);
             startTransition(() => {
-                tagFavourite(true, imageData.public_id);
-               
-            })
-            
+              tagFavourite(true, imageData.public_id);
+            });
           }}
         />
       )}

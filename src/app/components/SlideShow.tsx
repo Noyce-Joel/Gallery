@@ -1,10 +1,11 @@
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { SearchResult } from "../page";
 import { Album } from "../layout";
 import CloudImg from "./CloudImg";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { on } from "events";
 export default function SlideShow({
   selectedImages,
   rootFolders,
@@ -18,67 +19,102 @@ export default function SlideShow({
 }) {
   const [index, setIndex] = useState<number>(0);
   const [open, setOpen] = useState(true);
+  const [scrollValue, setScrollValue] = useState<number>(900);
+  const [width, setWidth] = useState<number>(900);
+
   const photos = selectedImages[index];
+
+  useEffect(() => {
+    const handleScroll = (event: WheelEvent) => {
+      setWidth((prevValue) => prevValue + (event.deltaY > 0 ? 5 : -5));
+    };
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        return handleNext();
+      }
+      if (e.key == "ArrowLeft") {
+        return handlePrev();
+      }
+    };
+
+    window.addEventListener("wheel", handleScroll);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      window.removeEventListener("wheel", handleScroll);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [index]);
+
+  const btnClass =
+    "rounded-xl flex justify-center items-center group-hover gap-3 p-4 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
+
   const handleNext = () => {
     if (index === selectedImages.length - 1) {
       setIndex(0);
     } else setIndex(index + 1);
+    setWidth(900);
   };
   const handlePrev = () => {
     if (index === 0) {
       setIndex(selectedImages.length - 1);
     } else setIndex(index - 1);
+    setWidth(900);
+  };
+
+  const handleSize = (size: boolean) => {
+    if (size) {
+      setWidth(width + 50);
+    } else {
+      setWidth(width - 50);
+    }
   };
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
-          className="relative z-40"
+          className="z-40"
           onClose={() => {
             setOpen;
             setSelected([]);
-            setSlideShow(false)
+            setSlideShow(false);
           }}
         >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-          </Transition.Child>
+          <div className="fixed grid-1 inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
 
-          <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div className="fixed inset-0 z-10 w-screen ">
             <div className="flex max-w-full min-h-full items-end justify-center text-center sm:items-center sm:p-0">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                enterTo="opacity-100 translate-y-0 sm:scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              >
-                <Dialog.Panel className="relative transform max-w-full max-h-full overflow-hidden rounded-lg bg-gray-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all ">
-                  {open ? (
-                    <CloudImg
-                      key={photos.public_id}
-                      imageData={photos}
-                      rootFolders={rootFolders}
-                      alt="image"
-                      width="590"
-                      height="500"
-                    />
-                  ) : null}
-                  <button onClick={handleNext}>Next</button>
-                  <button onClick={handlePrev}>Previous</button>
-                </Dialog.Panel>
-              </Transition.Child>
+              <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg bg-gray-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all ">
+                {open ? (
+                  <CloudImg
+                    key={photos.public_id}
+                    imageData={photos}
+                    rootFolders={rootFolders}
+                    alt="image"
+                    width={width}
+                    height="500"
+                  />
+                ) : null}
+              </Dialog.Panel>
+              <Dialog.Panel>
+                <div className="absolute bottom-10 right-10 z-50 flex gap-3">
+                  <button className={btnClass} onClick={handleNext}>
+                    Next
+                  </button>
+                  <button className={btnClass} onClick={handlePrev}>
+                    Previous
+                  </button>
+                  <button className={btnClass} onClick={() => handleSize(true)}>
+                    <PlusIcon width={15} height={15} />
+                  </button>
+                  <button
+                    className={btnClass}
+                    onClick={() => handleSize(false)}
+                  >
+                    <MinusIcon width={15} height={15} />
+                  </button>
+                </div>
+              </Dialog.Panel>
             </div>
           </div>
         </Dialog>

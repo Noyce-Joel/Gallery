@@ -9,3 +9,5 @@ export default async function tagFavourite(isFavourited: boolean, publicId: stri
         await cloudinary.v2.uploader.remove_tag('favourite', [publicId])
     }
 }
+
+

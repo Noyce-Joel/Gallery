@@ -16,7 +16,7 @@ function CloudImg({
     <div
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="flex relative"
+      className="flex relative "
       
     >
       <CldImage src={imageData?.public_id} {...props} />

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function SlideShowButton({setSlideShow}:{setSlideShow: React.Dispatch<SetStateAction<boolean>>}) {
   
   return (
-    <div className="absolute right-10 top-[160px] z-20">
+    <div className="absolute right-10 top-[160px] z-40">
       <button
         onClick={() => setSlideShow(true)}
         type="button"

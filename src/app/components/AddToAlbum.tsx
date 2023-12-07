@@ -44,7 +44,7 @@ export default function AddToAlbum({
       return newAlbumName;
     } else return path;
   };
-  console.log(imageData);
+  
 
   const handleAddToAlbum = async () => {
     setOpen(false);
@@ -80,7 +80,7 @@ export default function AddToAlbum({
   };
 
   const albums: Album[] = rootFolders.folders;
-
+  
   return (
     <>
       <Transition.Root show={open} as={Fragment}>

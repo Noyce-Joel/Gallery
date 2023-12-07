@@ -22,7 +22,7 @@ function Gallery({
   results: { resources: SearchResult[] };
   rootFolders: Album[];
 }) {
-  console.log(results.resources)
+  
   const [selected, setSelected] = useState<SearchResult[]>([]);
   const [addToAlbumDialogue, setAddToAlbumDialogue] = useState<boolean>(false);
   const [uploaded, setUploaded] = useState<boolean>(false);
@@ -75,7 +75,7 @@ function Gallery({
       }
     } return false
   }
-  console.log(isAllSelected(results.resources))
+ 
 
   const handleSelectAll = () => {
     const currentlyAllSelected = isAllSelected(results.resources)
