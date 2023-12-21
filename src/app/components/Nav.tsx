@@ -121,7 +121,7 @@ console.log(usagePercentage)
               className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-800"
             >
               <img
-                className="h-8 w-8 rounded-full bg-gray-800"
+                className="h-7 w-7 rounded-full bg-gray-800"
                 src="/profile.jpeg"
                 alt=""
               />
