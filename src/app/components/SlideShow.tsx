@@ -19,10 +19,14 @@ export default function SlideShow({
 }) {
   const [index, setIndex] = useState<number>(0);
   const [open, setOpen] = useState(true);
-  const [scrollValue, setScrollValue] = useState<number>(900);
-  const [width, setWidth] = useState<number>(900);
+
+  const [width, setWidth] = useState<number>(590);
 
   const photos = selectedImages[index];
+
+ 
+
+  
 
   useEffect(() => {
     const handleScroll = (event: WheelEvent) => {
@@ -46,19 +50,17 @@ export default function SlideShow({
   }, [index]);
 
   const btnClass =
-    "rounded-xl flex justify-center items-center group-hover gap-3 p-4 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
+    "rounded-xl flex justify-center text-sm items-center group-hover gap-3 p-2 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
 
   const handleNext = () => {
     if (index === selectedImages.length - 1) {
       setIndex(0);
     } else setIndex(index + 1);
-    setWidth(900);
   };
   const handlePrev = () => {
     if (index === 0) {
       setIndex(selectedImages.length - 1);
     } else setIndex(index - 1);
-    setWidth(900);
   };
 
   const handleSize = (size: boolean) => {
@@ -89,15 +91,13 @@ export default function SlideShow({
                   <CloudImg
                     key={photos.public_id}
                     imageData={photos}
-                    rootFolders={rootFolders}
+                    
                     alt="image"
                     width={width}
                     height="500"
                   />
                 ) : null}
-              </Dialog.Panel>
-              <Dialog.Panel>
-                <div className="absolute bottom-10 right-10 z-50 flex gap-3">
+                <div className="absolute bottom-10 left-10 flex gap-3">
                   <button className={btnClass} onClick={handleNext}>
                     Next
                   </button>

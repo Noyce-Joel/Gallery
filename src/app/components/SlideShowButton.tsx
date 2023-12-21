@@ -11,7 +11,7 @@ export default function SlideShowButton({setSlideShow}:{setSlideShow: React.Disp
       <button
         onClick={() => setSlideShow(true)}
         type="button"
-        className="rounded-xl flex group-hover gap-3 p-4 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="rounded-xl flex group-hover gap-3 p-4 bg-gray-800 text-white hover:text-gray-800 hover:bg-[#dddbcb]"
       >
         View
       </button>

@@ -7,6 +7,7 @@ import React from "react";
 export default function Upload() {
   const router = useRouter();
   return (
+   
     <CldUploadButton
       onUpload={() => {
         setTimeout(() => {
@@ -15,7 +16,7 @@ export default function Upload() {
       }}
       uploadPreset="r2qsi3yf"
     >
-      <div className="flex group-hover gap-3 rounded-xl p-4 bg-[#121723]">
+      <div className="flex group-hover gap-3 rounded-xl p-4 bg-gray-800 text-white">
         <ArrowUpTrayIcon
           className="h-6 w-6 shrink-0 group-hover"
           aria-hidden="true"
@@ -23,5 +24,6 @@ export default function Upload() {
         Upload
       </div>
     </CldUploadButton>
+
   );
 }

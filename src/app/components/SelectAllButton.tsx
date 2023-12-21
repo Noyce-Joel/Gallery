@@ -14,11 +14,11 @@ export default function SelectAllButton({
   selected: SearchResult[];
 }) {
   return (
-    <div className="absolute right-44 top-[40px] z-20">
+    <div className="absolute right-44 top-[40px] z-40">
       <button
         onClick={handleSelectAll}
         type="button"
-        className="rounded-xl flex group-hover gap-3 p-4 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="rounded-xl flex group-hover gap-3 p-4 bg-gray-800 text-white hover:bg-[#dddbcb] hover:text-gray-800 shadow-sm "
       >
         {selected.length > 0 ? <span>Unselect</span> : <span>Select all</span>}
       </button>

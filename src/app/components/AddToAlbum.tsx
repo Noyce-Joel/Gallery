@@ -11,28 +11,18 @@ import { removeHyphens } from "./Nav";
 import { useRouter } from "next/navigation";
 import UploadAlert from "./UploadAlert";
 
-export const isInAnotherAlbum = (imageData: SearchResult[]) => {
-  for (const image of imageData) {
-    if (image.public_id.includes("/")) {
-      return true;
-    } else return false;
-  }
-};
-
 export default function AddToAlbum({
   rootFolders,
   imageData,
   setAddToAlbumDialogue,
   setSelected,
   setUploaded,
-  setExistsInAnotherAlbum,
 }: {
   rootFolders: any;
   imageData: SearchResult[];
   setAddToAlbumDialogue: React.Dispatch<SetStateAction<boolean>>;
   setSelected: React.Dispatch<SetStateAction<SearchResult[]>>;
   setUploaded: React.Dispatch<SetStateAction<boolean>>;
-  setExistsInAnotherAlbum: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const [open, setOpen] = useState(true);
   const [albumName, setAlbumName] = useState<string>("");
@@ -44,43 +34,40 @@ export default function AddToAlbum({
       return newAlbumName;
     } else return path;
   };
-  
 
   const handleAddToAlbum = async () => {
     setOpen(false);
-   
-    
-    if (isInAnotherAlbum(imageData)) {
-      setExistsInAnotherAlbum(true);
-      return null;
-    }
     setTimeout(() => {
       setUploaded(true);
       setSelected([]);
-    }, 2000)
+    }, 2000);
+
     if (albumName === "") {
       const selectedAlbums = albums.filter((album) => {
         const checkedAlbum = document.getElementById(
-          `album-${album.path}`
+          `album-${album}`
         ) as HTMLInputElement;
         return checkedAlbum.checked;
       });
 
       for (const selectedAlbum of selectedAlbums) {
-        await addToAlbum(selectedAlbum.name, imageData);
+        await addToAlbum(selectedAlbum, imageData);
       }
+      
     } else {
       await createAlbum(hasSpace(albumName), imageData);
     }
-    
-    
+
     setAddToAlbumDialogue(false);
     setAlbumName("");
-    router.refresh()
+    router.refresh();
   };
 
-  const albums: Album[] = rootFolders.folders;
-  
+  const tags = rootFolders.resources.flatMap(
+    (resource: SearchResult) => resource.tags
+  ) as string[];
+  const albums = Array.from(new Set(tags)).filter(tag => tag !== 'favourite');
+
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
@@ -139,16 +126,16 @@ export default function AddToAlbum({
                             >
                               <div className="min-w-0 flex-1 text-sm leading-6">
                                 <label
-                                  htmlFor={`album-${album.path}`}
+                                  htmlFor={`album-${album}`}
                                   className="select-none font-medium text-gray-900"
                                 >
-                                  {removeHyphens(album.name)}
+                                  {removeHyphens(album)}
                                 </label>
                               </div>
                               <div className="ml-3 flex h-6 items-center">
                                 <input
-                                  id={`album-${album.path}`}
-                                  name={`album-${album.path}`}
+                                  id={`album-${album}`}
+                                  name={`album-${album}`}
                                   type="checkbox"
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                   value={albumName}
@@ -182,7 +169,7 @@ export default function AddToAlbum({
                   <div className="mt-5 sm:mt-6">
                     <button
                       type="button"
-                      className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="inline-flex w-full justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#93db94] hover:text-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       onClick={handleAddToAlbum}
                     >
                       {albums ? (

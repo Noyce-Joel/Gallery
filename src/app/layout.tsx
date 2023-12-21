@@ -3,8 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/Nav";
 import Upload from "./components/Upload";
-
 import cloudinary from "cloudinary";
+import { SearchResult } from "./page";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,24 +18,33 @@ export type Album = {
   path: string;
 };
 
+
+
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const rootFolders: Album[] = await cloudinary.v2.api.root_folders();
+  
+  const results = (await cloudinary.v2.search
+    .expression("resource_type:image")
+    .sort_by("uploaded_at", "desc")
+    .with_field('tags')
+    .max_results(174)
+    .execute()) as { resources: SearchResult[] };
 
+    const usage: any = await cloudinary.v2.api.usage().then(result => result);
   return (
     <html lang="en">
       <body className={inter.className}>
         <div className="flex">
-          <Nav rootFolders={rootFolders} />
+          <Nav rootFolders={results} usage={usage}/>
         </div>
         <div className="flex w-screen h-screen overflow-scroll justify-center">
           {/* <Home rootFolders={rootFolders} /> */}
           {children}
         </div>
-        <div className="absolute right-10 top-[40px]">
+        <div className="absolute right-10 top-[40px] z-40">
           <Upload />
         </div>
       </body>

@@ -1,24 +1,16 @@
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import {
-  ArchiveBoxIcon,
-  ArrowRightCircleIcon,
-  ChevronDownIcon,
-  DocumentDuplicateIcon,
-  HeartIcon,
   PencilSquareIcon,
   TrashIcon,
   UserPlusIcon,
   Bars3Icon,
 } from "@heroicons/react/20/solid";
-import { FolderIcon } from "@heroicons/react/24/solid";
-import AddToAlbum from "./AddToAlbum";
 import ShareImage from "./ShareImage";
 import { SearchResult } from "../page";
 import { deleteImage } from "./actions";
-import { ForceRefresh } from "./ForceRefresh";
 import { useRouter } from "next/navigation";
-import { removeHyphens } from "./Nav";
+import Link from "next/link";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -26,10 +18,10 @@ function classNames(...classes: any) {
 
 export default function DropDown({
   imageData,
-  rootFolders,
+  
 }: {
   imageData: SearchResult;
-  rootFolders: any;
+  
 }) {
   const [shareDialogue, setShareDialogue] = useState<boolean>(false);
   const router = useRouter();
@@ -37,6 +29,8 @@ export default function DropDown({
     deleteImage(imageData);
     router.refresh();
   };
+  const publicId = imageData.public_id;
+  const tags = imageData.tags;
   
   return (
     <>
@@ -62,26 +56,26 @@ export default function DropDown({
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="">
+              <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-800 text-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="text-white">
                   
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="#"
+                      <Link
+                        href={`/edit?publicId=${publicId}`}
                         className={classNames(
                           active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
+                            ? "bg-[#dddbcb] text-gray-800"
+                            : "text-white",
                           "group flex items-center px-4 py-2 text-sm"
                         )}
                       >
                         <PencilSquareIcon
-                          className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                          className="mr-3 h-5 w-5 text-white group-hover:text-gray-800"
                           aria-hidden="true"
                         />
                         Edit
-                      </a>
+                      </Link>
                     )}
                   </Menu.Item>
                   <Menu.Item>
@@ -90,13 +84,13 @@ export default function DropDown({
                         onClick={() => setShareDialogue(true)}
                         className={classNames(
                           active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
+                            ? "bg-[#dddbcb] text-gray-800"
+                            : "text-white",
                           "group flex items-center px-4 py-2 text-sm"
                         )}
                       >
                         <UserPlusIcon
-                          className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                          className="mr-3 h-5 w-5 text-white group-hover:text-gray-800"
                           aria-hidden="true"
                         />
                         Share
@@ -104,20 +98,20 @@ export default function DropDown({
                     )}
                   </Menu.Item>
                 </div>
-                <div className="py-1">
+                <div className="z-0">
                   <Menu.Item>
                     {({ active }) => (
                       <div
                         onClick={handleDelete}
                         className={classNames(
                           active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "group flex items-center px-4 py-2 text-sm"
+                            ? "bg-[#dddbcb] text-gray-800"
+                            : "text-white",
+                          "group flex items-center px-4 py-2 text-sm -z-10"
                         )}
                       >
                         <TrashIcon
-                          className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                          className="mr-3 h-5 w-5 text-white group-hover:text-gray-800"
                           aria-hidden="true"
                         />
                         Delete

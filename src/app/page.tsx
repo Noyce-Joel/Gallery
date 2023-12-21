@@ -16,21 +16,16 @@ export default async function Home() {
     .expression("resource_type:image")
     .sort_by("uploaded_at", "desc")
     .with_field('tags')
-    .max_results(174)
+    .max_results(400)
     .execute()) as { resources: SearchResult[] };
     const rootFolders =  await cloudinary.v2.api.root_folders();
     
 
-    // const rootFolders: any[] = Array.from(
-    //   new Set (
-    //     results.resources.reduce((tags: any[], result) => tags.concat(result.tags), [])
-    //   )
-    // )
-    // console.log(rootFolders)
+    
     
   return (
     <>
-      <Gallery rootFolders={rootFolders} results={results} />
+      {/* <Gallery rootFolders={rootFolders} results={results} /> */}
     </>
   );
 }

@@ -4,19 +4,21 @@ import { SearchResult } from "../page";
 import Heart from "./Heart";
 import DropDown from './DropDown'
 import AlbumName from './AlbumName'
-import { Album } from "../layout";
+
+
+
 function CloudImg({
   imageData,
-  rootFolders,
-  ...props
-}: { imageData: SearchResult; rootFolders: any} & Omit<CldImageProps, "src">) {
-  const [hover, setHover] = useState<boolean>();
   
+  ...props
+}: { imageData: SearchResult} & Omit<CldImageProps, "src">) {
+  const [hover, setHover] = useState<boolean>();
+  const tags = imageData.tags.filter((tag) => tag !== "favourite");
   return (
     <div
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="flex relative "
+      className="flex relative"
       
     >
       <CldImage src={imageData?.public_id} {...props} />
@@ -24,9 +26,9 @@ function CloudImg({
       {hover ? (
         <div className="flex">
           <Heart imageData={imageData} />
-          <DropDown rootFolders={rootFolders} imageData={imageData} />
-          {imageData.public_id.includes('/') ? 
-          <AlbumName album={imageData.public_id} name={imageData.public_id}/>
+          <DropDown imageData={imageData} />
+          {imageData.tags ? 
+          <AlbumName album={imageData.public_id} name={tags}/>
           : null}
         </div>
       ) : (
