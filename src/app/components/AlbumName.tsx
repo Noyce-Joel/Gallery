@@ -11,8 +11,9 @@ export default function AlbumName({
   return (
     <div className="absolute flex w-full duration-100 ease-in-out bottom-0 right-0 z-20 p-2">
       <div className="flex flex-cols gap-2 px-4 overflow-y-hidden overflow-x-scroll scrollbar-hide">
-      {name.map((tag, idx) => (
+      {name.map((tag) => (
         <Link
+        key={tag}
           href={`/albums/${tag}`}
           type="button"
           className="rounded-xl text-sm justify-center hover:scale-110 cursor-pointer items-center bg-gray-800 text-white hover:bg-[#dddbcb] hover:text-gray-800 flex no-wrap whitespace-nowrap group-hover gap-3 py-1 px-2"

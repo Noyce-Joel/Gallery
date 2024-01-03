@@ -2,6 +2,7 @@
 
 import cloudinary from "cloudinary";
 import { SearchResult } from "../page";
+import { getSession } from "next-auth/react";
 
 export async function createAlbum(album: string, images: SearchResult[]) {
   const newAlbum = await cloudinary.v2.api.create_folder(album);
@@ -26,3 +27,21 @@ export async function deleteImage(image: SearchResult) {
 }
 
 
+
+export async function fetchData() {
+  const results = (await cloudinary.v2.search
+    .expression("resource_type:image")
+    .sort_by("uploaded_at", "desc")
+    .with_field('tags')
+    .max_results(200)
+    .execute()) as { resources: SearchResult[] };
+
+  const usage: any = await cloudinary.v2.api.usage().then(result => result);
+  const rootFolders =  await cloudinary.v2.api.root_folders();
+  return { results, usage, rootFolders};
+}
+
+export async function getUserData() {
+  const user = await getSession();
+  return {user}
+}

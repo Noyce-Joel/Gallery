@@ -5,28 +5,26 @@ import CloudImg from "./CloudImg";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
+
 import { on } from "events";
+import { AnimatePresence, motion } from "framer-motion";
+
 export default function SlideShow({
   selectedImages,
-  rootFolders,
+
   setSelected,
   setSlideShow,
 }: {
   selectedImages: SearchResult[];
-  rootFolders: Album[];
+
   setSelected: React.Dispatch<SetStateAction<SearchResult[]>>;
   setSlideShow: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const [index, setIndex] = useState<number>(0);
   const [open, setOpen] = useState(true);
-
   const [width, setWidth] = useState<number>(590);
 
-  const photos = selectedImages[index];
-
- 
-
-  
+  const photos: any = selectedImages[index];
 
   useEffect(() => {
     const handleScroll = (event: WheelEvent) => {
@@ -70,6 +68,19 @@ export default function SlideShow({
       setWidth(width - 50);
     }
   };
+
+  function getScreenHeight() {
+    return window.innerHeight;
+  }
+
+  const screenHeight = getScreenHeight();
+  function getImageWidth(
+    imageWidth: number,
+    imageHeight: number,
+    screenHeight: number
+  ) {
+    return (imageWidth / imageHeight) * screenHeight;
+  }
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
@@ -82,22 +93,36 @@ export default function SlideShow({
             setSlideShow(false);
           }}
         >
-          <div className="fixed grid-1 inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-
-          <div className="fixed inset-0 z-10 w-screen ">
-            <div className="flex max-w-full min-h-full items-end justify-center text-center sm:items-center sm:p-0">
-              <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg bg-gray-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all ">
-                {open ? (
-                  <CloudImg
-                    key={photos.public_id}
-                    imageData={photos}
-                    
-                    alt="image"
-                    width={width}
-                    height="500"
-                  />
-                ) : null}
-                <div className="absolute bottom-10 left-10 flex gap-3">
+          <div className="fixed grid-1 inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-40" />
+          <AnimatePresence>
+            <motion.div
+              initial={{opacity: 0 }}
+              whileInView={{opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-50 w-screen"
+            >
+              <div className="flex max-w-full min-h-full items-end justify-center text-center sm:items-center sm:p-0">
+                <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-xl transition-all ">
+                  {open ? (
+                    <div className="h-auto w-auto">
+                      <CloudImg
+                        discoveryModeOn={false}
+                        key={photos.public_id}
+                        imageData={photos}
+                        alt="image"
+                        width={
+                          getImageWidth(
+                            photos.width,
+                            photos.height,
+                            screenHeight
+                          ) as number
+                        }
+                        height="500"
+                      />
+                    </div>
+                  ) : null}
+                  {/* <div className="absolute bottom-10 left-10 flex gap-3">
                   <button className={btnClass} onClick={handleNext}>
                     Next
                   </button>
@@ -113,10 +138,11 @@ export default function SlideShow({
                   >
                     <MinusIcon width={15} height={15} />
                   </button>
-                </div>
-              </Dialog.Panel>
-            </div>
-          </div>
+                </div> */}
+                </Dialog.Panel>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </Dialog>
       </Transition.Root>
     </>

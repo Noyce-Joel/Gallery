@@ -2,12 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 body {
   height: 100vh;
   width: 100vw;
   display: flex;
   overflow: hidden;
   background-color: #dddbcb
+}
+
+.open{
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  transition: 0.5s ease-in-out;
+  width: 140px;
+  overflow: hidden;
+  padding: 7px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+.selected{
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  transition: 0.75s ease-in-out;
+  width: 140px;
+  overflow: hidden;
+  padding: 7px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+.closed{
+  display: flex;
+  flex-direction: column;
+  height: 95px;
+  width: 140px;
+  transition: 0.5s ease-in-out;
+  overflow: hidden;
+  
 }
 
 @layer utilities {

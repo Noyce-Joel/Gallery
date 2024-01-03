@@ -40,7 +40,7 @@ export default function DropDown({
         <div className=" flex h-6 w-6 absolute top-2 left-2">
           <Menu as="div" className="relative inline-block text-left">
             <div>
-              <Menu.Button className="inline-flex w-8 h-8 items-center justify-center gap-x-1.5 rounded-md bg-[#121723] p-1 text-sm font-semibold text-gray-900 shadow-sm  ">
+              <Menu.Button className="inline-flex w-7 h-7 items-center justify-center gap-x-1.5 rounded-md bg-[#121723] p-1 text-sm font-semibold text-gray-900 shadow-sm  ">
                 <div className="flex w-full h-full ">
                   <Bars3Icon className="hover:scale-125 hover:rotate-180 menu-icon text-white  duration-500 ease-in-out" />
                 </div>
@@ -67,7 +67,7 @@ export default function DropDown({
                           active
                             ? "bg-[#dddbcb] text-gray-800"
                             : "text-white",
-                          "group flex items-center px-4 py-2 text-sm"
+                          "group flex items-center px-4 py-2 text-sm rounded-t-md"
                         )}
                       >
                         <PencilSquareIcon
@@ -107,7 +107,7 @@ export default function DropDown({
                           active
                             ? "bg-[#dddbcb] text-gray-800"
                             : "text-white",
-                          "group flex items-center px-4 py-2 text-sm -z-10"
+                          "group flex items-center px-4 py-2 text-sm -z-10 rounded-b-md"
                         )}
                       >
                         <TrashIcon

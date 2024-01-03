@@ -1,10 +1,17 @@
 "use client";
 
-import { HomeIcon, HeartIcon } from "@heroicons/react/24/solid";
-import { CalculatorIcon } from "@heroicons/react/24/outline";
+import {
+  HomeIcon,
+  HeartIcon,
+  CircleStackIcon,
+} from "@heroicons/react/24/solid";
+import {} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { SearchResult } from "../page";
 import { usePathname } from "next/navigation";
+import { getSession, useSession } from "next-auth/react";
+import { getUserData } from "./actions";
+import { useEffect } from "react";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -15,13 +22,19 @@ export const removeHyphens = (name: string) => {
   } else return name;
 };
 
-export default function Example({
+export default function Nav({
   rootFolders,
   usage,
 }: {
   rootFolders: any;
   usage: any;
 }) {
+  const { data: session, status } = useSession();
+
+  
+
+
+
   const pathname = usePathname();
   const navigation = [
     {
@@ -43,19 +56,33 @@ export default function Example({
     (resource: SearchResult) => resource.tags
   ) as string[];
   const albums = Array.from(new Set(tags)).filter((tag) => tag !== "favourite");
-  console.log(usage)
 
-  function calculateUsagePercentage(creditsUsed: number, creditsLimit: number): number {
+  function calculateUsagePercentage(
+    creditsUsed: number,
+    creditsLimit: number
+  ): number {
     return (creditsUsed / creditsLimit) * 100;
   }
-  const usagePercentage = Math.floor(calculateUsagePercentage(usage.credits.usage, usage.credits.limit));
-console.log(usagePercentage)
+  const usagePercentage = Math.floor(
+    calculateUsagePercentage(usage.credits.usage, usage.credits.limit)
+  );
+  const profilePicture = session ? session.user?.image : null;
+
+  if (status === "loading") {
+    return <>
+    <div>Loading...</div>
+    </>
+  }
+  if (!session) {
+    return null
+  }
+  session ? console.log(session.user?.name) : null
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[#dddbcb] color-black w-[225px] pr-6">
       <div className="flex h-16 shrink-0 gap-2 p-6 ">
-        <span className="flex whitespace-nowrap tracking-wider text-gray-800">
+        <h1 className="flex font-bold whitespace-nowrap tracking-wider text-gray-800">
           Noyce Photos
-        </span>
+        </h1>
       </div>
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -91,12 +118,29 @@ console.log(usagePercentage)
                 <li key={idx}>
                   <Link
                     href={`/albums/${album}`}
-                    className="group flex gap-x-7 rounded-md p-2 text-sm leading-6 font-semibold pl-7"
+                    className={classNames(
+                      pathname === `/albums/${album}`
+                        ? "bg-gray-800 text-white rounded-r-[100px]"
+                        : "",
+                      "group flex gap-x-7 rounded-md p-2 text-sm leading-6 font-semibold pl-7"
+                    )}
                   >
-                    <span className="group-hover:animate-bounce flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-800 bg-gray-800 text-[0.625rem] font-medium text-white group-hover:text-gray-800 group-hover:bg-[#dddbcb]">
+                    <span
+                      className={classNames(
+                        pathname === `/albums/${album}`
+                          ? "bg-gray-800 text-white border border-white"
+                          : "bg-gray-800 text-white group-hover:animate-bounce group-hover:text-gray-800 group-hover:bg-[#dddbcb]",
+                        " flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-800  text-[0.625rem] font-medium  "
+                      )}
+                    >
                       {album.charAt(0).toUpperCase()}
                     </span>
-                    <span className="truncate text-gray-800">
+                    <span
+                      className={classNames(
+                        pathname === `/albums/${album}` ? "text-white" : "",
+                        "truncate text-gray-800"
+                      )}
+                    >
                       {removeHyphens(album)}
                     </span>
                   </Link>
@@ -105,29 +149,41 @@ console.log(usagePercentage)
             </ul>
           </li>
           <li className="mt-auto -mx-2 space-y-7">
-            <div className="flex flex-col gap-x-7 gap-y-3 rounded-md p-2 text-sm leading-6 font-semibold pl-7">
-              <span className="flex gap-7 "> <CalculatorIcon className="h-6 w-6" /> Credits Used</span>
-              <span className="flex justify-center items-center"> {usage.credits.usage} / {usage.credits.limit} </span>
-              <div className="relative w-full ">
-              <div className="absolute border w-full border-black h-2 rounded-xl"/>
-              <div className="absolute bg-gray-800 h-2 rounded-xl w-auto" style={{width: `${usagePercentage}%`}} />
+            <div className="flex flex-col gap-x-7 gap-y-5 rounded-md p-2 text-sm leading-6 font-semibold pl-7">
+              <div className="flex gap-7">
+                <CircleStackIcon className="h-6 w-6" />
+                <p>Credits</p>
+              </div>
+              <div className="flex flex-col gap-y-3">
+                <div className="relative w-full">
+                  <div className="absolute border w-full border-black h-[4px] rounded-xl" />
+                  <div
+                    className="absolute bg-gray-800 h-[4px] rounded-xl w-auto"
+                    style={{ width: `${usagePercentage}%` }}
+                  />
+                </div>
+                <div className="flex justify-start items-start">
+                  {usage.credits.usage} / {usage.credits.limit} used
+                </div>
               </div>
             </div>
           </li>
 
-          <li className="mt-auto w-full flex justify-center items-center">
+          <li className=" ">
             <a
               href="#"
-              className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-800"
+              className="flex items-center pl-4 gap-x-6 py-3 text-sm font-semibold leading-6 text-gray-800"
             >
               <img
                 className="h-7 w-7 rounded-full bg-gray-800"
-                src="/profile.jpeg"
+                src={`${profilePicture}`}
                 alt=""
               />
               <span className="sr-only">Your profile</span>
               <span aria-hidden="true" className="hover:scale-110">
-                Joel Noyce
+
+                  {session.user && <p>{session.user.name}</p>}
+
               </span>
             </a>
           </li>

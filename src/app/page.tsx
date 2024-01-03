@@ -1,31 +1,30 @@
-
-
-import cloudinary from "cloudinary";
 import Gallery from "./components/Gallery";
-import { Album } from "./layout";
-
+import { fetchData } from "./components/actions";
 export type SearchResult = {
+  height(
+    width: (
+      width: any,
+      height: any,
+      screenHeight: number
+    ) => number | `${number}` | undefined,
+    height: any,
+    screenHeight: number
+  ): number | `${number}` | undefined;
+  width(
+    width: any,
+    height: any,
+    screenHeight: number
+  ): number | `${number}` | undefined;
   public_id: string;
   tags: string[];
 };
 
-
-
 export default async function Home() {
-  const results = (await cloudinary.v2.search
-    .expression("resource_type:image")
-    .sort_by("uploaded_at", "desc")
-    .with_field('tags')
-    .max_results(400)
-    .execute()) as { resources: SearchResult[] };
-    const rootFolders =  await cloudinary.v2.api.root_folders();
-    
+  const { results } = await fetchData();
 
-    
-    
   return (
     <>
-      {/* <Gallery rootFolders={rootFolders} results={results} /> */}
+      <Gallery results={results} />
     </>
   );
 }
