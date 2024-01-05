@@ -13,6 +13,7 @@ import SignInOutButton from "./SignInOutButton";
 import Title from "./Title";
 import Image from "next/image";
 import Buttons from "./Buttons";
+import Profile from "./Profile";
 
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const { data: session, status } = useSession();
@@ -126,8 +127,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
       <div className="flex h-screen w-screen justify-center items-center">
         <SignInOutButton />
 
-        <Title />
-
+        <Title title={["N", "O", "Y", "C", "E", " ", "P", "H", "O", "T", "O", "S"]} />
         <motion.div
           variants={container}
           initial="initial"
@@ -186,8 +186,10 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 
   return (
     <section className="">
-      <button onClick={() => signOut()}>Sign Out</button>
-      
+      {/* <button onClick={() => signOut()}>Sign Out</button> */}
+      <div className="absolute right-10 bottom-10 z-50">
+      <Profile session={session} />
+      </div>
       <Buttons
         selected={selected}
         images={results.resources}

@@ -2,25 +2,25 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-function Title() {
-  const title = ["N", "O", "Y", "C", "E", " ", "P", "H", "O", "T", "O", "S"];
+function Title({title}: {title: string[]}) {
+  
   const banner = {
-    animate: {
+    whileInView: {
       transition: {
-        delayChildren: 0.7,
+        
         staggerChildren: 0.05,
       },
     },
   };
 
   const letterAni = {
-    initial: { y: 200 },
-    animate: {
+    initial: { y: 50 },
+    whileInView: {
       y: 0,
       transition: {
         type: "spring",
 
-        duration: 1.7,
+        duration: 1,
       },
     },
   };
@@ -28,18 +28,18 @@ function Title() {
     <motion.div
       variants={banner}
       initial="initial"
-      animate="animate"
-      className="circles-wrap"
+      whileInView='whileInView'
+      className=""
     >
-      <Link href="/">
-        <motion.div className="flex h-18 gap-4 text-2xl overflow-y-hidden">
+      
+        <motion.div className="flex h-12 gap-2 text-lg overflow-y-hidden">
           {[...title].map((letter, index) => (
             <motion.span key={index} variants={letterAni}>
               <p>{letter}</p>
             </motion.span>
           ))}
         </motion.div>
-      </Link>
+      
     </motion.div>
   );
 }

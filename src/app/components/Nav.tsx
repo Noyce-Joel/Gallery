@@ -11,7 +11,9 @@ import { SearchResult } from "../page";
 import { usePathname } from "next/navigation";
 import { getSession, useSession } from "next-auth/react";
 import { getUserData } from "./actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import SignInOutButton from "./SignInOutButton";
+import Profile from "./Profile";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -30,11 +32,7 @@ export default function Nav({
   usage: any;
 }) {
   const { data: session, status } = useSession();
-
-  
-
-
-
+  const [openSignOut, setOpenSignOut] = useState<boolean>(false);
   const pathname = usePathname();
   const navigation = [
     {
@@ -49,7 +47,6 @@ export default function Nav({
       icon: HeartIcon,
       current: pathname === "/favourites" ? true : false,
     },
-    // { name: "Editor", href: "/editor", icon: PencilSquareIcon, current: false },
   ];
 
   const tags = rootFolders.resources.flatMap(
@@ -66,17 +63,19 @@ export default function Nav({
   const usagePercentage = Math.floor(
     calculateUsagePercentage(usage.credits.usage, usage.credits.limit)
   );
-  const profilePicture = session ? session.user?.image : null;
+  
 
   if (status === "loading") {
-    return <>
-    <div>Loading...</div>
-    </>
+    return (
+      <>
+        <div>Loading...</div>
+      </>
+    );
   }
   if (!session) {
-    return null
+    return null;
   }
-  session ? console.log(session.user?.name) : null
+  session ? console.log(session.user?.name) : null;
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[#dddbcb] color-black w-[225px] pr-6">
       <div className="flex h-16 shrink-0 gap-2 p-6 ">
@@ -169,24 +168,7 @@ export default function Nav({
             </div>
           </li>
 
-          <li className=" ">
-            <a
-              href="#"
-              className="flex items-center pl-4 gap-x-6 py-3 text-sm font-semibold leading-6 text-gray-800"
-            >
-              <img
-                className="h-7 w-7 rounded-full bg-gray-800"
-                src={`${profilePicture}`}
-                alt=""
-              />
-              <span className="sr-only">Your profile</span>
-              <span aria-hidden="true" className="hover:scale-110">
-
-                  {session.user && <p>{session.user.name}</p>}
-
-              </span>
-            </a>
-          </li>
+          
         </ul>
       </nav>
     </div>
