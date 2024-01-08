@@ -3,8 +3,8 @@ import { ArrowUpIcon, ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import { CldUploadButton, CldUploadButtonProps } from "next-cloudinary";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import UploadAlert from "./Alert";
+import React from "react";
+
 
 export default function Upload() {
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function Upload() {
   if (!session) {
     return null;
   }
-  const [uploaded, setUploaded] = useState<boolean>(false);
+  
   return (
     <>
     <CldUploadButton
@@ -33,7 +33,7 @@ export default function Upload() {
         Upload
       </div>
     </CldUploadButton>
-    <UploadAlert alertType="Successfully uploaded" setUploaded={setUploaded} />
+    
     </>
   );
 }
