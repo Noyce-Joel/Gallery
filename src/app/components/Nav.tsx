@@ -9,11 +9,8 @@ import {} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { SearchResult } from "../page";
 import { usePathname } from "next/navigation";
-import { getSession, useSession } from "next-auth/react";
-import { getUserData } from "./actions";
-import { useEffect, useState } from "react";
-import SignInOutButton from "./SignInOutButton";
-import Profile from "./Profile";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");

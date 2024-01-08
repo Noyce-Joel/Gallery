@@ -7,7 +7,7 @@ import CloudImg from "./CloudImg";
 import AddToAlbum from "./AddToAlbum";
 import SlideShow from "./SlideShow";
 import { deleteImage } from "./actions";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import SignInOutButton from "./SignInOutButton";
 import Title from "./Title";
 import Image from "next/image";

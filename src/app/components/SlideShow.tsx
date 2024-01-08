@@ -1,12 +1,9 @@
 import React, { SetStateAction, useEffect, useState } from "react";
 import { SearchResult } from "../page";
-import { Album } from "../layout";
 import CloudImg from "./CloudImg";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
-import { on } from "events";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function SlideShow({

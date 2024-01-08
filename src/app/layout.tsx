@@ -1,14 +1,9 @@
 
 
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/Nav";
 import Upload from "./components/Upload";
-import cloudinary from "cloudinary";
-import { SearchResult } from "./page";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import {fetchData} from "./components/actions";
 import SessionWrapper from "./components/SessionWrapper";
 

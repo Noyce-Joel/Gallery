@@ -1,8 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useSession } from "next-auth/react";
 import React, { useState, useTransition } from "react";
 import SignInOutButton from "./SignInOutButton";
-import Title from "./Title";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");

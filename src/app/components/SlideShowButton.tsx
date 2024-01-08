@@ -1,8 +1,4 @@
-import { PlusIcon } from "@heroicons/react/20/solid";
-import { SetStateAction, useState } from "react";
-import AddToAlbum from "./AddToAlbum";
-import { SearchResult } from "../page";
-import { useRouter } from "next/navigation";
+import { SetStateAction } from "react";
 
 export default function SlideShowButton({setSlideShow}:{setSlideShow: React.Dispatch<SetStateAction<boolean>>}) {
   

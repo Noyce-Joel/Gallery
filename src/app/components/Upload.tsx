@@ -1,7 +1,7 @@
 "use client";
-import { ArrowUpIcon, ArrowUpTrayIcon } from "@heroicons/react/24/outline";
+import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
-import { CldUploadButton, CldUploadButtonProps } from "next-cloudinary";
+import { CldUploadButton } from "next-cloudinary";
 import { useRouter } from "next/navigation";
 import React from "react";
 

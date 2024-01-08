@@ -1,7 +1,3 @@
-import { PlusIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
-import AddToAlbum from "./AddToAlbum";
-import { SearchResult } from "../page";
 import { useRouter } from "next/navigation";
 
 export default function AlbumButton({handleDelete}:{handleDelete: () => void}) {
