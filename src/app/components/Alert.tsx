@@ -3,9 +3,20 @@ import { motion } from "framer-motion";
 
 import { SetStateAction, useState } from "react";
 
-export default function UploadAlert({ alertType, setUploaded }: { alertType: string; setUploaded: React.Dispatch<SetStateAction<boolean>> }) {
+export default function Alert({ alertType, setUploaded }: { alertType: string; setUploaded: React.Dispatch<SetStateAction<boolean>> }) {
   const [open, setOpen] = useState<boolean>(true);
-  
+  let alertMessage;
+  switch (alertType) {  
+    case 'added to album':
+      alertMessage = 'Successfully added to album';
+      break;
+    case 'exists in album':
+      alertMessage = 'Belongs to another album';
+      break;
+    case 'Successfully uploaded':
+      alertMessage = 'Successfully uploaded';
+      break;
+  }
   return (
     <>
       {open ? (
@@ -23,16 +34,12 @@ export default function UploadAlert({ alertType, setUploaded }: { alertType: str
                 />
               </div>
               <div className="ml-3">
-                {alertType === "added to album" ? (
+                {alertType  ? (
                   <p className="text-sm font-medium text-green-800">
-                    Successfully added to album
+                    {alertMessage}
                   </p>
                 ) : null}
-                {alertType === "exists in album" ? (
-                  <p className="text-sm font-medium text-green-800">
-                    Belongs to another album
-                  </p>
-                ) : null}
+                
               </div>
             </div>
             <div className="ml-auto pl-3">

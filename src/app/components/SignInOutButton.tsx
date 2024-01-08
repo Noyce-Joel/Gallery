@@ -22,7 +22,7 @@ export default function SignInOutButton() {
       <button
         onClick={() => signOut()}
         type="button"
-        className="rounded-xl flex group-hover gap-3 p-1 px-3 text-md bg-red-400 hover:text-white text-white hover:bg-red-400 shadow-sm"
+        className="rounded-xl flex group-hover gap-3 p-1 px-3 text-md bg-red-400 hover:text-white text-white hover:bg-red-800 shadow-sm"
       >
         Sign Out
       </button>

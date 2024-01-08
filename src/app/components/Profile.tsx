@@ -22,7 +22,7 @@ export default function Profile({ session }: { session: any }) {
   const item = {
     initial: {
       opacity: 0,
-      x: 20,
+      scale: 0,
     },
     whileInView: {
       transition: {
@@ -32,21 +32,20 @@ export default function Profile({ session }: { session: any }) {
 
     animate: {
       opacity: 1,
-      x: 0,
+      scale: 1,
       transition: {
         delay: 0.4,
-        duration: 5,
+        duration: 1,
         type: "spring",
-        mass: 2,
-        stiffness: 200,
-        friction: 20,
-        damping: 10,
-        velocity: 5
+        
+       
+        
       },
     },
 
     exit: {
       opacity: 0,
+      scale:  0,
       x: 20,
       transition: {
         duration: 0.05,
@@ -54,7 +53,7 @@ export default function Profile({ session }: { session: any }) {
     },
   };
 
-  const name = session?.user.name.split('');
+  const name = session?.user.name
   const nameAni = {
     initial: { y: 200 },
     whileInView: {
@@ -79,7 +78,7 @@ export default function Profile({ session }: { session: any }) {
 
   return (
     <AnimatePresence>
-      <div className="absolute right-10 bottom-10">
+      <div className="absolute right-4 bottom-4 ">
         <div
           className={classNames(
             profileOpen
@@ -92,7 +91,8 @@ export default function Profile({ session }: { session: any }) {
             key="anim-container"
             variants={container}
             animate={profileOpen ? "whileInView" && "animate" : "exit"}
-            className="text-white p-4  flex-nowrap gap-y-10 whitespace-nowrap"
+            className="text-white p-4 flex-nowrap gap-y-10 whitespace-nowrap"
+           
           >
             <motion.button
               className="p-2 bottom-0 absolute left-0"
@@ -106,10 +106,10 @@ export default function Profile({ session }: { session: any }) {
             key="anim-container"
             variants={container}
             animate={profileOpen ? "whileInView" : "exit"}
-            className="text-white p-4 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap"
+            className="text-white p-3 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap"
           >
-           
-            <Title title={name} /> 
+           {name}
+            
           </motion.div>
         </div>
        
@@ -124,8 +124,8 @@ export default function Profile({ session }: { session: any }) {
               alt="profile picture"
               className={classNames(
                 profileOpen
-                  ? "h-[100px] w-[100px] scale-110 duration-700 border-4 border-gray-800 ease-in-out"
-                  : "h-[100px] w-[100px] duration-700 border-4 border-gray-800 ease-in-out",
+                  ? "h-[70px] w-[70px] scale-110 duration-700 border-4 border-gray-800 ease-in-out"
+                  : "h-[70px] w-[70px] duration-700 border-4 border-gray-800 ease-in-out",
                 "rounded-full  shrink-0"
               )}
             />

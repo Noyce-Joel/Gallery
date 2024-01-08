@@ -9,7 +9,7 @@ import cloudinary from "cloudinary";
 import { Album } from "../layout";
 import { removeHyphens } from "./Nav";
 import { useRouter } from "next/navigation";
-import UploadAlert from "./UploadAlert";
+import UploadAlert from "./Alert";
 
 export default function AddToAlbum({
   rootFolders,

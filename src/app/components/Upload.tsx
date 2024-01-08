@@ -1,25 +1,29 @@
 "use client";
 import { ArrowUpIcon, ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
-import { CldUploadButton } from "next-cloudinary";
+import { CldUploadButton, CldUploadButtonProps } from "next-cloudinary";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import UploadAlert from "./Alert";
 
 export default function Upload() {
   const router = useRouter();
-  const {data:session} = useSession()
+  const { data: session } = useSession();
   if (!session) {
-    return null
+    return null;
   }
+  const [uploaded, setUploaded] = useState<boolean>(false);
   return (
-   
+    <>
     <CldUploadButton
       onUpload={() => {
+        
         setTimeout(() => {
           router.refresh();
         }, 2500);
       }}
       uploadPreset="r2qsi3yf"
+      options={{ sources: ["unsplash", "image_search", "gettyimages", "instagram", "shutterstock"] }}
     >
       <div className="rounded-xl flex group-hover gap-2 p-2 text-md bg-gray-800 text-white hover:text-gray-800 hover:bg-[#dddbcb]">
         <ArrowUpTrayIcon
@@ -29,6 +33,7 @@ export default function Upload() {
         Upload
       </div>
     </CldUploadButton>
-
+    <UploadAlert alertType="Successfully uploaded" setUploaded={setUploaded} />
+    </>
   );
 }

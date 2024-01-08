@@ -5,7 +5,6 @@ import { SearchResult } from "../page";
 import { motion } from "framer-motion";
 import CloudImg from "./CloudImg";
 import AddToAlbum from "./AddToAlbum";
-import UploadAlert from "./UploadAlert";
 import SlideShow from "./SlideShow";
 import { deleteImage } from "./actions";
 import { useSession, signOut } from "next-auth/react";
@@ -14,6 +13,7 @@ import Title from "./Title";
 import Image from "next/image";
 import Buttons from "./Buttons";
 import Profile from "./Profile";
+import Alert from "./Alert";
 
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const { data: session, status } = useSession();
@@ -187,7 +187,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   return (
     <section className="">
       {/* <button onClick={() => signOut()}>Sign Out</button> */}
-      <div className="absolute right-10 bottom-10 z-50">
+      <div className="absolute right-12 bottom-10 z-50">
       <Profile session={session} />
       </div>
       <Buttons
@@ -226,7 +226,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
         />
       ) : null}
       {uploaded ? (
-        <UploadAlert alertType="added to album" setUploaded={setUploaded} />
+        <Alert alertType="added to album" setUploaded={setUploaded} />
       ) : null}
       {slideShow ? (
         <SlideShow

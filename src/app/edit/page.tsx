@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { CldImage } from "next-cloudinary";
+import { CldImage, } from "next-cloudinary";
 
-function edit({
+function Edit({
   searchParams: { publicId },
 }: {
   searchParams: { publicId: string };
@@ -46,6 +46,7 @@ function edit({
               alt="image-edit"
               crop="thumb"
               gravity="center"
+              
             />
           ) : null}
         </div>
@@ -54,4 +55,4 @@ function edit({
   );
 }
 
-export default edit;
+export default Edit;
