@@ -14,12 +14,12 @@ export default async function Home() {
     .with_field('tags')
     .max_results(116)
     .execute()) as { resources: SearchResult[] };
-    const rootFolders =  await cloudinary.v2.api.root_folders();
+
     
    
   return (
     <>
-      <Gallery rootFolders={rootFolders} results={results}  />
+      <Gallery results={results}  />
     </>
   );
 }

@@ -23,7 +23,7 @@ export default async function AlbumPage({
     .with_field('tags')
     .max_results(116)
     .execute()) ;
-    const rootFolders =  await cloudinary.v2.api.root_folders();
+
    
 
   return (
