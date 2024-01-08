@@ -29,7 +29,7 @@ export default async function AlbumPage({
   return (
     <>
     
-      <Gallery rootFolders={rootFolders} results={results}  />
+      <Gallery results={results}  />
     
     </>
   );
