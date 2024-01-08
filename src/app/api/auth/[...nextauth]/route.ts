@@ -1,9 +1,6 @@
 import NextAuth from "next-auth"
-
-// importing providers
-
 import GoogleProvider from "next-auth/providers/google";
-import { UserModel } from "../../../../../server/src";
+
 
 const handler = NextAuth({
     providers: [
