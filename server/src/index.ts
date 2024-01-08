@@ -3,7 +3,7 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import mongoose from 'mongoose';
 
-const MONGODB_KEY = process.env.MONGODB_KEY
+const MONGODB_KEY = process.env.MONGODB_KEY ?? '';
 async function connect() {
     try {
         await mongoose.connect(MONGODB_KEY)
