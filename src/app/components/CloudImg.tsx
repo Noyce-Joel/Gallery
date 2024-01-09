@@ -20,14 +20,14 @@ function CloudImg({
   return (
     <>
       {discoveryModeOn ? (
-        <AnimatePresence>
+        <AnimatePresence >
           <motion.div
             onMouseOver={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             className="flex relative"
-            initial={{ opacity: 0 }}
-            animate={hover && { opacity: 1 }}
-           
+            initial={ {opacity: 0} }
+            whileInView={hover && { opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
             <CldImage src={imageData?.public_id} {...props} />
