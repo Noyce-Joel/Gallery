@@ -270,7 +270,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                 >
                  {selectMode ? (
                   <CloudImg
-                    key={result.public_id}
+                    key='result-selected'
                     discoveryModeOn={discoveryModeOn}
                     imageData={result}
                     alt="image"
@@ -280,7 +280,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                   />
                  ): (
                   <CloudImg
-                  key={result.public_id}
+                  key='result-unselected'
                   discoveryModeOn={discoveryModeOn}
                   imageData={result}
                   alt="image"
