@@ -52,11 +52,11 @@ export default function AddToAlbum({
       });
 
       for (const selectedAlbum of selectedAlbums) {
-       addToAlbum(selectedAlbum, imageData);
+        await addToAlbum(selectedAlbum, imageData);
       }
       
     } else {
-      createAlbum(hasSpace(albumName), imageData);
+      await createAlbum(hasSpace(albumName), imageData);
     }
 
     setAddToAlbumDialogue(false);
