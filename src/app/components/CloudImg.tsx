@@ -1,5 +1,5 @@
 import { CldImage, CldImageProps } from "next-cloudinary";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SearchResult } from "../page";
 import Heart from "./Heart";
 import DropDown from "./DropDown";
@@ -16,18 +16,20 @@ function CloudImg({
 >) {
   const [hover, setHover] = useState<boolean>();
   
+  
   const tags = imageData.tags.filter((tag) => tag !== "favourite");
   return (
     <>
+    <AnimatePresence >
       {discoveryModeOn ? (
-        <AnimatePresence >
+        
           <motion.div
             onMouseOver={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             className="flex relative"
-            initial={ {opacity: 0} }
-            whileInView={hover && { opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{opacity: 0} }
+            animate={hover && {opacity: 1}}
+            exit={{opacity: 0}}
             transition={{ duration: 0.25 }}
           >
             <CldImage src={imageData?.public_id} {...props} />
@@ -46,9 +48,9 @@ function CloudImg({
               </motion.div>
             )}
           </motion.div>
-        </AnimatePresence>
+       
       ) : (
-        <AnimatePresence>
+       
           <motion.div
             onMouseOver={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -74,8 +76,9 @@ function CloudImg({
               </motion.div>
             )}
           </motion.div>
-        </AnimatePresence>
+        
       )}
+      </AnimatePresence>
     </>
   );
 }

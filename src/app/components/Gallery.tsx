@@ -14,13 +14,15 @@ import Image from "next/image";
 import Buttons from "./Buttons";
 import Profile from "./Profile";
 import Alert from "./Alert";
+import { useRouter } from "next/navigation";
 
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const { data: session, status } = useSession();
-
+  const router = useRouter();
   const [selected, setSelected] = useState<SearchResult[]>([]);
   const [addToAlbumDialogue, setAddToAlbumDialogue] = useState<boolean>(false);
   const [uploaded, setUploaded] = useState<boolean>(false);
+  const [deleted, setDeleted] = useState<boolean>(false);
   const [discoveryModeOn, setDiscoveryModeOn] = useState<boolean>(false);
   const [slideShow, setSlideShow] = useState<boolean>(false);
   const [selectMode, setSelectMode] = useState<boolean>(false);
@@ -82,6 +84,11 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     for (const selectedImage of selected) {
       deleteImage(selectedImage);
     }
+    
+     setDeleted(true);
+   
+      router.refresh()
+  
   };
 
   const handleDiscoveryMode = () => {
@@ -226,8 +233,12 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
         />
       ) : null}
       {uploaded ? (
-        <Alert alertType="added to album" setUploaded={setUploaded} />
+        <Alert alertType="added to album" />
       ) : null}
+      {deleted ? (
+        <Alert alertType="Successfully deleted" />
+      ) : null}
+      
       {slideShow ? (
         <SlideShow
           setSlideShow={setSlideShow}

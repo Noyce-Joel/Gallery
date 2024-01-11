@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 import { SetStateAction, useState } from "react";
 
-export default function Alert({ alertType, setUploaded }: { alertType: string; setUploaded: React.Dispatch<SetStateAction<boolean>> }) {
+export default function Alert({ alertType }: { alertType: string; }) {
   const [open, setOpen] = useState<boolean>(true);
   let alertMessage;
   switch (alertType) {  
@@ -16,14 +16,17 @@ export default function Alert({ alertType, setUploaded }: { alertType: string; s
     case 'Successfully uploaded':
       alertMessage = 'Successfully uploaded';
       break;
+    case 'Successfully deleted':
+      alertMessage = 'Successfully deleted';
+      break;
   }
   return (
     <>
       {open ? (
         <motion.div
-          initial={{ x: 400 }}
-          animate={{ x: 0 }}
-          className="fixed right-10 bottom-10 w-fit z-40 rounded-md bg-green-50 p-4"
+          initial={{ y: 400}}
+          animate={{ y: 0}}
+          className="fixed right-[50%] left-[42%] bottom-10 w-fit z-40 rounded-md bg-green-50 p-4"
         >
           <div className="flex gap-3">
             <div className="flex justify-evenly">
@@ -35,7 +38,7 @@ export default function Alert({ alertType, setUploaded }: { alertType: string; s
               </div>
               <div className="ml-3">
                 {alertType  ? (
-                  <p className="text-sm font-medium text-green-800">
+                  <p className="text-sm font-medium text-green-800 whitespace-nowrap">
                     {alertMessage}
                   </p>
                 ) : null}
