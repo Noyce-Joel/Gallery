@@ -18,9 +18,9 @@ export default function Upload() {
     <CldUploadButton
       onUpload={() => {
         
-        setTimeout(() => {
+       
           router.refresh();
-        }, 2500);
+       
       }}
       onSuccess={() => {console.log('success')}}
       uploadPreset="ml_default"
