@@ -40,6 +40,7 @@ export default function AddToAlbum({
     setTimeout(() => {
       setUploaded(true);
       setSelected([]);
+      router.refresh()
     }, 2000);
 
     if (albumName === "") {
