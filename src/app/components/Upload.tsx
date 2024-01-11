@@ -18,12 +18,12 @@ export default function Upload() {
     <CldUploadButton
       onUpload={() => {
         
-       
+        setTimeout(() => {
           router.refresh();
-       
+        }, 2500);
       }}
       onSuccess={() => {console.log('success')}}
-      uploadPreset="ml_default"
+      uploadPreset="r2qsi3yf"
       options={{ sources: ["unsplash", "image_search", "gettyimages", "instagram", "shutterstock", "local"] }}
     >
       <div className="rounded-xl flex group-hover gap-2 p-2 text-md bg-gray-800 text-white hover:text-gray-800 hover:bg-[#dddbcb]">
