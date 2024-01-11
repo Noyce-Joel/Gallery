@@ -41,7 +41,7 @@ export default function AddToAlbum({
       setUploaded(true);
       setSelected([]);
       router.refresh()
-    }, 1000);
+    }, 2000);
 
     if (albumName === "") {
       const selectedAlbums = albums.filter((album) => {
