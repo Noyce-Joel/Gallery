@@ -3,7 +3,7 @@ import { SearchResult } from "../page";
 import CloudImg from "./CloudImg";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-
+import { buildUrl } from "cloudinary-build-url";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
@@ -21,11 +21,12 @@ export default function SlideShow({
   const [index, setIndex] = useState<number>(0);
   const [open, setOpen] = useState(true);
   const [width, setWidth] = useState<number>(590);
-
+  const [imageUrl, setImageUrl] = useState(
+    `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[0].public_id}`
+  );
   const photos: any = selectedImages[index];
 
   useEffect(() => {
-    
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
         return handleNext();
@@ -40,9 +41,18 @@ export default function SlideShow({
       document.removeEventListener("keydown", handleKey);
     };
   }, [index]);
-  
-  
+  useEffect(() => {
+    selectedImages.forEach((image) => {
+      const img = new window.Image();
+      img.src = `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${image.public_id}`;
+    });
+  }, [selectedImages]);
 
+  useEffect(() => {
+    setImageUrl(
+      `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[index].public_id}`
+    );
+  }, [index]);
   const btnClass =
     "rounded-xl flex justify-center text-sm items-center group-hover gap-3 p-2 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
 
@@ -78,8 +88,6 @@ export default function SlideShow({
     return (imageWidth / imageHeight) * screenHeight;
   }
 
-  
-
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
@@ -101,11 +109,16 @@ export default function SlideShow({
               transition={{ duration: 0.25 }}
               className="fixed inset-0 z-50 w-screen"
             >
-              <div className="flex max-w-full min-h-full items-end justify-center text-center sm:items-center sm:p-0">
-                <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-xl transition-all ">
+              <div className="flex  max-w-full min-h-full items-end justify-center text-center sm:items-center sm:p-0">
+                <Dialog.Panel className=" relative transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-xl transition-all ">
                   {open ? (
-                    <div className="h-auto w-auto">
-                      
+                    <motion.div
+                      className=" h-auto w-auto"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.25 }}
+                    >
                       <CloudImg
                         discoveryModeOn={false}
                         key={photos.public_id}
@@ -118,9 +131,37 @@ export default function SlideShow({
                             screenHeight
                           ) as number
                         }
-                        height="500"
+                        height={
+                          getImageWidth(
+                            photos.width,
+                            photos.height,
+                            screenHeight
+                          ) as number
+                        }
                       />
-                    </div>
+                      <Image
+                        src={imageUrl}
+                        height={
+                          getImageWidth(
+                            photos.width,
+                            photos.height,
+                            screenHeight
+                          ) as number
+                        }
+                        width={
+                          getImageWidth(
+                            photos.width,
+                            photos.height,
+                            screenHeight
+                          ) as number
+                        }
+                        alt="blurred-image"
+                        blurDataURL={imageUrl}
+                        quality={1}
+                        placeholder="blur"
+                        className="absolute -z-40 flex inset-0 "
+                      />
+                    </motion.div>
                   ) : null}
                   {/* <div className="absolute bottom-10 left-10 flex gap-3">
                   <button className={btnClass} onClick={handleNext}>

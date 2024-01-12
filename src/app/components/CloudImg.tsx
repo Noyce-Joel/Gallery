@@ -26,7 +26,7 @@ function CloudImg({
           <motion.div
             onMouseOver={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            className="flex relative"
+            className="flex absolute z-20"
             initial={{opacity: 0} }
             animate={hover && {opacity: 1}}
             exit={{opacity: 0}}
