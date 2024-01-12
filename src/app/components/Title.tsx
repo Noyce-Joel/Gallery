@@ -31,7 +31,7 @@ function Title({title}: {title: string[]}) {
       className=""
     >
       
-        <motion.div className="flex h-12 gap-2 text-lg overflow-y-hidden">
+        <motion.div className="flex h-12 gap-2 text-4xl overflow-y-hidden">
           {[...title].map((letter, index) => (
             <motion.span key={index} variants={letterAni}>
               <p>{letter}</p>
