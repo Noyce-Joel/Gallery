@@ -56,7 +56,8 @@ export default function AddToAlbum({
       }
       
     } else {
-      await createAlbum(hasSpace(albumName), imageData);
+        await addToAlbum(albumName, imageData);
+      
     }
 
     setAddToAlbumDialogue(false);

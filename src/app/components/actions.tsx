@@ -5,7 +5,7 @@ import { SearchResult } from "../page";
 import { getSession } from "next-auth/react";
 
 export async function createAlbum(album: string, images: SearchResult[]) {
-  const newAlbum = await cloudinary.v2.api.create_folder(album);
+
   for (const image of images) {
     await cloudinary.v2.uploader.add_tag(album, [image.public_id])
   }
