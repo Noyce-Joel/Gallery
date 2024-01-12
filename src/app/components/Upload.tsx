@@ -20,7 +20,7 @@ export default function Upload() {
         
         setTimeout(() => {
           router.refresh();
-        }, 2500);
+        }, 2000);
       }}
       onSuccess={() => {console.log('success')}}
       uploadPreset="r2qsi3yf"
