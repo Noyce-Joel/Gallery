@@ -139,7 +139,7 @@ export default function SlideShow({
                           ) as number
                         }
                       />
-                      <Image
+                      {/* <Image
                         src={imageUrl}
                         height={
                           getImageWidth(
@@ -159,8 +159,8 @@ export default function SlideShow({
                         blurDataURL={imageUrl}
                         quality={1}
                         placeholder="blur"
-                        className="absolute -z-40 flex inset-0 "
-                      />
+                        className="absolute -z-10 inset-0 "
+                      /> */}
                     </motion.div>
                   ) : null}
                   {/* <div className="absolute bottom-10 left-10 flex gap-3">
