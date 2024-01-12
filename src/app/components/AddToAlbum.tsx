@@ -56,7 +56,7 @@ export default function AddToAlbum({
       }
       
     } else {
-        await addToAlbum(albumName, imageData);
+        await createAlbum(albumName, imageData);
       
     }
 
