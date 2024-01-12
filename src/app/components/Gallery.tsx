@@ -15,7 +15,7 @@ import Buttons from "./Buttons";
 import Profile from "./Profile";
 import Alert from "./Alert";
 import { useRouter } from "next/navigation";
-
+import Loading from "./Loading";
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -124,9 +124,10 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   };
   if (status === "loading") {
     return (
-      <>
-        <p> Loading...</p>
-      </>
+      <div className="flex h-screen w-screen items-center justify-center gap-2">
+        <Loading />
+        
+      </div>
     );
   }
   if (!session) {
@@ -246,6 +247,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
           selectedImages={selected}
         />
       ) : null}
+      
       <motion.div className="grid grid-cols-5 gap-4 p-4">
         {[columns(0), columns(1), columns(2), columns(3), columns(4)].map(
           (col, idx) => (
@@ -270,7 +272,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                 >
                  {selectMode ? (
                   <CloudImg
-                    key='result-selected'
+                    key={result.public_id}
                     discoveryModeOn={discoveryModeOn}
                     imageData={result}
                     alt="image"
@@ -280,7 +282,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                   />
                  ): (
                   <CloudImg
-                  key='result-unselected'
+                  key={result.public_id}
                   discoveryModeOn={discoveryModeOn}
                   imageData={result}
                   alt="image"

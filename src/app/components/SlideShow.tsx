@@ -24,9 +24,6 @@ export default function SlideShow({
   const photos: any = selectedImages[index];
 
   useEffect(() => {
-    const handleScroll = (event: WheelEvent) => {
-      setWidth((prevValue) => prevValue + (event.deltaY > 0 ? 5 : -5));
-    };
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
         return handleNext();
@@ -36,10 +33,8 @@ export default function SlideShow({
       }
     };
 
-    window.addEventListener("wheel", handleScroll);
     document.addEventListener("keydown", handleKey);
     return () => {
-      window.removeEventListener("wheel", handleScroll);
       document.removeEventListener("keydown", handleKey);
     };
   }, [index]);
@@ -93,8 +88,8 @@ export default function SlideShow({
           <div className="fixed grid-1 inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-40" />
           <AnimatePresence>
             <motion.div
-              initial={{opacity: 0 }}
-              whileInView={{opacity: 1 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               className="fixed inset-0 z-50 w-screen"
