@@ -50,7 +50,7 @@ export default function SlideShow({
 
   useEffect(() => {
     setImageUrl(
-      `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[index].public_id}`
+      `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[index + 1].public_id}`
     );
   }, [index]);
   const btnClass =
