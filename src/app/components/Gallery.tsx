@@ -34,17 +34,29 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 
   const handleSelectImage = (selectedImage: SearchResult) => {
     const imageId = selectedImage;
+    const idx = selected.indexOf(imageId); 
     const currentlySelected = isSelected(imageId);
-    if (currentlySelected) {
-      setSelected((prev: any) =>
-        prev.filter((id: SearchResult) => id !== imageId)
-      );
-    } else {
-      setSelected((prev: any) => [...prev, imageId]);
-    }
-    setUploaded(false);
+    if (selectMode) {
+      if (currentlySelected) {
+        setSelected((prev: any) =>
+          prev.filter((id: SearchResult) => id !== imageId)
+        );
+      } else {
+        setSelected((prev: any) => [...prev, imageId]);
+      }
+      setUploaded(false);
 
-    setAddToAlbumDialogue(false);
+      setAddToAlbumDialogue(false);
+    } else {
+      setSelected(results.resources);
+      setSelected((prev: any) => {
+        const clickedImageIndex = prev.findIndex((id: SearchResult) => id === imageId);
+        const beforeClicked = prev.slice(0, clickedImageIndex);
+        const afterClicked = prev.slice(clickedImageIndex + 1);
+        return [imageId, ...afterClicked, ...beforeClicked];
+      });
+      
+    }
   };
 
   const handleAddToAlbum = () => {
@@ -84,22 +96,20 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     for (const selectedImage of selected) {
       deleteImage(selectedImage);
     }
-    
-     setDeleted(true);
-   
-      router.refresh()
-  
+
+    setDeleted(true);
+
+    router.refresh();
   };
 
   const handleDiscoveryMode = () => {
     setDiscoveryModeOn(!discoveryModeOn);
-    
   };
 
   const handleSelectMode = () => {
     setSelectMode(!selectMode);
-    if(selectMode) {
-      setSelected([])
+    if (selectMode) {
+      setSelected([]);
     }
   };
 
@@ -126,7 +136,6 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     return (
       <div className="flex h-screen w-screen items-center justify-center gap-2">
         <Loading />
-        
       </div>
     );
   }
@@ -135,7 +144,9 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
       <div className="flex h-screen w-screen justify-center items-center">
         <SignInOutButton />
 
-        <Title title={["N", "O", "Y", "C", "E", " ", "P", "H", "O", "T", "O", "S"]} />
+        <Title
+          title={["N", "O", "Y", "C", "E", " ", "P", "H", "O", "T", "O", "S"]}
+        />
         <motion.div
           variants={container}
           initial="initial"
@@ -196,7 +207,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     <section className="">
       {/* <button onClick={() => signOut()}>Sign Out</button> */}
       <div className="absolute right-12 bottom-10 z-50">
-      <Profile session={session} />
+        <Profile session={session} />
       </div>
       <Buttons
         selected={selected}
@@ -233,13 +244,9 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
           rootFolders={results}
         />
       ) : null}
-      {uploaded ? (
-        <Alert alertType="added to album" />
-      ) : null}
-      {deleted ? (
-        <Alert alertType="Successfully deleted" />
-      ) : null}
-      
+      {uploaded ? <Alert alertType="added to album" /> : null}
+      {deleted ? <Alert alertType="Successfully deleted" /> : null}
+
       {slideShow ? (
         <SlideShow
           setSlideShow={setSlideShow}
@@ -247,7 +254,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
           selectedImages={selected}
         />
       ) : null}
-      
+
       <motion.div className="grid grid-cols-5 gap-4 p-4">
         {[columns(0), columns(1), columns(2), columns(3), columns(4)].map(
           (col, idx) => (
@@ -265,33 +272,35 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                   whileInView="whileInView"
                   initial="initial"
                   className={
-                    isSelected(result) 
+                    isSelected(result)
                       ? "hover:cursor-pointer ring-[8px] ring-gray-800  scale-95 ease-in-out duration-500"
                       : "hover:cursor-pointer  ease-in-out duration-500"
                   }
                 >
-                 {selectMode ? (
-                  <CloudImg
-                    key={result.public_id}
-                    discoveryModeOn={discoveryModeOn}
-                    imageData={result}
-                    alt="image"
-                    width="960"
-                    height="300"
-                    onClick={() => handleSelectImage(result)}
-                  />
-                 ): (
-                  <CloudImg
-                  key={result.public_id}
-                  discoveryModeOn={discoveryModeOn}
-                  imageData={result}
-                  alt="image"
-                  width="960"
-                  height="300"
-                  onClick={() => {handleSelectImage(result); setSlideShow(true)}}
-                />
-                 )}
-                  
+                  {selectMode ? (
+                    <CloudImg
+                      key={result.public_id}
+                      discoveryModeOn={discoveryModeOn}
+                      imageData={result}
+                      alt="image"
+                      width="960"
+                      height="300"
+                      onClick={() => handleSelectImage(result)}
+                    />
+                  ) : (
+                    <CloudImg
+                      key={result.public_id}
+                      discoveryModeOn={discoveryModeOn}
+                      imageData={result}
+                      alt="image"
+                      width="960"
+                      height="300"
+                      onClick={() => {
+                        handleSelectImage(result);
+                        setSlideShow(true);
+                      }}
+                    />
+                  )}
                 </motion.div>
               ))}
             </motion.div>

@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 
 export default function SlideShow({
   selectedImages,
@@ -40,12 +41,7 @@ export default function SlideShow({
     };
   }, [index]);
   
-  useEffect(() => {
-    selectedImages.forEach((imageData) => {
-      const img = new Image();
-      img.src = imageData.public_id; // Replace with the actual URL property of your imageData object
-    });
-  }, []);
+  
 
   const btnClass =
     "rounded-xl flex justify-center text-sm items-center group-hover gap-3 p-2 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
@@ -81,6 +77,9 @@ export default function SlideShow({
   ) {
     return (imageWidth / imageHeight) * screenHeight;
   }
+
+  
+
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
@@ -106,6 +105,7 @@ export default function SlideShow({
                 <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-xl transition-all ">
                   {open ? (
                     <div className="h-auto w-auto">
+                      
                       <CloudImg
                         discoveryModeOn={false}
                         key={photos.public_id}
