@@ -24,6 +24,7 @@ export default function SlideShow({
   const photos: any = selectedImages[index];
 
   useEffect(() => {
+    
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
         return handleNext();
@@ -38,6 +39,13 @@ export default function SlideShow({
       document.removeEventListener("keydown", handleKey);
     };
   }, [index]);
+  
+  useEffect(() => {
+    selectedImages.forEach((imageData) => {
+      const img = new Image();
+      img.src = imageData.public_id; // Replace with the actual URL property of your imageData object
+    });
+  }, []);
 
   const btnClass =
     "rounded-xl flex justify-center text-sm items-center group-hover gap-3 p-2 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
