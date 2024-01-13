@@ -102,7 +102,7 @@ export default function SlideShow({
           >
             <div className="relative " />
 
-            <motion.div className="fixed grid-1 inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-40 inset-0 z-50 w-screen">
+            <motion.div className="fixed grid-1 bg-gray-500 bg-opacity-75 transition-opacity inset-0 z-50 w-screen">
               <div className="flex max-w-full min-h-full items-end justify-center text-center sm:items-center sm:p-0">
                 <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-xl transition-all ">
                   <AnimatePresence mode="wait">

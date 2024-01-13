@@ -272,7 +272,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                   whileInView="whileInView"
                   initial="initial"
                   className={
-                    isSelected(result)
+                    isSelected(result) && selectMode
                       ? "hover:cursor-pointer ring-[8px] ring-gray-800  scale-95 ease-in-out duration-500"
                       : "hover:cursor-pointer  ease-in-out duration-500"
                   }
