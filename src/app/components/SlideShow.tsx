@@ -62,14 +62,6 @@ export default function SlideShow({
     } else setIndex(index - 1);
   };
 
-  // const handleSize = (size: boolean) => {
-  //   if (size) {
-  //     setWidth(width + 50);
-  //   } else {
-  //     setWidth(width - 50);
-  //   }
-  // };
-
   function getScreenHeight() {
     return window.innerHeight;
   }
