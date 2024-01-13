@@ -51,9 +51,6 @@ export default function SlideShow({
     };
   }, [index, selectedImages]);
 
-  const btnClass =
-    "rounded-xl flex justify-center text-sm items-center group-hover gap-3 p-2 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
-
   const handleNext = () => {
     if (index === selectedImages.length - 1) {
       setIndex(0);
@@ -65,13 +62,13 @@ export default function SlideShow({
     } else setIndex(index - 1);
   };
 
-  const handleSize = (size: boolean) => {
-    if (size) {
-      setWidth(width + 50);
-    } else {
-      setWidth(width - 50);
-    }
-  };
+  // const handleSize = (size: boolean) => {
+  //   if (size) {
+  //     setWidth(width + 50);
+  //   } else {
+  //     setWidth(width - 50);
+  //   }
+  // };
 
   function getScreenHeight() {
     return window.innerHeight;
@@ -90,15 +87,12 @@ export default function SlideShow({
     <>
       <Head>
         {selectedImages.map((image) => (
-          
-            <link
-              key="preload-hi-res"
-              rel="preload"
-              as="image"
-              href={`https://res.cloudinary.com/dhkbmh13s/image/upload/v1705067761/${image.public_id}`}
-            />
-            
-          
+          <link
+            key="preload-hi-res"
+            rel="preload"
+            as="image"
+            href={`https://res.cloudinary.com/dhkbmh13s/image/upload/v1705067761/${image.public_id}`}
+          />
         ))}
 
         <link key={index} rel="preload" as="image" href={imageUrl} />
