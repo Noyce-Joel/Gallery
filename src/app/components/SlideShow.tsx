@@ -86,6 +86,8 @@ export default function SlideShow({
             href={`https://res.cloudinary.com/dhkbmh13s/image/upload/v1705067761/${image.public_id}`}
           />
         ))}
+
+        <link key={index} rel="preload" as="image" href={imageUrl} />
       </Head>
       {open ? (
         <Transition.Root show={open} as={Fragment}>
