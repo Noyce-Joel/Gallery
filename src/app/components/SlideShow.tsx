@@ -97,12 +97,7 @@ export default function SlideShow({
               as="image"
               href={`https://res.cloudinary.com/dhkbmh13s/image/upload/v1705067761/${image.public_id}`}
             />
-            <link
-              key="preload-low-res"
-              rel="preload"
-              as="image"
-              href={`https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${image.public_id}`}
-            />
+            
           </>
         ))}
 
