@@ -23,6 +23,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const [addToAlbumDialogue, setAddToAlbumDialogue] = useState<boolean>(false);
   const [uploaded, setUploaded] = useState<boolean>(false);
   const [deleted, setDeleted] = useState<boolean>(false);
+  const [created, setCreated] = useState<boolean>(false);
   const [discoveryModeOn, setDiscoveryModeOn] = useState<boolean>(false);
   const [slideShow, setSlideShow] = useState<boolean>(false);
   const [selectMode, setSelectMode] = useState<boolean>(false);
@@ -238,6 +239,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
       {addToAlbumDialogue ? (
         <AddToAlbum
           setUploaded={setUploaded}
+          setCreated={setCreated}
           setSelected={setSelected}
           setAddToAlbumDialogue={setAddToAlbumDialogue}
           imageData={selected}
@@ -245,6 +247,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
         />
       ) : null}
       {uploaded ? <Alert alertType="added to album" /> : null}
+      {created ? <Alert alertType="created album" /> : null}
       {deleted ? <Alert alertType="Successfully deleted" /> : null}
 
       {slideShow ? (

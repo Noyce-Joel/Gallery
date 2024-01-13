@@ -1,4 +1,4 @@
-import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { CheckCircleIcon, XMarkIcon, HandRaisedIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 
 import { SetStateAction, useState } from "react";
@@ -6,18 +6,27 @@ import { SetStateAction, useState } from "react";
 export default function Alert({ alertType }: { alertType: string; }) {
   const [open, setOpen] = useState<boolean>(true);
   let alertMessage;
+  let success;
   switch (alertType) {  
     case 'added to album':
       alertMessage = 'Successfully added to album';
+      success = true
       break;
     case 'exists in album':
       alertMessage = 'Belongs to another album';
       break;
     case 'Successfully uploaded':
       alertMessage = 'Successfully uploaded';
+      success = true
       break;
     case 'Successfully deleted':
-      alertMessage = 'Successfully deleted';
+      alertMessage = 'Sorry, you do not have permission to delete images';
+      success = false
+      break;
+      case 'created album':
+      
+      alertMessage = 'Sorry, you do not have permission to create an album';
+      success = false
       break;
   }
   return (
@@ -31,10 +40,18 @@ export default function Alert({ alertType }: { alertType: string; }) {
           <div className="flex gap-3">
             <div className="flex justify-evenly">
               <div className="flex-shrink-0">
-                <CheckCircleIcon
+                {success ? (
+                  <CheckCircleIcon
                   className="h-5 w-5 text-green-400"
                   aria-hidden="true"
                 />
+                ) : (
+                  <HandRaisedIcon
+                  className="h-5 w-5 text-red-400"
+                  aria-hidden="true"
+                />
+                )}
+                
               </div>
               <div className="ml-3">
                 {alertType  ? (

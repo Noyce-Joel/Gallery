@@ -17,12 +17,14 @@ export default function AddToAlbum({
   setAddToAlbumDialogue,
   setSelected,
   setUploaded,
+  setCreated,
 }: {
   rootFolders: any;
   imageData: SearchResult[];
   setAddToAlbumDialogue: React.Dispatch<SetStateAction<boolean>>;
   setSelected: React.Dispatch<SetStateAction<SearchResult[]>>;
   setUploaded: React.Dispatch<SetStateAction<boolean>>;
+  setCreated: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const [open, setOpen] = useState(true);
   const [albumName, setAlbumName] = useState<string>("");
@@ -37,13 +39,13 @@ export default function AddToAlbum({
 
   const handleAddToAlbum = async () => {
     setOpen(false);
-    setTimeout(() => {
-      setUploaded(true);
-      setSelected([]);
-      router.refresh()
-    }, 1500);
+    
 
     if (albumName === "") {
+      setTimeout(() => {
+        setUploaded(true);
+        setSelected([]);
+      }, 1500);
       const selectedAlbums = albums.filter((album) => {
         const checkedAlbum = document.getElementById(
           `album-${album}`
@@ -54,13 +56,17 @@ export default function AddToAlbum({
       for (const selectedAlbum of selectedAlbums) {
         await addToAlbum(selectedAlbum, imageData);
       }
-      
     } else {
-        await createAlbum(albumName, imageData);
-      
+      setTimeout(() => {
+        setCreated(true);
+        setSelected([]);
+      }, 1500);
+      await createAlbum(albumName, imageData);
     }
 
     setAddToAlbumDialogue(false);
+    setUploaded(false);
+    setCreated(false);
     setAlbumName("");
     router.refresh();
   };
@@ -68,7 +74,7 @@ export default function AddToAlbum({
   const tags = rootFolders.resources.flatMap(
     (resource: SearchResult) => resource.tags
   ) as string[];
-  const albums = Array.from(new Set(tags)).filter(tag => tag !== 'favourite');
+  const albums = Array.from(new Set(tags)).filter((tag) => tag !== "favourite");
 
   return (
     <>
