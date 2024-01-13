@@ -3,10 +3,12 @@ import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import { CldUploadButton } from "next-cloudinary";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import Alert from "./Alert";
 
 
 export default function Upload() {
+  const [uploaded, setUploaded] = useState<boolean>(false);
   const router = useRouter();
   const { data: session } = useSession();
   if (!session) {
@@ -17,11 +19,12 @@ export default function Upload() {
     <>
     <CldUploadButton
       onUpload={() => {
-        
-        setTimeout(() => {
-          router.refresh();
-        }, 2000);
+       
+        // setTimeout(() => {
+        //   router.refresh();
+        // }, 2000);
       }}
+      onClose={() => { setUploaded(true);}}
       onSuccess={() => {console.log('success')}}
       uploadPreset="r2qsi3yf"
       options={{ sources: ["unsplash", "image_search", "gettyimages", "instagram", "shutterstock", "local"] }}
@@ -34,7 +37,9 @@ export default function Upload() {
         Upload
       </div>
     </CldUploadButton>
-    
+    {uploaded ? (
+      <Alert alertType="Successfully uploaded" />
+    ) : null}
     </>
   );
 }

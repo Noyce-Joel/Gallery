@@ -16,16 +16,16 @@ export default function Alert({ alertType }: { alertType: string; }) {
       alertMessage = 'Belongs to another album';
       break;
     case 'Successfully uploaded':
-      alertMessage = 'Successfully uploaded';
-      success = true
+      alertMessage = 'Sorry, only admin can upload images';
+      success = false
       break;
     case 'Successfully deleted':
-      alertMessage = 'Sorry, you do not have permission to delete images';
+      alertMessage = 'Sorry, only admin can delete images';
       success = false
       break;
       case 'created album':
       
-      alertMessage = 'Sorry, you do not have permission to create an album';
+      alertMessage = 'Sorry, only admin can create an album';
       success = false
       break;
   }
