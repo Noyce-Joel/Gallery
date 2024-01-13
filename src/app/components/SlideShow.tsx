@@ -6,6 +6,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { buildUrl } from "cloudinary-build-url";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function SlideShow({
   selectedImages,
@@ -21,12 +22,20 @@ export default function SlideShow({
   const [index, setIndex] = useState<number>(0);
   const [open, setOpen] = useState(true);
   const [width, setWidth] = useState<number>(590);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState(
     `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[0].public_id}`
   );
   const photos: any = selectedImages[index];
 
   useEffect(() => {
+    setImageUrl(
+      `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[index].public_id}`
+    );
+    // selectedImages.forEach((image) => {
+    //   const img = new window.Image();
+    //   img.src = `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${image.public_id}`;
+    // });
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
         return handleNext();
@@ -40,19 +49,8 @@ export default function SlideShow({
     return () => {
       document.removeEventListener("keydown", handleKey);
     };
-  }, [index]);
-  useEffect(() => {
-    selectedImages.forEach((image) => {
-      const img = new window.Image();
-      img.src = `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${image.public_id}`;
-    });
-  }, [selectedImages]);
+  }, [index, selectedImages]);
 
-  useEffect(() => {
-    setImageUrl(
-      `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[index + 1].public_id}`
-    );
-  }, [index]);
   const btnClass =
     "rounded-xl flex justify-center text-sm items-center group-hover gap-3 p-2 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
 
@@ -90,38 +88,53 @@ export default function SlideShow({
 
   return (
     <>
-      <Transition.Root show={open} as={Fragment}>
-        <Dialog
-          as="div"
-          className="z-40"
-          onClose={() => {
-            setOpen;
-            setSelected([]);
-            setSlideShow(false);
-          }}
-        >
-          <div className="fixed grid-1 inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-40" />
-          <AnimatePresence>
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-50 w-screen"
-            >
-              <div className="flex  max-w-full min-h-full items-end justify-center text-center sm:items-center sm:p-0">
-                <Dialog.Panel className=" relative transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-xl transition-all ">
-                  {open ? (
+      <Head>
+        {selectedImages.map((image) => (
+          <>
+            <link
+              key="preload-hi-res"
+              rel="preload"
+              as="image"
+              href={`https://res.cloudinary.com/dhkbmh13s/image/upload/v1705067761/${image.public_id}`}
+            />
+            <link
+              key="preload-low-res"
+              rel="preload"
+              as="image"
+              href={`https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${image.public_id}`}
+            />
+          </>
+        ))}
+
+        <link key={index} rel="preload" as="image" href={imageUrl} />
+      </Head>
+      {open ? (
+        <Transition.Root show={open} as={Fragment}>
+          <Dialog
+            as="div"
+            className="z-40"
+            onClose={() => {
+              setOpen;
+              setSelected([]);
+              setSlideShow(false);
+            }}
+          >
+            <div className="relative " />
+
+            <motion.div className="fixed grid-1 inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-40 inset-0 z-50 w-screen">
+              <div className="flex max-w-full min-h-full items-end justify-center text-center sm:items-center sm:p-0">
+                <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-xl transition-all ">
+                  <AnimatePresence mode="wait">
                     <motion.div
                       className=" h-auto w-auto"
+                      key={photos.public_id}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.25 }}
+                      transition={{ duration: 0.4 }}
                     >
                       <CloudImg
                         discoveryModeOn={false}
-                        key={photos.public_id}
                         imageData={photos}
                         alt="image"
                         width={
@@ -139,7 +152,8 @@ export default function SlideShow({
                           ) as number
                         }
                       />
-                      {/* <Image
+
+                      <Image
                         src={imageUrl}
                         height={
                           getImageWidth(
@@ -159,33 +173,16 @@ export default function SlideShow({
                         blurDataURL={imageUrl}
                         quality={1}
                         placeholder="blur"
-                        className="absolute -z-10 inset-0 "
-                      /> */}
+                        className=" absolute inset-0 -z-20"
+                      />
                     </motion.div>
-                  ) : null}
-                  {/* <div className="absolute bottom-10 left-10 flex gap-3">
-                  <button className={btnClass} onClick={handleNext}>
-                    Next
-                  </button>
-                  <button className={btnClass} onClick={handlePrev}>
-                    Previous
-                  </button>
-                  <button className={btnClass} onClick={() => handleSize(true)}>
-                    <PlusIcon width={15} height={15} />
-                  </button>
-                  <button
-                    className={btnClass}
-                    onClick={() => handleSize(false)}
-                  >
-                    <MinusIcon width={15} height={15} />
-                  </button>
-                </div> */}
+                  </AnimatePresence>
                 </Dialog.Panel>
               </div>
             </motion.div>
-          </AnimatePresence>
-        </Dialog>
-      </Transition.Root>
+          </Dialog>
+        </Transition.Root>
+      ) : null}
     </>
   );
 }
