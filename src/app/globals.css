@@ -74,7 +74,7 @@ body {
 
 
 @keyframes jump {
-  0%, 82%, 100% {
+  0%, 85%, 100% {
     transform: translateY(0);
   }
   40% {
