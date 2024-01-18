@@ -1,4 +1,4 @@
-import {  useTransform, motion } from 'framer-motion';
+import {  useTransform, motion, useScroll } from 'framer-motion';
 
 const EmptyFrame = () => {
   const { scrollYProgress } = useScroll();
