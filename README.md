@@ -10,9 +10,9 @@ This also made the transition to the slideshow view smoother.
 
 The utility-first approach of TailwindCSS allowed me to create and test out a lot of ideas for the UI easily and Framer Motion offered a simple solution to animate the graphically defined components.
 
-Users can securely log in with OAuth credentials from Google, which made sense given that most users will have an Account with Google. Should I make the gallery available for use by the public, I've coded a server that stores user information in a MongoDB database.
+Users can securely log in with Google OAuth credentials, which made sense given that most users will have a Google account. Should I make the gallery available for use by the public, I've coded a server that stores user information in a MongoDB database. For now the data is not saved.
 
-For now I've deployed an example of the app to vercel which you can view here: noycephotos.vercel.app 
+I've deployed an example of the app to vercel which you can view here: https://noycephotos.vercel.app 
 (although one should note that users do not have the permission to upload photos or create albums in this example version).
 
 Google photos is an excellent example of how an online gallery should be created. To anyone considering building out their own for fun, I found this article
