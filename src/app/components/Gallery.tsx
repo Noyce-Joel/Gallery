@@ -35,7 +35,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 
   const handleSelectImage = (selectedImage: SearchResult) => {
     const imageId = selectedImage;
-    const idx = selected.indexOf(imageId); 
+    const idx = selected.indexOf(imageId);
     const currentlySelected = isSelected(imageId);
     if (selectMode) {
       if (currentlySelected) {
@@ -51,12 +51,13 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     } else {
       setSelected(results.resources);
       setSelected((prev: any) => {
-        const clickedImageIndex = prev.findIndex((id: SearchResult) => id === imageId);
+        const clickedImageIndex = prev.findIndex(
+          (id: SearchResult) => id === imageId
+        );
         const beforeClicked = prev.slice(0, clickedImageIndex);
         const afterClicked = prev.slice(clickedImageIndex + 1);
         return [imageId, ...afterClicked, ...beforeClicked];
       });
-      
     }
   };
 
@@ -206,7 +207,6 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 
   return (
     <section className="">
-      {/* <button onClick={() => signOut()}>Sign Out</button> */}
       <div className="absolute right-12 bottom-10 z-50">
         <Profile session={session} />
       </div>
@@ -223,18 +223,6 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
         handleSelectMode={handleSelectMode}
         selectMode={selectMode}
       />
-      {/* <SelectAllButton
-        selected={selected}
-        images={results.resources}
-        handleSelectAll={handleSelectAll}
-      />
-      {selected.length > 0 ? (
-        <>
-          <AlbumButton handleAddToAlbum={handleAddToAlbum} />
-          <SlideShowButton setSlideShow={setSlideShow} />
-          <DeleteButton handleDelete={handleDelete} />
-        </>
-      ) : null} */}
 
       {addToAlbumDialogue ? (
         <AddToAlbum

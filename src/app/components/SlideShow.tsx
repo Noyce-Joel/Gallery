@@ -20,6 +20,7 @@ export default function SlideShow({
   setSlideShow: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const [index, setIndex] = useState<number>(0);
+
   const [open, setOpen] = useState(true);
   const [imageUrl, setImageUrl] = useState(
     `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[0].public_id}`
@@ -30,10 +31,7 @@ export default function SlideShow({
     setImageUrl(
       `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[index].public_id}`
     );
-    // selectedImages.forEach((image) => {
-    //   const img = new window.Image();
-    //   img.src = `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${image.public_id}`;
-    // });
+
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
         return handleNext();
@@ -75,16 +73,6 @@ export default function SlideShow({
 
   return (
     <>
-      <Head>
-        {selectedImages.map((image) => (
-          <link
-            key="preload-hi-res"
-            rel="preload"
-            as="image"
-            href={`https://res.cloudinary.com/dhkbmh13s/image/upload/v1705067761/${image.public_id}`}
-          />
-        ))}
-      </Head>
       {open ? (
         <Transition.Root show={open} as={Fragment}>
           <Dialog
@@ -108,33 +96,42 @@ export default function SlideShow({
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
+                      transition={{ duration: 0.35 }}
                     >
-                      <CloudImg
-                        discoveryModeOn={false}
-                        imageData={photos}
-                        alt="image"
-                        width={
-                          getImageWidth(
-                            photos.width,
-                            photos.height,
-                            screenHeight
-                          ) as number
-                        }
-                        height={
-                          getImageWidth(
-                            photos.width,
-                            photos.height,
-                            screenHeight
-                          ) as number
-                        }
-                      />
-
+                      <motion.div
+                        key="cloud-photo"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.35 }}
+                        className="
+                        absolute"
+                      >
+                        <CloudImg
+                          discoveryModeOn={false}
+                          imageData={photos}
+                          alt="image"
+                          width={
+                            getImageWidth(
+                              photos.width,
+                              photos.height,
+                              screenHeight
+                            ) as number
+                          }
+                          height={
+                            getImageWidth(
+                              photos.width,
+                              photos.height,
+                              screenHeight
+                            ) as number
+                          }
+                        />
+                      </motion.div>
                       <Image
                         src={imageUrl}
                         height={
                           getImageWidth(
-                            photos.width,
+                            photos.height,
                             photos.height,
                             screenHeight
                           ) as number
@@ -150,7 +147,8 @@ export default function SlideShow({
                         blurDataURL={imageUrl}
                         quality={1}
                         placeholder="blur"
-                        className=" absolute inset-0 -z-20"
+                        className=" -z-20 object-cover"
+                        objectFit="cover"
                       />
                     </motion.div>
                   </AnimatePresence>

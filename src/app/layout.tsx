@@ -23,6 +23,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  
   const { results, usage } = await fetchData();
   
   

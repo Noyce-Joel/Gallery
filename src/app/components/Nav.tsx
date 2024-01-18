@@ -15,6 +15,7 @@ import { useState } from "react";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
+
 export const removeHyphens = (name: string) => {
   if (name.includes("-")) {
     return name.replace(/-/g, " ");
@@ -60,14 +61,9 @@ export default function Nav({
   const usagePercentage = Math.floor(
     calculateUsagePercentage(usage.credits.usage, usage.credits.limit)
   );
-  
 
   if (status === "loading") {
-    return (
-      <>
-        
-      </>
-    );
+    return <></>;
   }
   if (!session) {
     return null;
@@ -164,8 +160,6 @@ export default function Nav({
               </div>
             </div>
           </li>
-
-          
         </ul>
       </nav>
     </div>
