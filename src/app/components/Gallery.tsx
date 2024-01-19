@@ -28,8 +28,8 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const [slideShow, setSlideShow] = useState<boolean>(false);
   const [selectMode, setSelectMode] = useState<boolean>(false);
   const columns = (colIdx: number) => {
-    return results.resources.filter((resource, idx) => {
-      return idx % 5 === colIdx;
+    return results.resources.filter((resource, resourceIdx) => {
+      return resourceIdx % 5 === colIdx;
     });
   };
 
@@ -141,69 +141,6 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
       </div>
     );
   }
-  if (!session) {
-    return (
-      <div className="flex h-screen w-screen justify-center items-center">
-        <SignInOutButton />
-
-        <Title
-          title={["N", "O", "Y", "C", "E", " ", "P", "H", "O", "T", "O", "S"]}
-        />
-        <motion.div
-          variants={container}
-          initial="initial"
-          whileInView="whileInView"
-          className="absolute w-screen h-screen"
-        >
-          <motion.div className="absolute top-14 left-40" variants={item}>
-            <Image
-              className="flex rounded-xl"
-              height={400}
-              width={400}
-              src="/1.jpeg"
-              alt="home-page-images"
-            />
-          </motion.div>
-          <motion.div className="absolute top-5 left-[55%]" variants={item}>
-            <Image
-              className="flex rounded-xl"
-              height={170}
-              width={170}
-              src="/2.jpeg"
-              alt="home-page-images"
-            />
-          </motion.div>
-          <motion.div className="absolute -bottom-20 left-10" variants={item}>
-            <Image
-              className="flex rounded-xl"
-              height={400}
-              width={400}
-              src="/3.jpeg"
-              alt="home-page-images"
-            />
-          </motion.div>
-          <motion.div className="absolute bottom-20 right-20" variants={item}>
-            <Image
-              className="flex rounded-xl"
-              height={370}
-              width={370}
-              src="/4.jpeg"
-              alt="home-page-images"
-            />
-          </motion.div>
-          <motion.div className="absolute left-[35%] bottom-20" variants={item}>
-            <Image
-              className="flex rounded-xl"
-              height={170}
-              width={170}
-              src="/5.jpeg"
-              alt="home-page-images"
-            />
-          </motion.div>
-        </motion.div>
-      </div>
-    );
-  }
 
   return (
     <section className="">
@@ -256,9 +193,9 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
               key={idx}
               className="flex flex-col gap-4"
             >
-              {col.map((result, idx) => (
+              {col.map((result, resultIdx) => (
                 <motion.div
-                  key={idx}
+                  key={resultIdx}
                   variants={item}
                   whileInView="whileInView"
                   initial="initial"
@@ -270,7 +207,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                 >
                   {selectMode ? (
                     <CloudImg
-                      key={result.public_id}
+                      key="result.public_id"
                       discoveryModeOn={discoveryModeOn}
                       imageData={result}
                       alt="image"
@@ -280,7 +217,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                     />
                   ) : (
                     <CloudImg
-                      key={result.public_id}
+                      key="result.public_id_optional"
                       discoveryModeOn={discoveryModeOn}
                       imageData={result}
                       alt="image"

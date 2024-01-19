@@ -11,9 +11,7 @@ export default function Upload() {
   const [uploaded, setUploaded] = useState<boolean>(false);
   const router = useRouter();
   const { data: session } = useSession();
-  if (!session) {
-    return null;
-  }
+  
   
   return (
     <>

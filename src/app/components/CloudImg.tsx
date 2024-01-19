@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { SearchResult } from "../page";
 import Heart from "./Heart";
 import DropDown from "./DropDown";
-import AlbumName from "./AlbumName";
+import AlbumName from "./AlbumTags";
 import { AnimatePresence, motion } from "framer-motion";
+import AlbumTags from "./AlbumTags";
 
 function CloudImg({
   imageData,
@@ -25,7 +26,7 @@ function CloudImg({
             key={imageData.public_id}
             onMouseOver={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            className="flex relative"
+            className="flex h-screen"
             initial={{ opacity: 0 }}
             animate={hover && { opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -38,7 +39,7 @@ function CloudImg({
                 <Heart imageData={imageData} />
                 <DropDown imageData={imageData} />
                 {imageData.tags ? (
-                  <AlbumName album={imageData.public_id} name={tags} />
+                  <AlbumTags album={imageData.public_id} name={tags} />
                 ) : null}
               </motion.div>
             ) : (
@@ -65,7 +66,7 @@ function CloudImg({
                 <Heart imageData={imageData} />
                 <DropDown imageData={imageData} />
                 {imageData.tags ? (
-                  <AlbumName album={imageData.public_id} name={tags} />
+                  <AlbumTags album={imageData.public_id} name={tags} />
                 ) : null}
               </motion.div>
             ) : (

@@ -1,12 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-function Title({title}: {title: string[]}) {
+function Title({title, fontSize, delay}: {title: string[], fontSize: string, delay: number }) {
   
   const banner = {
     whileInView: {
       transition: {
-        
+        delayChildren: delay,
         staggerChildren: 0.05,
       },
     },
@@ -18,7 +18,7 @@ function Title({title}: {title: string[]}) {
       y: 0,
       transition: {
         type: "spring",
-
+        
         duration: 1,
       },
     },
@@ -31,7 +31,7 @@ function Title({title}: {title: string[]}) {
       className=""
     >
       
-        <motion.div className="flex h-12 gap-2 text-4xl overflow-y-hidden">
+        <motion.div className={`flex h-12 gap-2 ${fontSize} overflow-y-hidden`}>
           {[...title].map((letter, index) => (
             <motion.span key={index} variants={letterAni}>
               <p>{letter}</p>

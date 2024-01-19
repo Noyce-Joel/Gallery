@@ -1,12 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import SignInOutButton from "./SignInOutButton";
+import { useSession } from "next-auth/react";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 export default function Profile({ session }: { session: any }) {
+  const { status } = useSession();
   const [isPending, startTransition] = useTransition();
+  const [signedIn, setSignedIn] = useState<boolean>(false);
   const [profileOpen, setProfileOpen] = useState<boolean>(false);
   const profilePicture = session ? session.user?.image : null;
   const container = {
@@ -35,15 +38,12 @@ export default function Profile({ session }: { session: any }) {
         delay: 0.4,
         duration: 1,
         type: "spring",
-        
-       
-        
       },
     },
 
     exit: {
       opacity: 0,
-      scale:  0,
+      scale: 0,
       x: 20,
       transition: {
         duration: 0.05,
@@ -51,7 +51,8 @@ export default function Profile({ session }: { session: any }) {
     },
   };
 
-  const name = session?.user.name
+  const name = session?.user.name;
+
   const nameAni = {
     initial: { y: 200 },
     whileInView: {
@@ -63,10 +64,16 @@ export default function Profile({ session }: { session: any }) {
     },
     exit: {
       y: 200,
-    }
+    },
   };
 
-
+  useEffect(() => {
+    if (status === "authenticated") {
+      setSignedIn(true);
+    } else {
+      setSignedIn(false);
+    }
+  }, []);
 
   const handleClick = () => {
     startTransition(() => {
@@ -90,8 +97,19 @@ export default function Profile({ session }: { session: any }) {
             variants={container}
             animate={profileOpen ? "whileInView" && "animate" : "exit"}
             className="text-white p-4 flex-nowrap gap-y-10 whitespace-nowrap"
-           
           >
+            {!signedIn ? (
+              <p className="text-white p-3 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap">Guest</p>
+            ) : (
+              <motion.div
+                key="anim-3"
+                variants={container}
+                animate={profileOpen ? "whileInView" : "exit"}
+                className="text-white p-3 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap"
+              >
+                {name}
+              </motion.div>
+            )}
             <motion.button
               className="p-2 bottom-0 absolute left-0"
               key="anim-2"
@@ -100,35 +118,26 @@ export default function Profile({ session }: { session: any }) {
               <SignInOutButton />
             </motion.button>
           </motion.div>
-          <motion.div
-            key="anim-3"
-            variants={container}
-            animate={profileOpen ? "whileInView" : "exit"}
-            className="text-white p-3 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap"
-          >
-           {name}
-            
-          </motion.div>
         </div>
-       
       </div>
-      <div className="z-50">
-          <div
-            className="hover:cursor-pointer duration-700 ease-in-out flex flex-nowrap whitespace-nowrap  border-[#dddbcb] rounded-full  shrink-0"
-            onClick={() => handleClick()}
-          >
-            <img
-              src={`${profilePicture}`}
-              alt="profile picture"
-              className={classNames(
-                profileOpen
-                  ? "h-[70px] w-[70px] scale-110 duration-700 border-4 border-gray-800 ease-in-out"
-                  : "h-[70px] w-[70px] duration-700 border-4 border-gray-800 ease-in-out",
-                "rounded-full  shrink-0"
-              )}
-            />
-          </div>
+      <div className="z-20">
+        <div
+          className="hover:cursor-pointer duration-700 ease-in-out flex flex-nowrap whitespace-nowrap  border-[#dddbcb] rounded-full  shrink-0"
+          onClick={() => handleClick()}
+        >
+          <img
+            key="profile-picture"
+            src={profilePicture ? `${profilePicture}` : "/1.jpeg"}
+            alt="profile picture"
+            className={classNames(
+              profileOpen
+                ? "h-[70px] w-[70px] scale-110 duration-700 border-4 border-gray-800 ease-in-out"
+                : "h-[70px] w-[70px] duration-700 border-4 border-gray-800 ease-in-out",
+              "rounded-full  shrink-0"
+            )}
+          />
         </div>
+      </div>
     </AnimatePresence>
   );
 }
