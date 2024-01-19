@@ -16,7 +16,10 @@ function CloudImg({
   "src"
 >) {
   const [hover, setHover] = useState<boolean>();
-
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const handleLoad = () => {
+    setLoaded(true)
+  }
   const tags = imageData.tags.filter((tag) => tag !== "favourite");
   return (
     <>
@@ -28,11 +31,11 @@ function CloudImg({
             onMouseLeave={() => setHover(false)}
             className="flex relative"
             initial={{ opacity: 0 }}
-            animate={hover && { opacity: 1 }}
+            animate={hover && loaded && { opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <CldImage src={imageData?.public_id} {...props} />
+            <CldImage onLoad={handleLoad} src={imageData?.public_id} {...props} />
 
             {hover ? (
               <motion.div className="flex">
@@ -54,12 +57,12 @@ function CloudImg({
             onMouseOver={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={ loaded ? {opacity: 1} : {opacity: 0}}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="flex relative"
           >
-            <CldImage src={imageData?.public_id} {...props} />
+            <CldImage onLoad={handleLoad} src={imageData?.public_id} {...props} />
 
             {hover ? (
               <motion.div className="flex">

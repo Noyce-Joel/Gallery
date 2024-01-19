@@ -128,7 +128,7 @@ export default function SlideShow({
                           className="flex"
                         />
                       </motion.div>
-                      {/* <Image
+                      <Image
                         src={imageUrl}
                         height={
                           getImageWidth(
@@ -148,9 +148,9 @@ export default function SlideShow({
                         blurDataURL={imageUrl}
                         quality={1}
                         placeholder="blur"
-                        className=" -z-20 object-cover"
-                        objectFit="cover"
-                      /> */}
+                        className="absolute top-0 -z-20 object-cover"
+
+                      />
                     </motion.div>
                   </AnimatePresence>
                 </Dialog.Panel>
