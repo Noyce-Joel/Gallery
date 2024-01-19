@@ -26,7 +26,7 @@ function CloudImg({
             key={imageData.public_id}
             onMouseOver={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            className="flex h-screen"
+            className="flex relative"
             initial={{ opacity: 0 }}
             animate={hover && { opacity: 1 }}
             exit={{ opacity: 0 }}
