@@ -8,10 +8,8 @@ function classNames(...classes: any) {
 
 export default function DiscoveryModeButton({
   handleDiscoveryMode,
-  discoveryModeOn,
 }: {
   handleDiscoveryMode: () => void;
-  discoveryModeOn: boolean;
 }) {
   const [discovery, setDiscovery] = useState<boolean>(false);
   return (

@@ -1,7 +1,7 @@
 import { FolderIcon } from "@heroicons/react/24/outline";
 import { removeHyphens } from "./Nav";
 import Link from "next/link";
-import { motion } from "framer-motion";
+
 
 export default function AlbumTags({
   name,

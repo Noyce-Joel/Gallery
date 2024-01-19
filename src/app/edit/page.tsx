@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { CldImage, } from "next-cloudinary";
+import { CldImage } from "next-cloudinary";
 
 function Edit({
   searchParams: { publicId },
@@ -22,7 +22,7 @@ function Edit({
           className="rounded-xl flex group-hover gap-3 p-4 hover:bg-[#121723] bg-indigo-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           onClick={() => setFilter("crop")}
         >
-         Crop
+          Crop
         </button>
       </div>
       <div className="flex justify-center items-center w-full">
@@ -46,7 +46,6 @@ function Edit({
               alt="image-edit"
               crop="thumb"
               gravity="center"
-              
             />
           ) : null}
         </div>

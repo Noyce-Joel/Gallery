@@ -99,7 +99,9 @@ export default function Profile({ session }: { session: any }) {
             className="text-white p-4 flex-nowrap gap-y-10 whitespace-nowrap"
           >
             {!signedIn ? (
-              <p className="text-white p-3 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap">Guest</p>
+              <p className="text-white p-3 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap">
+                Guest
+              </p>
             ) : (
               <motion.div
                 key="anim-3"

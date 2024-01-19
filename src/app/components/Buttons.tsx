@@ -3,7 +3,6 @@ import SelectAllButton from "./SelectAllButton";
 import AlbumButton from "./Albumbutton";
 import SlideShowButton from "./SlideShowButton";
 import DeleteButton from "./DeleteButton";
-import { motion, AnimatePresence } from "framer-motion";
 import DiscoveryModeButton from "./DiscoveryModeButton";
 import SelectModeButton from "./SelectModeButton";
 function classNames(...classes: any) {
@@ -47,7 +46,7 @@ export default function Buttons({
         <div className="flex flex-col gap-2 justify-start items-end">
           <DiscoveryModeButton
             handleDiscoveryMode={handleDiscoveryMode}
-            discoveryModeOn={discoveryModeOn}
+
           />
           <SelectModeButton handleSelectMode={handleSelectMode}/>
           <SelectAllButton

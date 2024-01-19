@@ -2,7 +2,12 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { SearchResult } from "../page";
-import { EmailIcon, EmailShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
+import {
+  EmailIcon,
+  EmailShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from "react-share";
 
 export default function AddToAlbum({ imageData }: { imageData: SearchResult }) {
   const [open, setOpen] = useState(true);
@@ -57,7 +62,6 @@ export default function AddToAlbum({ imageData }: { imageData: SearchResult }) {
                             url={shareUrl}
                             subject={title}
                             body="body"
-                            
                           >
                             <EmailIcon size={50} round />
                           </EmailShareButton>
@@ -66,13 +70,14 @@ export default function AddToAlbum({ imageData }: { imageData: SearchResult }) {
                             url={shareUrl}
                             title={title}
                             separator=":: "
-                          ><WhatsappIcon size={50} round /></WhatsappShareButton>
+                          >
+                            <WhatsappIcon size={50} round />
+                          </WhatsappShareButton>
                         </div>
                       </div>
                     </fieldset>
                   </div>
                 </div>
-                
               </Dialog.Panel>
             </Transition.Child>
           </div>

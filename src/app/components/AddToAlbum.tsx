@@ -39,7 +39,6 @@ export default function AddToAlbum({
 
   const handleAddToAlbum = async () => {
     setOpen(false);
-    
 
     if (albumName === "") {
       setTimeout(() => {

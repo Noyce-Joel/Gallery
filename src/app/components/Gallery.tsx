@@ -8,9 +8,6 @@ import AddToAlbum from "./AddToAlbum";
 import SlideShow from "./SlideShow";
 import { deleteImage } from "./actions";
 import { useSession } from "next-auth/react";
-import SignInOutButton from "./SignInOutButton";
-import Title from "./Title";
-import Image from "next/image";
 import Buttons from "./Buttons";
 import Profile from "./Profile";
 import Alert from "./Alert";
@@ -19,6 +16,7 @@ import Loading from "./Loading";
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [loaded, setLoaded] = useState<boolean>(false);
   const [selected, setSelected] = useState<SearchResult[]>([]);
   const [addToAlbumDialogue, setAddToAlbumDialogue] = useState<boolean>(false);
   const [uploaded, setUploaded] = useState<boolean>(false);
@@ -98,9 +96,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     for (const selectedImage of selected) {
       deleteImage(selectedImage);
     }
--
-
-    router.refresh();
+    -router.refresh();
   };
 
   const handleDiscoveryMode = () => {
@@ -112,6 +108,10 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     if (selectMode) {
       setSelected([]);
     }
+  };
+
+  const handleLoad = () => {
+    setLoaded(true);
   };
 
   const container = {
@@ -182,7 +182,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
         />
       ) : null}
 
-      <motion.div className="grid grid-cols-5 gap-4 p-4">
+      <motion.div onLoad={handleLoad} className="grid grid-cols-5 gap-4 p-4">
         {[columns(0), columns(1), columns(2), columns(3), columns(4)].map(
           (col, idx) => (
             <motion.div
@@ -192,19 +192,19 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
               key={idx}
               className="flex flex-col gap-4"
             >
-              {col.map((result, idx) => (
+              {col.map((result, rIdx) => (
                 <motion.div
-                  key={idx}
+                  key={rIdx}
                   variants={item}
                   whileInView="whileInView"
                   initial="initial"
                   className={
-                    isSelected(result) && selectMode
-                      ? "hover:cursor-pointer ring-[8px] ring-gray-800  scale-95 ease-in-out duration-500"
-                      : "hover:cursor-pointer  ease-in-out duration-500"
+                    isSelected(result) && selectMode 
+                      ? "hover:cursor-pointer ring-[8px] ring-green-400  scale-95 ease-in-out duration-500"
+                      : discoveryModeOn ? 'hover:cursor-pointer ring-[8px] ring-gray-800  scale-95 ease-in-out duration-500' : "hover:cursor-pointer  ease-in-out duration-500"
                   }
                 >
-                  {selectMode ? (
+                  {selectMode && loaded ? (
                     <CloudImg
                       key="result.public_id"
                       discoveryModeOn={discoveryModeOn}

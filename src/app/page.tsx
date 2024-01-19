@@ -1,10 +1,6 @@
-import { useSession } from "next-auth/react";
 import Gallery from "./components/Gallery";
-import Profile from "./components/Profile";
 import { fetchData } from "./components/actions";
-import NoFetch from "./components/NoFetch";
 import Head from "next/head";
-import { useEffect } from "react";
 export type SearchResult = {
   height(
     width: (

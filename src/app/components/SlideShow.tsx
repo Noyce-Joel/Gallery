@@ -3,10 +3,8 @@ import { SearchResult } from "../page";
 import CloudImg from "./CloudImg";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { buildUrl } from "cloudinary-build-url";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import Head from "next/head";
 
 export default function SlideShow({
   selectedImages,
@@ -133,7 +131,7 @@ export default function SlideShow({
                         />
                       </motion.div>
                       <Image
-                      onLoad={handleLoad}
+                        onLoad={handleLoad}
                         src={imageUrl}
                         height={
                           getImageWidth(
@@ -154,7 +152,6 @@ export default function SlideShow({
                         quality={1}
                         placeholder="blur"
                         className="absolute top-0 -z-20 object-cover"
-
                       />
                     </motion.div>
                   </AnimatePresence>
