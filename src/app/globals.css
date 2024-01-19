@@ -9,7 +9,10 @@ body {
   overflow: hidden;
   background-color: #dddbcb;
 }
-
+/* .dark {
+  --tw-bg-opacity: 100;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+} */
 .open {
   display: flex;
   flex-direction: column;
