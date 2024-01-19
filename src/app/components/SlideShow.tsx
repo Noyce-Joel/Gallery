@@ -20,7 +20,7 @@ export default function SlideShow({
   setSlideShow: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const [index, setIndex] = useState<number>(0);
-
+  const [loaded, setLoaded] = useState<boolean>(false);
   const [open, setOpen] = useState(true);
   const [imageUrl, setImageUrl] = useState(
     `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[0].public_id}`
@@ -56,6 +56,10 @@ export default function SlideShow({
     if (index === 0) {
       setIndex(selectedImages.length - 1);
     } else setIndex(index - 1);
+  };
+
+  const handleLoad = () => {
+    setLoaded(true);
   };
 
   function getScreenHeight() {
@@ -129,6 +133,7 @@ export default function SlideShow({
                         />
                       </motion.div>
                       <Image
+                      onLoad={handleLoad}
                         src={imageUrl}
                         height={
                           getImageWidth(
