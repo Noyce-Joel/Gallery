@@ -86,8 +86,8 @@ export default function SlideShow({
           >
             <div className="relative " />
 
-            <motion.div className="fixed grid-1 bg-gray-500 bg-opacity-75 transition-opacity inset-0 z-50 w-screen">
-              <div className="flex max-w-full min-h-full items-end justify-center text-center sm:items-center sm:p-0">
+            <motion.div className="fixed grid-1 bg-gray-500 bg-opacity-75 transition-opacity inset-0 z-50 h-screen w-screen">
+              <div className="flex max-w-full max-h-full items-end justify-center text-center sm:items-center sm:p-0">
                 <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-xl transition-all ">
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -104,8 +104,8 @@ export default function SlideShow({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.35 }}
-                        className="
-                        absolute"
+                        className="h-screen
+                        "
                       >
                         <CloudImg
                           discoveryModeOn={false}
@@ -120,14 +120,15 @@ export default function SlideShow({
                           }
                           height={
                             getImageWidth(
-                              photos.width,
+                              photos.height,
                               photos.height,
                               screenHeight
                             ) as number
                           }
+                          className="flex"
                         />
                       </motion.div>
-                      <Image
+                      {/* <Image
                         src={imageUrl}
                         height={
                           getImageWidth(
@@ -149,7 +150,7 @@ export default function SlideShow({
                         placeholder="blur"
                         className=" -z-20 object-cover"
                         objectFit="cover"
-                      />
+                      /> */}
                     </motion.div>
                   </AnimatePresence>
                 </Dialog.Panel>

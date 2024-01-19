@@ -98,8 +98,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     for (const selectedImage of selected) {
       deleteImage(selectedImage);
     }
-
-    setDeleted(true);
+-
 
     router.refresh();
   };
@@ -193,9 +192,9 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
               key={idx}
               className="flex flex-col gap-4"
             >
-              {col.map((result, resultIdx) => (
+              {col.map((result, idx) => (
                 <motion.div
-                  key={resultIdx}
+                  key={idx}
                   variants={item}
                   whileInView="whileInView"
                   initial="initial"
@@ -217,7 +216,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                     />
                   ) : (
                     <CloudImg
-                      key="result.public_id_optional"
+                      key="result.public_id"
                       discoveryModeOn={discoveryModeOn}
                       imageData={result}
                       alt="image"
