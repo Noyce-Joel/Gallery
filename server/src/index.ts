@@ -59,3 +59,18 @@
 //   });
 
 //   console.log(`🚀  Server ready at: ${url}`);
+
+
+// var proxy = require('html2canvas-proxy');
+// var express = require('express');
+
+// var app = express();
+
+// // Use the proxy middleware
+// app.use('/', proxy());
+
+// // Other middleware and routes...
+
+// app.listen(3000, function () {
+//   console.log('App is listening on port 3000!');
+// });

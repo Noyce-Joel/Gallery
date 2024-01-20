@@ -17,6 +17,8 @@
     "cloudinary": "^1.41.2",
     "cloudinary-build-url": "^0.2.4",
     "framer-motion": "^10.16.14",
+    "html2canvas": "^1.4.1",
+    "html2canvas-proxy": "^1.0.1",
     "next": "14.0.3",
     "next-auth": "^4.24.5",
     "next-cloudinary": "^5.18.0",
