@@ -1,7 +1,7 @@
 import React, { ComponentProps, useState, useTransition } from "react";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartIconE } from "@heroicons/react/24/outline";
-import tagFavourite from "../actions";
+import tagFavourite from "./actions";
 import { SearchResult } from "../page";
 import { useRouter } from "next/navigation";
 

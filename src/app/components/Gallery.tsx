@@ -96,7 +96,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     for (const selectedImage of selected) {
       deleteImage(selectedImage);
     }
-    -router.refresh();
+    router.refresh();
   };
 
   const handleDiscoveryMode = () => {

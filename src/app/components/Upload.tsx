@@ -35,9 +35,9 @@ export default function Upload() {
           ],
         }}
       >
-        <div className="rounded-xl flex group-hover gap-2 p-2 text-md bg-gray-800 text-white hover:text-gray-800 hover:bg-[#dddbcb]">
+        <div className="rounded-xl flex group-hover gap-2 p-2 text-sm bg-gray-800 text-white hover:text-gray-800 hover:bg-[#dddbcb]">
           <ArrowUpTrayIcon
-            className="h-5 w-6 shrink-0 group-hover"
+            className="h-4 w-4 pt-1 group-hover"
             aria-hidden="true"
           />
           Upload

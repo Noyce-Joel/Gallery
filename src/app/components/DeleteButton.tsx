@@ -7,7 +7,7 @@ export default function AlbumButton({handleDelete}:{handleDelete: () => void}) {
       <button
         onClick={() => handleDelete()}
         type="button"
-        className="rounded-xl flex group-hover gap-3 p-2 px-3 text-md hover:bg-green-200 hover:text-gray-800 bg-red-400 text-white"
+        className="rounded-xl flex group-hover gap-3 p-2 px-3 text-sm hover:bg-green-200 hover:text-gray-800 bg-red-400 text-white"
       >
         Delete
       </button>

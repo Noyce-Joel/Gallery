@@ -24,7 +24,7 @@ export default function DiscoveryModeButton({
           discovery
             ? "bg-green-400 hover:bg-green-800 text-gray-800 hover:text-white"
             : "bg-gray-800 hover:bg-[#dddbcb] text-white  hover:text-gray-800",
-          "rounded-xl flex-nowrap whitespace-nowrap flex group-hover gap-3 p-2 px-3 text-md shadow-sm"
+          "rounded-xl flex-nowrap whitespace-nowrap flex group-hover gap-3 p-2 px-3 text-sm shadow-sm"
         )}
       >
         Discovery

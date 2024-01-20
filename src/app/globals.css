@@ -16,32 +16,32 @@ body {
 .open {
   display: flex;
   flex-direction: column;
-  height: 150px;
+  height: 180px;
   transition: 0.5s ease-in-out;
-  width: 140px;
+  width: 105px;
   overflow: hidden;
   padding: 7px;
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
+  
+  border-bottom-left-radius: 20px;
 }
 
 .selected {
   display: flex;
   flex-direction: column;
-  height: 350px;
+  height: 320px;
   transition: 0.75s ease-in-out;
   width: 140px;
   overflow: hidden;
   padding: 7px;
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
+
+  border-bottom-left-radius: 40px;
 }
 
 .closed {
   display: flex;
   flex-direction: column;
-  height: 95px;
-  width: 140px;
+  height: 135px;
+  width: 105px;
   transition: 0.5s ease-in-out;
   overflow: hidden;
 }

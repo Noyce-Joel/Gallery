@@ -129,13 +129,13 @@ export default function Profile({ session }: { session: any }) {
         >
           <img
             key="profile-picture"
-            src={profilePicture ? `${profilePicture}` : "/1.jpeg"}
+            src={profilePicture ? `${profilePicture}` : "/prof.jpeg"}
             alt="profile picture"
             className={classNames(
               profileOpen
                 ? "h-[70px] w-[70px] scale-110 duration-700 border-4 border-gray-800 ease-in-out"
                 : "h-[70px] w-[70px] duration-700 border-4 border-gray-800 ease-in-out",
-              "rounded-full  shrink-0"
+              "rounded-full  shrink-0 object-cover"
             )}
           />
         </div>

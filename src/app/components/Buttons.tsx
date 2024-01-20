@@ -5,6 +5,7 @@ import SlideShowButton from "./SlideShowButton";
 import DeleteButton from "./DeleteButton";
 import DiscoveryModeButton from "./DiscoveryModeButton";
 import SelectModeButton from "./SelectModeButton";
+import Upload from "./Upload";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -35,7 +36,7 @@ export default function Buttons({
   selectMode: any
 }) {
   return (
-    <div className="absolute top-[100px] right-10  z-40 rounded-xl">
+    <div className="absolute top-[50px] right-10  z-40 rounded-xl">
       <div
         className={classNames(
           selectMode ? 'open' : 'closed',
@@ -44,6 +45,7 @@ export default function Buttons({
         )}
       >
         <div className="flex flex-col gap-2 justify-start items-end">
+          <Upload />
           <DiscoveryModeButton
             handleDiscoveryMode={handleDiscoveryMode}
 
