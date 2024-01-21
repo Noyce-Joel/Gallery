@@ -11,7 +11,7 @@ export default function AlbumTags({
   album: string;
 }) {
   return (
-    <div className="absolute flex w-full overflow-y-hidden duration-100 ease-in-out bottom-0 right-0 z-20 p-2">
+    <div className="absolute flex w-full overflow-y-hidden duration-100 ease-in-out bottom-0 right-0 z-20 py-2">
       <div
         
         className="flex flex-cols gap-2 px-4  overflow-x-scroll scrollbar-hide "

@@ -143,11 +143,11 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   }
 
   return (
-    <section className="">
+    <section id="gallery-wrapper" className="">
       <div className="absolute right-12 bottom-10 z-50">
         <Profile session={session} />
       </div>
-
+      
       <Buttons
         selected={selected}
         images={results.resources}
@@ -184,7 +184,11 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
         />
       ) : null}
 
-      <motion.div id='gallery' onLoad={handleLoad} className="grid grid-cols-5 gap-4 p-4">
+      <motion.div
+        id="gallery"
+        onLoad={handleLoad}
+        className="grid grid-cols-5 gap-2 p-4"
+      >
         {[columns(0), columns(1), columns(2), columns(3), columns(4)].map(
           (col, idx) => (
             <motion.div
@@ -192,7 +196,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
               whileInView="whileInView"
               initial="initial"
               key={idx}
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-2"
             >
               {col.map((result, rIdx) => (
                 <motion.div
@@ -201,9 +205,11 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                   whileInView="whileInView"
                   initial="initial"
                   className={
-                    isSelected(result) && selectMode 
-                      ? "hover:cursor-pointer ring-[8px] ring-green-400  scale-95 ease-in-out duration-500"
-                      : discoveryModeOn ? 'hover:cursor-pointer ring-[8px] ring-gray-800  scale-95 ease-in-out duration-500' : "hover:cursor-pointer  ease-in-out duration-500"
+                    isSelected(result) && selectMode
+                      ? "hover:cursor-pointer ring-[8px] ring-green-400 rounded-[5px] scale-95 ease-in-out duration-500 "
+                      : discoveryModeOn
+                      ? "hover:cursor-pointer ring-[5px] rounded-[7px] transition ring-gray-800  scale-95 ease-in-out duration-500 "
+                      : "hover:cursor-pointer  ease-in-out duration-500"
                   }
                 >
                   {selectMode && loaded ? (

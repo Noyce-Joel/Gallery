@@ -75,9 +75,11 @@ export default function SlideShow({
 
   return (
     <>
+     <AnimatePresence mode="wait">
       {open ? (
         <Transition.Root show={open} as={Fragment}>
           <Dialog
+          key='slide-show'
             as="div"
             className="z-40"
             onClose={() => {
@@ -88,25 +90,25 @@ export default function SlideShow({
           >
             <div className="relative " />
 
-            <motion.div className="fixed grid-1 bg-gray-500 bg-opacity-75 transition-opacity inset-0 z-50 h-screen w-screen">
+            <motion.div exit={{opacity: 0}} transition={{duration: 0.5}} className="fixed grid-1 bg-gray-500 bg-opacity-75 transition-opacity inset-0 z-50 h-screen w-screen">
               <div className="flex max-w-full max-h-full items-end justify-center text-center sm:items-center sm:p-0">
                 <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-xl transition-all ">
-                  <AnimatePresence mode="wait">
+                 
                     <motion.div
                       className=" h-auto w-auto"
                       key={photos.public_id}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.35 }}
+                      transition={{ duration: 0.45 }}
                     >
                       <motion.div
                         key="cloud-photo"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.35 }}
-                        className="h-screen
+                        transition={{ duration: 0.45 }}
+                        className="h-screen absolute top-0 left-0 z-10
                         "
                       >
                         <CloudImg
@@ -151,16 +153,17 @@ export default function SlideShow({
                         blurDataURL={imageUrl}
                         quality={1}
                         placeholder="blur"
-                        className="absolute top-0 -z-20 object-cover"
+                        className=" top-0 -z-20 object-cover"
                       />
                     </motion.div>
-                  </AnimatePresence>
+                  
                 </Dialog.Panel>
               </div>
             </motion.div>
           </Dialog>
         </Transition.Root>
       ) : null}
+      </AnimatePresence>
     </>
   );
 }

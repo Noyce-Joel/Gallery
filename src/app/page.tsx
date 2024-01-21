@@ -23,24 +23,21 @@ export type SearchResult = {
 
 export default async function Home() {
   const { results } = await fetchData();
-  
+
   return (
     <>
-    <Head>
-    {results.resources.map((image) => (
-      <link
-        key="preload-hi-res"
-        rel="preload"
-        as="image"
-        href={`https://res.cloudinary.com/dhkbmh13s/image/upload/v1705067761/${image.public_id}`}
-      />
-    ))}
-  </Head>
-    
+      <Head>
+        {results.resources.map((image) => (
+          <link
+            key="preload-hi-res"
+            rel="preload"
+            as="image"
+            href={`https://res.cloudinary.com/dhkbmh13s/image/upload/v1705067761/${image.public_id}`}
+          />
+        ))}
+      </Head>
+
       <Gallery results={results} />
-      {/* <div className="absolute right-10 bottom-10">
-      <NoFetch />
-      </div> */}
     </>
   );
 }

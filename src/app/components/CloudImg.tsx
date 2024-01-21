@@ -36,13 +36,14 @@ useEffect(() => {
               key={key}
               onMouseOver={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
-              className="flex relative"
+              className="flex relative z-40"
               initial={{ opacity: 0 }}
               animate={hover && loaded && { opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
             >
               <CldImage
+              className="rounded-[7px] transition-transform ease-in-out duration-500"
                 onLoad={handleLoad}
                 src={imageData?.public_id}
                 {...props}
@@ -71,12 +72,13 @@ useEffect(() => {
               animate={loaded ? { opacity: 1 } : { opacity: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="flex relative"
+              className="flex relative rounded-full"
             >
               <CldImage
                 onLoad={handleLoad}
                 src={imageData?.public_id}
                 {...props}
+                className=""
               />
 
               {hover ? (

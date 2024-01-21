@@ -8,6 +8,7 @@ import SelectModeButton from "./SelectModeButton";
 import Upload from "./Upload";
 import screenShot from "../utils/ScreenShot";
 import ScreenShot from "../utils/ScreenShot";
+import ColumnsButton from "./ColumnsButton";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -49,6 +50,8 @@ export default function Buttons({
 
         <div className="flex flex-col gap-2 justify-start items-end">
           <Upload />
+          {/* <ColumnsButton /> */}
+          {/* <ScreenShot /> */}
           <DiscoveryModeButton handleDiscoveryMode={handleDiscoveryMode} />
           <SelectModeButton handleSelectMode={handleSelectMode} />
           <SelectAllButton
