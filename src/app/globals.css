@@ -7,12 +7,17 @@ body {
   width: 100vw;
   display: flex;
   overflow: hidden;
-  background-color: #dddbcb;
+  transition: background-color 0.5s ease-in-out;
 }
-/* .dark {
-  --tw-bg-opacity: 100;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-} */
+.dark {
+  background-color: rgb(31 41 55 / 1);
+  transition: background-color 0.5s ease-in-out;
+}
+
+.light {
+  background-color: #dddbcb;
+  transition: background-color 0.5s ease-in-out;
+}
 .open {
   display: flex;
   flex-direction: column;
@@ -21,7 +26,7 @@ body {
   width: 105px;
   overflow: hidden;
   padding: 7px;
-  
+
   border-bottom-left-radius: 20px;
 }
 
@@ -75,9 +80,10 @@ body {
   }
 }
 
-
 @keyframes jump {
-  0%, 85%, 100% {
+  0%,
+  85%,
+  100% {
     transform: translateY(0);
   }
   40% {

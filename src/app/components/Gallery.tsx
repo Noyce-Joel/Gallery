@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SearchResult } from "../page";
 import { motion } from "framer-motion";
 import CloudImg from "./CloudImg";
@@ -14,8 +14,11 @@ import Alert from "./Alert";
 import { useRouter } from "next/navigation";
 import Loading from "./Loading";
 import ScreenShot from "../utils/ScreenShot";
+import { ThemeContext, ThemeContextProps } from "../context/Context";
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const { data: session, status } = useSession();
+  const {theme}= useContext(ThemeContext) as ThemeContextProps
+
   const router = useRouter();
   const [loaded, setLoaded] = useState<boolean>(false);
   const [selected, setSelected] = useState<SearchResult[]>([]);
@@ -26,6 +29,10 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const [discoveryModeOn, setDiscoveryModeOn] = useState<boolean>(false);
   const [slideShow, setSlideShow] = useState<boolean>(false);
   const [selectMode, setSelectMode] = useState<boolean>(false);
+  const drkMode = theme === "dark" ? 'ring-[#dddbcb] ring-[2px]' : 'ring-gray-800';
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme])
   const columns = (colIdx: number) => {
     return results.resources.filter((resource, resourceIdx) => {
       return resourceIdx % 5 === colIdx;
@@ -143,7 +150,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   }
 
   return (
-    <section id="gallery-wrapper" className="">
+    <section id="gallery-wrapper" className={`${theme} text-white`}>
       <div className="absolute right-12 bottom-10 z-50">
         <Profile session={session} />
       </div>
@@ -181,7 +188,6 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
           setSlideShow={setSlideShow}
           setSelected={setSelected}
           selectedImages={selected}
-
         />
       ) : null}
 
@@ -209,7 +215,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
                     isSelected(result) && selectMode
                       ? "hover:cursor-pointer ring-[8px] ring-green-400 rounded-[5px] scale-95 ease-in-out duration-500 "
                       : discoveryModeOn
-                      ? "hover:cursor-pointer ring-[5px] rounded-[7px] transition ring-gray-800  scale-95 ease-in-out duration-500 "
+                      ? `hover:cursor-pointer rounded-[7px] transition ${drkMode} scale-95 ease-in-out duration-500 `
                       : "hover:cursor-pointer  ease-in-out duration-500"
                   }
                 >

@@ -27,6 +27,7 @@ useEffect(() => {
     setLoaded(true);
   };
   const tags = imageData.tags.filter((tag) => tag !== "favourite");
+  
   return (
     <>
       <AnimatePresence mode="wait">
@@ -41,6 +42,7 @@ useEffect(() => {
               animate={hover && loaded && { opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
+              
             >
               <CldImage
               className="rounded-[7px] transition-transform ease-in-out duration-500"

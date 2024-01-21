@@ -3,6 +3,7 @@ import { fetchData } from "./components/actions";
 import Head from "next/head";
 import CustomCursor from "./utils/CustomCursor";
 export type SearchResult = {
+  [x: string]: any;
   height(
     width: (
       width: any,

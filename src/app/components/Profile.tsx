@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useContext, useEffect, useState, useTransition } from "react";
 import SignInOutButton from "./SignInOutButton";
 import { useSession } from "next-auth/react";
+import { ThemeContext, ThemeContextProps } from "../context/Context";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -11,6 +12,9 @@ export default function Profile({ session }: { session: any }) {
   const [isPending, startTransition] = useTransition();
   const [signedIn, setSignedIn] = useState<boolean>(false);
   const [profileOpen, setProfileOpen] = useState<boolean>(false);
+  const {theme} = useContext(ThemeContext) as ThemeContextProps;
+  const textColor = theme === "dark" ? "text-gray-800" : 'text-white';  
+  const drkMode = theme === "dark" ? "bg-[#dddbcb] text-gray-800 " : "bg-gray-800 text-white";
   const profilePicture = session ? session.user?.image : null;
   const container = {
     whileInView: {
@@ -81,13 +85,15 @@ export default function Profile({ session }: { session: any }) {
     });
   };
 
+
+
   return (
     <AnimatePresence>
       <div className="absolute right-4 bottom-4 ">
         <div
           className={classNames(
             profileOpen
-              ? "profile-open bg-gray-800"
+              ? `profile-open ${drkMode}`
               : "profile-closed bg-[#dddbcb]",
             " relative rounded-3xl"
           )}
@@ -99,7 +105,7 @@ export default function Profile({ session }: { session: any }) {
             className="text-white p-4 flex-nowrap gap-y-10 whitespace-nowrap"
           >
             {!signedIn ? (
-              <p className="text-white p-3 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap">
+              <p className={`${textColor} p-3 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap`}>
                 Guest
               </p>
             ) : (
