@@ -181,6 +181,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
           setSlideShow={setSlideShow}
           setSelected={setSelected}
           selectedImages={selected}
+
         />
       ) : null}
 

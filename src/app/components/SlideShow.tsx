@@ -90,25 +90,25 @@ export default function SlideShow({
           >
             <div className="relative " />
 
-            <motion.div exit={{opacity: 0}} transition={{duration: 0.5}} className="fixed grid-1 bg-gray-500 bg-opacity-75 transition-opacity inset-0 z-50 h-screen w-screen">
+            <motion.div exit={{opacity: 0}} transition={{duration: 0.5}} className="fixed grid-1 bg-gray-800 bg-opacity-[95%] transition-opacity inset-0 z-50 h-screen w-screen">
               <div className="flex max-w-full max-h-full items-end justify-center text-center sm:items-center sm:p-0">
-                <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-xl transition-all ">
+                <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-2xl transition-all ">
                  
                     <motion.div
                       className=" h-auto w-auto"
                       key={photos.public_id}
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.25 }}
+                      animate={{ opacity: 1, transition: { duration: 0.25 } }}
+                      exit={{ opacity: 0, transition: { duration: 0.75 } }}
+                      
                     >
                       <motion.div
                         key="cloud-photo"
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="h-screen absolute top-0 left-0 z-10
+                        animate={{ opacity: 1,  transition: { duration: 0.75 } }}
+                        exit={{ opacity: 0,  transition: { duration: 0.75 } }}
+                        
+                        className="h-screen absolute top-0 left-0 
                         "
                       >
                         <CloudImg
@@ -129,7 +129,7 @@ export default function SlideShow({
                               screenHeight
                             ) as number
                           }
-                          className="flex"
+                          className="top-0 z-10"
                         />
                       </motion.div>
                       <Image
