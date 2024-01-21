@@ -75,39 +75,42 @@ export default function SlideShow({
 
   return (
     <>
-     <AnimatePresence mode="wait">
-      {open ? (
-        <Transition.Root show={open} as={Fragment}>
-          <Dialog
-          key='slide-show'
-            as="div"
-            className="z-40"
-            onClose={() => {
-              setOpen;
-              setSelected([]);
-              setSlideShow(false);
-            }}
-          >
-            <div className="relative " />
+      <AnimatePresence mode="wait">
+        {open ? (
+          <Transition.Root show={open} as={Fragment}>
+            <Dialog
+              key="slide-show"
+              as="div"
+              className="z-40"
+              onClose={() => {
+                setOpen;
+                setSelected([]);
+                setSlideShow(false);
+              }}
+            >
+              <div className="relative " />
 
-            <motion.div exit={{opacity: 0}} transition={{duration: 0.5}} className="fixed grid-1 bg-gray-800 bg-opacity-[95%] transition-opacity inset-0 z-50 h-screen w-screen">
-              <div className="flex max-w-full max-h-full items-end justify-center text-center sm:items-center sm:p-0">
-                <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-2xl transition-all ">
-                 
+              <motion.div
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="fixed grid-1 bg-gray-800 bg-opacity-[95%] transition-opacity inset-0 z-50 h-screen w-screen"
+              >
+                <div className="flex max-w-full max-h-full items-end justify-center text-center sm:items-center sm:p-0">
+                  <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-2xl transition-all ">
                     <motion.div
                       className=" h-auto w-auto"
                       key={photos.public_id}
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: 1, transition: { duration: 0.25 } }}
-                      exit={{ opacity: 0, transition: { duration: 0.75 } }}
-                      
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.25 }}
                     >
                       <motion.div
                         key="cloud-photo"
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 1,  transition: { duration: 0.75 } }}
-                        exit={{ opacity: 0,  transition: { duration: 0.75 } }}
-                        
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
                         className="h-screen absolute top-0 left-0 
                         "
                       >
@@ -156,13 +159,12 @@ export default function SlideShow({
                         className=" top-0 -z-20 object-cover"
                       />
                     </motion.div>
-                  
-                </Dialog.Panel>
-              </div>
-            </motion.div>
-          </Dialog>
-        </Transition.Root>
-      ) : null}
+                  </Dialog.Panel>
+                </div>
+              </motion.div>
+            </Dialog>
+          </Transition.Root>
+        ) : null}
       </AnimatePresence>
     </>
   );
