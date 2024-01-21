@@ -100,14 +100,14 @@ export default function SlideShow({
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.45 }}
+                      transition={{ duration: 0.25 }}
                     >
                       <motion.div
                         key="cloud-photo"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.45 }}
+                        transition={{ duration: 0.25 }}
                         className="h-screen absolute top-0 left-0 z-10
                         "
                       >
