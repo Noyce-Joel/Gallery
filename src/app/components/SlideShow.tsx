@@ -111,7 +111,7 @@ export default function SlideShow({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.25 }}
-                        className="h-screen absolute top-0 left-0 
+                        className="h-screen relative top-0 left-0 
                         "
                       >
                         <CloudImg
@@ -132,10 +132,9 @@ export default function SlideShow({
                               screenHeight
                             ) as number
                           }
-                          className="top-0 z-10"
+                          className="absolute top-0 z-10"
                         />
-                      </motion.div>
-                      <Image
+                        <Image
                         onLoad={handleLoad}
                         src={imageUrl}
                         height={
@@ -156,8 +155,10 @@ export default function SlideShow({
                         blurDataURL={imageUrl}
                         quality={1}
                         placeholder="blur"
-                        className=" top-0 -z-20 object-cover"
+                        className="absolute top-0 -z-20 object-cover"
                       />
+                      </motion.div>
+                      
                     </motion.div>
                   </Dialog.Panel>
                 </div>
