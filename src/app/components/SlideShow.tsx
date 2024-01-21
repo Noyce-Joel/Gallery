@@ -6,6 +6,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
+
+
 export default function SlideShow({
   selectedImages,
 
@@ -73,6 +75,7 @@ export default function SlideShow({
     return (imageWidth / imageHeight) * screenHeight;
   }
 
+  const keyCard = Math.random();
   return (
     <>
       <AnimatePresence mode="wait">
@@ -91,6 +94,7 @@ export default function SlideShow({
               <div className="relative " />
 
               <motion.div
+              id='opacity'
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
                 className="fixed grid-1 bg-gray-800 bg-opacity-[95%] transition-opacity inset-0 z-50 h-screen w-screen"
@@ -98,7 +102,7 @@ export default function SlideShow({
                 <div className="flex max-w-full max-h-full items-end justify-center text-center sm:items-center sm:p-0">
                   <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-2xl transition-all ">
                     <motion.div
-                      className=" h-auto w-auto"
+                      className="relative h-auto w-auto"
                       key={photos.public_id}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -110,11 +114,12 @@ export default function SlideShow({
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="h-screen relative top-0 left-0 
+                        transition={{ duration: 0.35 }}
+                        className="h-screen absolute top-0 left-0 
                         "
                       >
                         <CloudImg
+                        key={keyCard}
                           discoveryModeOn={false}
                           imageData={photos}
                           alt="image"
@@ -132,9 +137,12 @@ export default function SlideShow({
                               screenHeight
                             ) as number
                           }
-                          className="absolute top-0 z-10"
+                          className=" z-10"
                         />
-                        <Image
+                        
+                      </motion.div>
+                      <Image
+                        key={keyCard}
                         onLoad={handleLoad}
                         src={imageUrl}
                         height={
@@ -154,11 +162,9 @@ export default function SlideShow({
                         alt="blurred-image"
                         blurDataURL={imageUrl}
                         quality={1}
-                        placeholder="blur"
-                        className="absolute top-0 -z-20 object-cover"
+
+                        className=""
                       />
-                      </motion.div>
-                      
                     </motion.div>
                   </Dialog.Panel>
                 </div>
