@@ -17,7 +17,7 @@ import ScreenShot from "../utils/ScreenShot";
 import { ThemeContext, ThemeContextProps } from "../context/Context";
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const { data: session, status } = useSession();
-  const {theme}= useContext(ThemeContext) as ThemeContextProps
+  const { theme } = useContext(ThemeContext) as ThemeContextProps;
 
   const router = useRouter();
   const [loaded, setLoaded] = useState<boolean>(false);
@@ -29,10 +29,18 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const [discoveryModeOn, setDiscoveryModeOn] = useState<boolean>(false);
   const [slideShow, setSlideShow] = useState<boolean>(false);
   const [selectMode, setSelectMode] = useState<boolean>(false);
-  const drkMode = theme === "dark" ? 'ring-[#dddbcb] ring-[2px]' : 'ring-gray-800';
+  const colors = ["red", "yellow", "green", "blue", "indigo", "purple", "pink"];
+
+  const generateRandomColorClass = () => {
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return `ring-${colors[randomIndex]}-400`;
+  };
+
+
   useEffect(() => {
     document.body.className = theme;
-  }, [theme])
+  }, [theme]);
+  
   const columns = (colIdx: number) => {
     return results.resources.filter((resource, resourceIdx) => {
       return resourceIdx % 5 === colIdx;
@@ -154,7 +162,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
       <div className="absolute right-12 bottom-10 z-50">
         <Profile session={session} />
       </div>
-      
+
       <Buttons
         selected={selected}
         images={results.resources}

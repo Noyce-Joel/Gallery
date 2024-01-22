@@ -54,9 +54,11 @@ export default function Buttons({
           {/* <Upload /> */}
           {/* <ColumnsButton /> */}
           {/* <ScreenShot /> */}
-          <ThemeButton />
+          
           <DiscoveryModeButton handleDiscoveryMode={handleDiscoveryMode} />
+          
           <SelectModeButton handleSelectMode={handleSelectMode} />
+          <ThemeButton />
           <SelectAllButton
             selected={selected}
             images={images}
