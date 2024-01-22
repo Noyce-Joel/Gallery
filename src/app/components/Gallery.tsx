@@ -35,7 +35,11 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     const randomIndex = Math.floor(Math.random() * colors.length);
     return `ring-${colors[randomIndex]}-400`;
   };
-
+let color = generateRandomColorClass();
+  const drkMode =
+    theme === "dark"
+      ? `${color} ring-[2.5px]`
+      : "ring-gray-800 ring-[5px]";
 
   useEffect(() => {
     document.body.className = theme;
