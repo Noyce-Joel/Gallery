@@ -37,7 +37,7 @@ export default function Nav({
   console.log(theme)
   const textColor = theme === "dark" ? "text-white" : "text-gray-800";  
   const drkNav = theme === "dark" ? "bg-[#dddbcb] text-gray-800 " : "bg-gray-800 text-white";
-
+  const drkBorder = theme === 'dark' ?  'border-white' : 'border-gray-800' 
   const pathname = usePathname();
   const navigation = [
     {
@@ -253,7 +253,7 @@ export default function Nav({
             </div>
             <div className="flex flex-col gap-y-3">
               <div className="relative w-full">
-                <div className="absolute border w-full h-[4px] rounded-xl" />
+                <div className={`absolute border ${drkBorder} w-full h-[4px] rounded-xl`} />
                 <div
                   className={`absolute ${drkNav} h-[4px] rounded-xl w-auto`}
                   style={{ width: `${usagePercentage}%` }}

@@ -15,7 +15,7 @@ export default function ThemeButton() {
     setEnabled(!enabled);
   };
   return (
-    <div className="mr-1">
+    <div className="mr-[1px]">
       <button
         type="button"
         className={classNames(
@@ -50,7 +50,7 @@ export default function ThemeButton() {
           onChange={handleMode}
           className={classNames(
             enabled ? "bg-green-400" : "bg-gray-800",
-            "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-700 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+            "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-700 ease-in-out"
           )}
         >
           <span className="sr-only">Use setting</span>
