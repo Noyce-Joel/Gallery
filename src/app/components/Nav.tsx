@@ -154,7 +154,7 @@ export default function Nav({
                 </div>
                 <div className="flex flex-col gap-y-3">
                   <div className="relative w-full">
-                    <div className="absolute border w-full h-[4px] rounded-xl" />
+                    <div className={`absolute border ${drkBorder} w-full h-[4px] rounded-xl`} />
                     <div
                       className={`absolute ${drkNav} h-[4px] rounded-xl w-auto`}
                       style={{ width: `${usagePercentage}%` }}
