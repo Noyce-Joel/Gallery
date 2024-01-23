@@ -25,7 +25,7 @@ export async function fetchData() {
     .expression("resource_type:image")
     .sort_by("uploaded_at", "desc")
     .with_field("tags")
-    .max_results(200)
+    .max_results(120)
     .execute()) as { resources: SearchResult[] };
 
   const usage: any = await cloudinary.v2.api.usage().then((result) => result);

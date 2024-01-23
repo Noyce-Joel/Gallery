@@ -11,7 +11,7 @@ export const ThemeContext = createContext<ThemeContextProps | undefined>(undefin
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Create the state
-    const [theme, setTheme] = useState<string>('light');
+    const [theme, setTheme] = useState<string>('dark');
   
     // Provide the state to the children
     return (

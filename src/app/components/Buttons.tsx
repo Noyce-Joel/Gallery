@@ -41,7 +41,7 @@ export default function Buttons({
   const theme = useContext(ThemeContext);
 
   return (
-    <div className="absolute top-[25px] right-10  z-40 rounded-xl">
+    <div className="absolute top-[25px] right-5  z-40 rounded-xl">
       <div
         className={classNames(
           selectMode ? "open" : "closed",

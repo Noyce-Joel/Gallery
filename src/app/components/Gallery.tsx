@@ -163,7 +163,7 @@ let color = generateRandomColorClass();
 
   return (
     <section id="gallery-wrapper" className={`${theme} text-white`}>
-      <div className="absolute right-12 bottom-10 z-50">
+      <div className="absolute right-5 bottom-9 z-50">
         <Profile session={session} />
       </div>
 
