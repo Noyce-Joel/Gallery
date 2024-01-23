@@ -11,7 +11,7 @@ export const ThemeContext = createContext<ThemeContextProps | undefined>(undefin
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const currentHour = new Date().getHours();
-  const isDayTime = currentHour >= 5 && currentHour < 17;
+  const isDayTime = currentHour >= 5 && currentHour < 14;
     const [theme, setTheme] = useState<string>(isDayTime ? "light" : "dark");
   
     // Provide the state to the children

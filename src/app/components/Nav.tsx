@@ -37,7 +37,8 @@ export default function Nav({
   console.log(theme)
   const textColor = theme === "dark" ? "text-white" : "text-gray-800";  
   const drkNav = theme === "dark" ? "bg-[#dddbcb] text-gray-800 " : "bg-gray-800 text-white";
-  const drkBorder = theme === 'dark' ?  'border-white' : 'border-gray-800' 
+  const drkBorder = theme === 'dark' ?  'border-white' : 'border-gray-800';
+  const drkHover = theme === 'dark' ? 'hover:bg-[#dddbcb] hover:text-gray-800' : 'hover:bg-gray-800 hover:text-white'; 
   const pathname = usePathname();
   const navigation = [
     {
@@ -192,8 +193,8 @@ export default function Nav({
                   className={classNames(
                     item.current
                       ? `${drkNav}`
-                      : `${textColor} hover:text-white hover:bg-gray-800`,
-                    "group flex gap-x-7 rounded-r-[100px] p-2 pl-7 text-sm leading-6 font-semibold"
+                      : `${textColor}`,
+                    `${drkHover} group flex gap-x-7 rounded-r-[100px] p-2 pl-7 text-sm leading-6 font-semibold`
                   )}
                 >
                   <item.icon

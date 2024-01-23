@@ -155,7 +155,7 @@ let color = generateRandomColorClass();
   };
   if (status === "loading") {
     return (
-      <div className="flex h-screen w-screen items-center justify-center gap-2">
+      <div className={`flex h-screen w-screen items-center justify-center gap-2 ${theme}`}>
         <Loading />
       </div>
     );

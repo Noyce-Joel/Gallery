@@ -94,7 +94,7 @@ body {
 
 .loading {
   display: flex;
-  background-color: #2d3748; /* Gray-800 */
+   /* Gray-800 */
   border-radius: 50%;
   width: 15px;
   height: 15px;

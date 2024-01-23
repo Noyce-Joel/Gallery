@@ -22,6 +22,7 @@ export default function SlideShow({
   const [index, setIndex] = useState<number>(0);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [open, setOpen] = useState(true);
+  const [opacity, setOpacity] = useState<number>(0);
   const [imageUrl, setImageUrl] = useState(
     `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[0].public_id}`
   );
@@ -76,6 +77,20 @@ export default function SlideShow({
   }
 
   const keyCard = Math.random();
+  
+  
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollY = window.scrollY;
+  //     const opacity = scrollY / 1000;
+  //     setOpacity(opacity);
+  //   }
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   } 
+  // }, [window.scrollY])
   return (
     <>
       <AnimatePresence mode="wait">
@@ -97,7 +112,7 @@ export default function SlideShow({
               id='opacity'
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="fixed grid-1 bg-gray-800 bg-opacity-[95%] transition-opacity inset-0 z-50 h-screen w-screen"
+                className={`fixed grid-1 bg-gray-800 bg-opacity-[95%] transition-opacity inset-0 z-50 h-screen w-screen`}
               >
                 <div className="flex max-w-full max-h-full items-end justify-center text-center sm:items-center sm:p-0">
                   <Dialog.Panel className="transform max-w-full max-h-full overflow-hidden rounded-lg text-left shadow-2xl transition-all ">
