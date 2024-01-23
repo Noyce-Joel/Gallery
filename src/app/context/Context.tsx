@@ -10,8 +10,9 @@ export interface ThemeContextProps {
 export const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    // Create the state
-    const [theme, setTheme] = useState<string>('dark');
+  const currentHour = new Date().getHours();
+  const isDayTime = currentHour >= 5 && currentHour < 17;
+    const [theme, setTheme] = useState<string>(isDayTime ? "light" : "dark");
   
     // Provide the state to the children
     return (
