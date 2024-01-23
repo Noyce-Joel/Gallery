@@ -113,7 +113,7 @@ export default function Profile({ session }: { session: any }) {
                 key="anim-3"
                 variants={container}
                 animate={profileOpen ? "whileInView" : "exit"}
-                className="text-white p-3 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap"
+                className={`${textColor} p-3 absolute top-0 text-md flex-nowrap gap-y-10 whitespace-nowrap`}
               >
                 {name}
               </motion.div>

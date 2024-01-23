@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { motion } from "framer-motion";
+import { ThemeContext, ThemeContextProps } from "../context/Context";
 
 export default function SignInOutButton() {
   const { data: session } = useSession();
-
+  const {theme} = useContext(ThemeContext) as ThemeContextProps;
+  const textColor = theme === "dark" ? "text-gray-800 hover:text-white" : 'text-white';
   const variants = {
     initial: { opacity: 0 },
     animate: { opacity: 1, transition: { delay: 0.7, duration: 0.3 } },
@@ -23,7 +25,7 @@ export default function SignInOutButton() {
         <button
           onClick={() => signIn()}
           type="button"
-          className="rounded-xl flex group-hover gap-3 p-1 px-3 text-md hover:bg-green-800 text-white bg-green-400 shadow-sm "
+          className={`rounded-xl flex group-hover gap-3 p-1 px-3 text-md hover:bg-green-800 ${textColor} bg-green-400 shadow-sm `}
         >
           Sign In
         </button>
