@@ -8,16 +8,16 @@ body {
   display: flex;
   overflow: hidden;
   background-color: #dddbcb;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .dark {
   background-color: rgb(31 41 55 / 1);
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .light {
   background-color: #dddbcb;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .open {
   display: flex;
