@@ -207,9 +207,9 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
         <motion.div
           id="gallery"
           onLoad={handleLoad}
-          
+          className="grid grid-cols-5 gap-2 p-4"
         >
-          <ScreenShot>
+
           {[columns(0), columns(1), columns(2), columns(3), columns(4)].map(
             (col, idx) => (
               <motion.div
@@ -262,7 +262,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
               </motion.div>
             )
           )}
-          </ScreenShot>
+
         </motion.div>
       
     </section>
