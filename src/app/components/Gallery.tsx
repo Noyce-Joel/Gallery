@@ -13,8 +13,9 @@ import Profile from "./Profile";
 import Alert from "./Alert";
 import { useRouter } from "next/navigation";
 import Loading from "./Loading";
-import ScreenShot from "../utils/ScreenShot";
+
 import { ThemeContext, ThemeContextProps } from "../context/Context";
+import ScreenShot from "../utils/ScreenShot";
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const { data: session, status } = useSession();
   const { theme } = useContext(ThemeContext) as ThemeContextProps;
@@ -35,16 +36,14 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
     const randomIndex = Math.floor(Math.random() * colors.length);
     return `ring-${colors[randomIndex]}-400`;
   };
-let color = generateRandomColorClass();
+  let color = generateRandomColorClass();
   const drkMode =
-    theme === "dark"
-      ? `${color} ring-[2.5px]`
-      : "ring-gray-800 ring-[5px]";
+    theme === "dark" ? `${color} ring-[2.5px]` : "ring-gray-800 ring-[5px]";
 
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
-  
+
   const columns = (colIdx: number) => {
     return results.resources.filter((resource, resourceIdx) => {
       return resourceIdx % 5 === colIdx;
@@ -155,7 +154,9 @@ let color = generateRandomColorClass();
   };
   if (status === "loading") {
     return (
-      <div className={`flex h-screen w-screen items-center justify-center gap-2 ${theme}`}>
+      <div
+        className={`flex h-screen w-screen items-center justify-center gap-2 ${theme}`}
+      >
         <Loading />
       </div>
     );
@@ -202,65 +203,68 @@ let color = generateRandomColorClass();
           selectedImages={selected}
         />
       ) : null}
-
-      <motion.div
-        id="gallery"
-        onLoad={handleLoad}
-        className="grid grid-cols-5 gap-2 p-4"
-      >
-        {[columns(0), columns(1), columns(2), columns(3), columns(4)].map(
-          (col, idx) => (
-            <motion.div
-              variants={container}
-              whileInView="whileInView"
-              initial="initial"
-              key={idx}
-              className="flex flex-col gap-2"
-            >
-              {col.map((result, rIdx) => (
-                <motion.div
-                  key={rIdx}
-                  variants={item}
-                  whileInView="whileInView"
-                  initial="initial"
-                  className={
-                    isSelected(result) && selectMode
-                      ? "hover:cursor-pointer ring-[8px] ring-green-400 rounded-[5px] scale-95 ease-in-out duration-500 "
-                      : discoveryModeOn
-                      ? `hover:cursor-pointer rounded-[7px] transition ${drkMode} scale-95 ease-in-out duration-500 `
-                      : "hover:cursor-pointer  ease-in-out duration-500"
-                  }
-                >
-                  {selectMode && loaded ? (
-                    <CloudImg
-                      key="result.public_id"
-                      discoveryModeOn={discoveryModeOn}
-                      imageData={result}
-                      alt="image"
-                      width="960"
-                      height="300"
-                      onClick={() => handleSelectImage(result)}
-                    />
-                  ) : (
-                    <CloudImg
-                      key="result.public_id"
-                      discoveryModeOn={discoveryModeOn}
-                      imageData={result}
-                      alt="image"
-                      width="960"
-                      height="300"
-                      onClick={() => {
-                        handleSelectImage(result);
-                        setSlideShow(true);
-                      }}
-                    />
-                  )}
-                </motion.div>
-              ))}
-            </motion.div>
-          )
-        )}
-      </motion.div>
+      
+        <motion.div
+          id="gallery"
+          onLoad={handleLoad}
+          
+        >
+          <ScreenShot>
+          {[columns(0), columns(1), columns(2), columns(3), columns(4)].map(
+            (col, idx) => (
+              <motion.div
+                variants={container}
+                whileInView="whileInView"
+                initial="initial"
+                key={idx}
+                className="flex flex-col gap-2"
+              >
+                {col.map((result, rIdx) => (
+                  <motion.div
+                    key={rIdx}
+                    variants={item}
+                    whileInView="whileInView"
+                    initial="initial"
+                    className={
+                      isSelected(result) && selectMode
+                        ? "hover:cursor-pointer ring-[8px] ring-green-400 rounded-[5px] scale-95 ease-in-out duration-500 "
+                        : discoveryModeOn
+                        ? `hover:cursor-pointer rounded-[7px] transition ${drkMode} scale-95 ease-in-out duration-500 `
+                        : "hover:cursor-pointer  ease-in-out duration-500"
+                    }
+                  >
+                    {selectMode && loaded ? (
+                      <CloudImg
+                        key="result.public_id"
+                        discoveryModeOn={discoveryModeOn}
+                        imageData={result}
+                        alt="image"
+                        width="960"
+                        height="300"
+                        onClick={() => handleSelectImage(result)}
+                      />
+                    ) : (
+                      <CloudImg
+                        key="result.public_id"
+                        discoveryModeOn={discoveryModeOn}
+                        imageData={result}
+                        alt="image"
+                        width="960"
+                        height="300"
+                        onClick={() => {
+                          handleSelectImage(result);
+                          setSlideShow(true);
+                        }}
+                      />
+                    )}
+                  </motion.div>
+                ))}
+              </motion.div>
+            )
+          )}
+          </ScreenShot>
+        </motion.div>
+      
     </section>
   );
 }

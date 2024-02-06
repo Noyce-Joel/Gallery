@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import { fetchData } from "./components/actions";
 import SessionWrapper from "./components/SessionWrapper";
 import { ThemeProvider } from "./context/Context";
+import ScreenShot from "./utils/ScreenShot";
 const inter = Inter({ subsets: ["latin"] });
 export type Album = {
   name: string;
@@ -20,7 +21,9 @@ export default async function RootLayout({
   return (
     <SessionWrapper>
       <ThemeProvider>
+       
       <html lang="en">
+
         <body id='body' className={inter.className}>
           <div className="flex">
             <Nav rootFolders={results} usage={usage} />
@@ -29,7 +32,9 @@ export default async function RootLayout({
             {children}
           </div>
         </body>
+
       </html>
+     
       </ThemeProvider>
     </SessionWrapper>
   );

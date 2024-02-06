@@ -11,7 +11,7 @@ body {
   transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .dark {
-  background-color: rgb(31 41 55 / 1);
+  background-color: #1f2937;
   transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
