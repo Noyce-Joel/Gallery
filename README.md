@@ -18,7 +18,7 @@ I've deployed an example of the app to vercel which you can view here: https://n
 Google photos is an excellent example of how an online gallery should be created. To anyone considering building out their own for fun, I found this article
 extremely insightful and inspiring: https://medium.com/google-design/google-photos-45b714dfbed1
  
-
+![Page Image](/public/page.jpeg)
 
 
 
