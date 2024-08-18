@@ -101,7 +101,7 @@ export default function Profile({ session }: { session: any }) {
           <motion.div
             key="anim-container"
             variants={container}
-            animate={profileOpen ? "whileInView" && "animate" : "exit"}
+            animate={profileOpen ? "whileInView" : "exit"}
             className="text-white p-4 flex-nowrap gap-y-10 whitespace-nowrap"
           >
             {!signedIn ? (
