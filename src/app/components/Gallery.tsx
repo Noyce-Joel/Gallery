@@ -46,7 +46,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 
   const columns = (colIdx: number) => {
     return results.resources.filter((resource, resourceIdx) => {
-      return resourceIdx % 5 === colIdx;
+      return resourceIdx % 4 === colIdx;
     });
   };
 
