@@ -53,11 +53,11 @@ export default function DropDown({ imageData }: { imageData: SearchResult }) {
               <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-800 text-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="text-white">
                   <Menu.Item>
-                    {({ active }) => (
+                    {({ disabled }) => (
                       <Link
                         href={`/edit?publicId=${publicId}`}
                         className={classNames(
-                          active ? "bg-[#dddbcb] text-gray-800" : "text-white",
+                          disabled ? "bg-[#dddbcb] opacity-50 text-gray-800" : "text-white",
                           "group flex items-center px-4 py-2 text-sm rounded-t-md"
                         )}
                       >
