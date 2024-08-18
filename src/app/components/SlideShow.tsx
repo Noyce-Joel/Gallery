@@ -18,22 +18,29 @@ export default function SlideShow({
   const [index, setIndex] = useState<number>(0);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [open, setOpen] = useState(true);
-  const [opacity, setOpacity] = useState<number>(0);
-  const [imageUrl, setImageUrl] = useState(
-    `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[0].public_id}`
-  );
+  const [currentImageUrl, setCurrentImageUrl] = useState<string>("");
+  const [prevImageUrl, setPrevImageUrl] = useState<string>("");
+  const [nextImageUrl, setNextImageUrl] = useState<string>("");
+
   const photos: any = selectedImages[index];
 
   useEffect(() => {
-    setImageUrl(
-      `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[index].public_id}`
-    );
+    const currentIndex = index;
+    const prevIndex = currentIndex === 0 ? selectedImages.length - 1 : currentIndex - 1;
+    const nextIndex = currentIndex === selectedImages.length - 1 ? 0 : currentIndex + 1;
+
+    const getImageUrl = (idx: number) => 
+      `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[idx].public_id}`;
+
+    setCurrentImageUrl(getImageUrl(currentIndex));
+    setPrevImageUrl(getImageUrl(prevIndex));
+    setNextImageUrl(getImageUrl(nextIndex));
 
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
         return handleNext();
       }
-      if (e.key == "ArrowLeft") {
+      if (e.key === "ArrowLeft") {
         return handlePrev();
       }
     };
@@ -45,15 +52,15 @@ export default function SlideShow({
   }, [index, selectedImages]);
 
   const handleNext = () => {
-    if (index === selectedImages.length - 1) {
-      setIndex(0);
-    } else setIndex(index + 1);
+    setIndex((prevIndex) => 
+      prevIndex === selectedImages.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   const handlePrev = () => {
-    if (index === 0) {
-      setIndex(selectedImages.length - 1);
-    } else setIndex(index - 1);
+    setIndex((prevIndex) => 
+      prevIndex === 0 ? selectedImages.length - 1 : prevIndex - 1
+    );
   };
 
   const handleLoad = () => {
@@ -76,10 +83,6 @@ export default function SlideShow({
 
   const keyCard = Math.random();
 
-  // Preload adjacent images
-  const prevIndex = index === 0 ? selectedImages.length - 1 : index - 1;
-  const nextIndex = index === selectedImages.length - 1 ? 0 : index + 1;
-
   return (
     <>
       <AnimatePresence mode="wait">
@@ -90,7 +93,7 @@ export default function SlideShow({
               as="div"
               className="z-40"
               onClose={() => {
-                setOpen;
+                setOpen(false);
                 setSelected([]);
                 setSlideShow(false);
               }}
@@ -140,13 +143,13 @@ export default function SlideShow({
                               screenHeight
                             ) as number
                           }
-                          className=" z-10"
+                          className="z-10"
                         />
                       </motion.div>
                       <Image
                         key={keyCard}
                         onLoad={handleLoad}
-                        src={imageUrl}
+                        src={currentImageUrl}
                         height={
                           getImageWidth(
                             photos.height,
@@ -161,14 +164,14 @@ export default function SlideShow({
                             screenHeight
                           ) as number
                         }
-                        alt="blurred-image"
-                        blurDataURL={imageUrl}
+                        alt="current-image"
+                        blurDataURL={currentImageUrl}
                         quality={1}
                         className=""
                       />
                       {/* Preload previous image */}
                       <Image
-                        src={`https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[prevIndex].public_id}`}
+                        src={prevImageUrl}
                         width={1}
                         height={1}
                         alt="preload-prev"
@@ -176,7 +179,7 @@ export default function SlideShow({
                       />
                       {/* Preload next image */}
                       <Image
-                        src={`https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[nextIndex].public_id}`}
+                        src={nextImageUrl}
                         width={1}
                         height={1}
                         alt="preload-next"
