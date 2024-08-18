@@ -42,7 +42,7 @@ export default function SlideShow({
 
   const getImageUrl = (publicId: string) => {
     // Use Cloudinary's transformation to deliver optimized images
-    return `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto,f_auto,w_1200/${publicId}`;
+    return `https://res.cloudinary.com/dhkbmh13s/image/upload/${publicId}`;
   };
 
   const handleImageLoad = (idx: number) => {
