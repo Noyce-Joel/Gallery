@@ -13,7 +13,7 @@ export default async function AlbumPage({
     .expression(`resource_type:image AND tags:${albumName}`)
     .sort_by("uploaded_at", "desc")
     .with_field("tags")
-    .max_results(116)
+    .max_results(175)
     .execute();
 
   return (
