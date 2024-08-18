@@ -19,12 +19,10 @@ export default function SlideShow({
   const [loadedImages, setLoadedImages] = useState<boolean[]>([]);
 
   useEffect(() => {
-    // Preload all images
     const urls = selectedImages.map((img) => getImageUrl(img.public_id));
     setImageUrls(urls);
     setLoadedImages(new Array(selectedImages.length).fill(false));
     
-    // Preload the first 5 images
     urls.slice(0, 5).forEach((url, idx) => {
       const img = new window.Image();
       img.src = url;
@@ -41,8 +39,7 @@ export default function SlideShow({
   }, [selectedImages]);
 
   const getImageUrl = (publicId: string) => {
-    // Use Cloudinary's transformation to deliver optimized images
-    return `https://res.cloudinary.com/dhkbmh13s/image/upload/${publicId}`;
+    return `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto,f_auto,w_1200/${publicId}`;
   };
 
   const handleImageLoad = (idx: number) => {
@@ -56,7 +53,6 @@ export default function SlideShow({
   const handleNext = () => {
     setIndex((prevIndex) => {
       const newIndex = prevIndex === selectedImages.length - 1 ? 0 : prevIndex + 1;
-      // Preload the next image that isn't already loaded
       const nextToLoad = (newIndex + 2) % selectedImages.length;
       if (!loadedImages[nextToLoad]) {
         const img = new window.Image();
@@ -70,7 +66,6 @@ export default function SlideShow({
   const handlePrev = () => {
     setIndex((prevIndex) => {
       const newIndex = prevIndex === 0 ? selectedImages.length - 1 : prevIndex - 1;
-      // Preload the previous image that isn't already loaded
       const prevToLoad = (newIndex - 2 + selectedImages.length) % selectedImages.length;
       if (!loadedImages[prevToLoad]) {
         const img = new window.Image();
@@ -107,25 +102,30 @@ export default function SlideShow({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.25 }}
-                    className="relative"
+                    className="relative w-full h-full"
                   >
                     {/* Low quality placeholder */}
-                    <Image
-                      src={`https://res.cloudinary.com/dhkbmh13s/image/upload/q_10,w_50/${selectedImages[index].public_id}`}
-                      alt="low-quality-placeholder"
-                      width={600}
-                      height={400}
-                      className="absolute inset-0 w-full h-full object-contain blur-sm"
-                    />
+                    <div className="absolute inset-0">
+                      <Image
+                        src={`https://res.cloudinary.com/dhkbmh13s/image/upload/q_10,w_50/${selectedImages[index].public_id}`}
+                        alt="low-quality-placeholder"
+                        layout="fill"
+                        objectFit="contain"
+                        className="blur-sm"
+                      />
+                    </div>
                     {/* High quality image */}
-                    <Image
-                      src={imageUrls[index]}
-                      alt="high-quality-image"
-                      width={1200}
-                      height={800}
-                      className={`transition-opacity duration-300 ${loadedImages[index] ? 'opacity-100' : 'opacity-0'}`}
-                      onLoad={() => handleImageLoad(index)}
-                    />
+                    <div className="relative z-10">
+                      <Image
+                        src={imageUrls[index]}
+                        alt="high-quality-image"
+                        width={1200}
+                        height={800}
+                        objectFit="contain"
+                        className={`transition-opacity duration-300 ${loadedImages[index] ? 'opacity-100' : 'opacity-0'}`}
+                        onLoad={() => handleImageLoad(index)}
+                      />
+                    </div>
                   </motion.div>
                 </Dialog.Panel>
               </div>
