@@ -6,16 +6,12 @@ import { Dialog, Transition } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
-
-
 export default function SlideShow({
   selectedImages,
-
   setSelected,
   setSlideShow,
 }: {
   selectedImages: SearchResult[];
-
   setSelected: React.Dispatch<SetStateAction<SearchResult[]>>;
   setSlideShow: React.Dispatch<SetStateAction<boolean>>;
 }) {
@@ -53,6 +49,7 @@ export default function SlideShow({
       setIndex(0);
     } else setIndex(index + 1);
   };
+
   const handlePrev = () => {
     if (index === 0) {
       setIndex(selectedImages.length - 1);
@@ -68,6 +65,7 @@ export default function SlideShow({
   }
 
   const screenHeight = getScreenHeight();
+
   function getImageWidth(
     imageWidth: number,
     imageHeight: number,
@@ -77,20 +75,11 @@ export default function SlideShow({
   }
 
   const keyCard = Math.random();
-  
-  
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollY = window.scrollY;
-  //     const opacity = scrollY / 1000;
-  //     setOpacity(opacity);
-  //   }
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   } 
-  // }, [window.scrollY])
+  // Preload adjacent images
+  const prevIndex = index === 0 ? selectedImages.length - 1 : index - 1;
+  const nextIndex = index === selectedImages.length - 1 ? 0 : index + 1;
+
   return (
     <>
       <AnimatePresence mode="wait">
@@ -109,7 +98,7 @@ export default function SlideShow({
               <div className="relative " />
 
               <motion.div
-              id='opacity'
+                id='opacity'
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
                 className={`fixed grid-1 bg-gray-800 bg-opacity-[95%] transition-opacity inset-0 z-50 h-screen w-screen`}
@@ -130,11 +119,10 @@ export default function SlideShow({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.35 }}
-                        className="h-screen absolute top-0 left-0 
-                        "
+                        className="h-screen absolute top-0 left-0"
                       >
                         <CloudImg
-                        key={keyCard}
+                          key={keyCard}
                           discoveryModeOn={false}
                           imageData={photos}
                           alt="image"
@@ -154,7 +142,6 @@ export default function SlideShow({
                           }
                           className=" z-10"
                         />
-                        
                       </motion.div>
                       <Image
                         key={keyCard}
@@ -177,8 +164,23 @@ export default function SlideShow({
                         alt="blurred-image"
                         blurDataURL={imageUrl}
                         quality={1}
-
                         className=""
+                      />
+                      {/* Preload previous image */}
+                      <Image
+                        src={`https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[prevIndex].public_id}`}
+                        width={1}
+                        height={1}
+                        alt="preload-prev"
+                        className="hidden"
+                      />
+                      {/* Preload next image */}
+                      <Image
+                        src={`https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${selectedImages[nextIndex].public_id}`}
+                        width={1}
+                        height={1}
+                        alt="preload-next"
+                        className="hidden"
                       />
                     </motion.div>
                   </Dialog.Panel>
