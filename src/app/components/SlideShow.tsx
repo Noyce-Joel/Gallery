@@ -1,6 +1,5 @@
 import React, { SetStateAction, useEffect, useState, Fragment } from "react";
 import { SearchResult } from "../page";
-import CloudImg from "./CloudImg";
 import { Dialog, Transition } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
@@ -15,81 +14,77 @@ export default function SlideShow({
   setSlideShow: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const [index, setIndex] = useState<number>(0);
-  const [loaded, setLoaded] = useState<boolean>(false);
   const [open, setOpen] = useState(true);
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const [loadedImages, setLoadedImages] = useState<boolean[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[][]>([]);
+  const [loadedImages, setLoadedImages] = useState<boolean[][]>([]);
 
   const photos: any = selectedImages[index];
 
   useEffect(() => {
-    const urls = selectedImages.map((img) => getImageUrl(img.public_id));
+    const urls = selectedImages.map((img) => [
+      getImageUrl(img.public_id, 'w_20,q_10'), // Extremely low quality
+      getImageUrl(img.public_id, 'w_200,q_30'), // Low quality
+      getImageUrl(img.public_id, 'q_auto:low') // High quality
+    ]);
     setImageUrls(urls);
-    setLoadedImages(new Array(selectedImages.length).fill(false));
+    setLoadedImages(new Array(selectedImages.length).fill([false, false, false]));
     
     // Preload the first 5 images
-    urls.slice(0, 5).forEach((url, idx) => {
-      const img = new window.Image();
-      img.src = url;
-      img.onload = () => handleImageLoad(idx);
+    urls.slice(0, 5).forEach((urlSet, idx) => {
+      urlSet.forEach((url, qualityIdx) => {
+        const img = new window.Image();
+        img.src = url;
+        img.onload = () => handleImageLoad(idx, qualityIdx);
+      });
     });
 
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") {
-        return handleNext();
-      }
-      if (e.key === "ArrowLeft") {
-        return handlePrev();
-      }
+      if (e.key === "ArrowRight") return handleNext();
+      if (e.key === "ArrowLeft") return handlePrev();
     };
 
     document.addEventListener("keydown", handleKey);
-    return () => {
-      document.removeEventListener("keydown", handleKey);
-    };
+    return () => document.removeEventListener("keydown", handleKey);
   }, [selectedImages]);
 
-  const getImageUrl = (publicId: string) => 
-    `https://res.cloudinary.com/dhkbmh13s/image/upload/q_auto:low/v1705067761/${publicId}`;
+  const getImageUrl = (publicId: string, transformation: string) => 
+    `https://res.cloudinary.com/dhkbmh13s/image/upload/${transformation}/v1705067761/${publicId}`;
 
-  const handleImageLoad = (idx: number) => {
+  const handleImageLoad = (idx: number, qualityIdx: number) => {
     setLoadedImages(prev => {
       const newLoaded = [...prev];
-      newLoaded[idx] = true;
+      newLoaded[idx] = [...(newLoaded[idx] || [])];
+      newLoaded[idx][qualityIdx] = true;
       return newLoaded;
     });
   };
 
   const handleNext = () => {
     setIndex((prevIndex) => {
-      const newIndex = prevIndex === selectedImages.length - 1 ? 0 : prevIndex + 1;
-      // Preload the next image that isn't already loaded
-      const nextToLoad = (newIndex + 2) % selectedImages.length;
-      if (!loadedImages[nextToLoad]) {
-        const img = new window.Image();
-        img.src = imageUrls[nextToLoad];
-        img.onload = () => handleImageLoad(nextToLoad);
-      }
+      const newIndex = (prevIndex + 1) % selectedImages.length;
+      preloadImage(newIndex);
       return newIndex;
     });
   };
 
   const handlePrev = () => {
     setIndex((prevIndex) => {
-      const newIndex = prevIndex === 0 ? selectedImages.length - 1 : prevIndex - 1;
-      // Preload the previous image that isn't already loaded
-      const prevToLoad = (newIndex - 2 + selectedImages.length) % selectedImages.length;
-      if (!loadedImages[prevToLoad]) {
-        const img = new window.Image();
-        img.src = imageUrls[prevToLoad];
-        img.onload = () => handleImageLoad(prevToLoad);
-      }
+      const newIndex = (prevIndex - 1 + selectedImages.length) % selectedImages.length;
+      preloadImage(newIndex);
       return newIndex;
     });
   };
 
-  const handleLoad = () => {
-    setLoaded(true);
+  const preloadImage = (idx: number) => {
+    if (!loadedImages[idx] || loadedImages[idx].some(loaded => !loaded)) {
+      imageUrls[idx].forEach((url, qualityIdx) => {
+        if (!loadedImages[idx][qualityIdx]) {
+          const img = new window.Image();
+          img.src = url;
+          img.onload = () => handleImageLoad(idx, qualityIdx);
+        }
+      });
+    }
   };
 
   function getScreenHeight() {
@@ -122,8 +117,6 @@ export default function SlideShow({
               setSlideShow(false);
             }}
           >
-            <div className="relative" />
-
             <motion.div
               id='opacity'
               exit={{ opacity: 0 }}
@@ -140,75 +133,19 @@ export default function SlideShow({
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.25 }}
                   >
-                    <motion.div
-                      key="cloud-photo"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.35 }}
-                      className="h-screen absolute top-0 left-0"
-                    >
-                      <CloudImg
-                        key={keyCard}
-                        discoveryModeOn={false}
-                        imageData={photos}
-                        alt="image"
-                        width={
-                          getImageWidth(
-                            photos.width,
-                            photos.height,
-                            screenHeight
-                          ) as number
-                        }
-                        height={
-                          getImageWidth(
-                            photos.height,
-                            photos.height,
-                            screenHeight
-                          ) as number
-                        }
-                        className="z-10"
+                    {imageUrls[index] && imageUrls[index].map((url, qualityIdx) => (
+                      <Image
+                        key={`${keyCard}-${qualityIdx}`}
+                        src={url}
+                        height={getImageWidth(photos.height, photos.height, screenHeight) as number}
+                        width={getImageWidth(photos.width, photos.height, screenHeight) as number}
+                        alt={`image-quality-${qualityIdx}`}
+                        className={`absolute top-0 left-0 transition-opacity duration-300 ${
+                          loadedImages[index] && loadedImages[index][qualityIdx] ? 'opacity-100' : 'opacity-0'
+                        }`}
+                        onLoad={() => handleImageLoad(index, qualityIdx)}
                       />
-                    </motion.div>
-                    <Image
-                      key={keyCard}
-                      onLoad={handleLoad}
-                      src={imageUrls[index]}
-                      height={
-                        getImageWidth(
-                          photos.height,
-                          photos.height,
-                          screenHeight
-                        ) as number
-                      }
-                      width={
-                        getImageWidth(
-                          photos.width,
-                          photos.height,
-                          screenHeight
-                        ) as number
-                      }
-                      alt="current-image"
-                      blurDataURL={imageUrls[index]}
-                      quality={1}
-                      className=""
-                    />
-                    {/* Preload previous image */}
-                    <Image
-                      src={imageUrls[(index - 1 + selectedImages.length) % selectedImages.length]}
-                      width={1}
-                      height={1}
-                      alt="preload-prev"
-                      className="hidden"
-                    />
-                    {/* Preload next image */}
-                    <Image
-                      src={imageUrls[(index + 1) % selectedImages.length]}
-                      width={1}
-                      height={1}
-                      alt="preload-next"
-                      className="hidden"
-                    />
+                    ))}
                   </motion.div>
                 </Dialog.Panel>
               </div>
