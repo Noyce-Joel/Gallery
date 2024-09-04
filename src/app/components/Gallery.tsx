@@ -35,8 +35,6 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const pathname = usePathname();
   const colors = ["red", "yellow", "green", "blue", "indigo", "purple", "pink"];
   useEffect(() => {
-    // Extract album name from URL
-
     const album = window.location.href.split("/albums/")[1];
     setAlbumName(album);
   }, []);
@@ -46,12 +44,11 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
       setIsLoadingProjects(false);
     };
 
-    // Instead of using router.events, we'll check for pathname changes
     return () => {
       handleRouteChange();
     };
   }, [pathname]);
-  
+
   const handleNavigateToProjects = () => {
     setIsLoadingProjects(true);
     router.push(`/projects/${albumName}`);
@@ -207,10 +204,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
       />
       <button
         onClick={handleNavigateToProjects}
-        className={
-            
-            `absolute top-[25px] right-24 bg-gray-800 hover:bg-[#dddbcb] text-white  hover:text-gray-800 rounded-xl flex-nowrap whitespace-nowrap flex group-hover gap-3 p-2 px-3 text-sm shadow-sm`
-        }
+        className={`absolute top-[25px] right-24 bg-gray-800 hover:bg-[#dddbcb] text-white  hover:text-gray-800 rounded-xl flex-nowrap whitespace-nowrap flex group-hover gap-3 p-2 px-3 text-sm shadow-sm`}
       >
         3D
       </button>
