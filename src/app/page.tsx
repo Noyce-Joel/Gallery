@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Gallery from "./components/Gallery";
 import { fetchData } from "./components/actions";
 import Head from "next/head";
@@ -37,8 +38,9 @@ export default async function Home() {
           />
         ))}
       </Head>
-
+        <Suspense fallback={<div>Loading...</div>} >
       <Gallery results={results} />
+        </Suspense>
     </>
   );
 }

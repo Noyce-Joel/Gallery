@@ -81,7 +81,7 @@ export default function Nav({
   session ? console.log(session.user?.name) : null;
   return (
     <div
-      className={`flex flex-col gap-y-5 color-black ${textColor} ${drkMode} w-[225px] pr-6 transition duration-[0.8s] ease-in-out`}
+      className={`flex flex-col gap-y-5 color-black ${textColor} ${drkMode} w-[225px] pr-6 transition duration-[0.8s] ease-in-out z-40`}
     >
       <div className={`flex h-16 shrink-0 gap-2 p-6 `}>
         <h1

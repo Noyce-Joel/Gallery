@@ -11,16 +11,16 @@ import { useSession } from "next-auth/react";
 import Buttons from "./Buttons";
 import Profile from "./Profile";
 import Alert from "./Alert";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Loading from "./Loading";
 
 import { ThemeContext, ThemeContextProps } from "../context/Context";
-import ScreenShot from "../utils/ScreenShot";
+
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const { data: session, status } = useSession();
   const { theme } = useContext(ThemeContext) as ThemeContextProps;
 
-  const router = useRouter();
+  const router: any = useRouter();
   const [loaded, setLoaded] = useState<boolean>(false);
   const [selected, setSelected] = useState<SearchResult[]>([]);
   const [addToAlbumDialogue, setAddToAlbumDialogue] = useState<boolean>(false);
@@ -30,8 +30,32 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const [discoveryModeOn, setDiscoveryModeOn] = useState<boolean>(false);
   const [slideShow, setSlideShow] = useState<boolean>(false);
   const [selectMode, setSelectMode] = useState<boolean>(false);
+  const [albumName, setAlbumName] = useState<string>("");
+  const [isLoadingProjects, setIsLoadingProjects] = useState<boolean>(false);
+  const pathname = usePathname();
   const colors = ["red", "yellow", "green", "blue", "indigo", "purple", "pink"];
+  useEffect(() => {
+    // Extract album name from URL
 
+    const album = window.location.href.split("/albums/")[1];
+    setAlbumName(album);
+  }, []);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIsLoadingProjects(false);
+    };
+
+    // Instead of using router.events, we'll check for pathname changes
+    return () => {
+      handleRouteChange();
+    };
+  }, [pathname]);
+  
+  const handleNavigateToProjects = () => {
+    setIsLoadingProjects(true);
+    router.push(`/projects/${albumName}`);
+  };
   const generateRandomColorClass = () => {
     const randomIndex = Math.floor(Math.random() * colors.length);
     return `ring-${colors[randomIndex]}-400`;
@@ -181,6 +205,12 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
         handleSelectMode={handleSelectMode}
         selectMode={selectMode}
       />
+      <button
+        onClick={handleNavigateToProjects}
+        className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded z-50"
+      >
+        View as Project
+      </button>
 
       {addToAlbumDialogue ? (
         <AddToAlbum
@@ -203,68 +233,65 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
           selectedImages={selected}
         />
       ) : null}
-      
-        <motion.div
-          id="gallery"
-          onLoad={handleLoad}
-          className="grid grid-cols-4 gap-2 p-4"
-        >
 
-          {[columns(0), columns(1), columns(2), columns(3), columns(4)].map(
-            (col, idx) => (
-              <motion.div
-                variants={container}
-                whileInView="whileInView"
-                initial="initial"
-                key={idx}
-                className="flex flex-col gap-2"
-              >
-                {col.map((result, rIdx) => (
-                  <motion.div
-                    key={rIdx}
-                    variants={item}
-                    whileInView="whileInView"
-                    initial="initial"
-                    className={
-                      isSelected(result) && selectMode
-                        ? "hover:cursor-pointer ring-[8px] ring-green-400 rounded-[5px] scale-95 ease-in-out duration-500 "
-                        : discoveryModeOn
-                        ? `hover:cursor-pointer rounded-[7px] transition ${drkMode} scale-95 ease-in-out duration-500 `
-                        : "hover:cursor-pointer  ease-in-out duration-500"
-                    }
-                  >
-                    {selectMode && loaded ? (
-                      <CloudImg
-                        key="result.public_id"
-                        discoveryModeOn={discoveryModeOn}
-                        imageData={result}
-                        alt="image"
-                        width="960"
-                        height="300"
-                        onClick={() => handleSelectImage(result)}
-                      />
-                    ) : (
-                      <CloudImg
-                        key="result.public_id"
-                        discoveryModeOn={discoveryModeOn}
-                        imageData={result}
-                        alt="image"
-                        width="960"
-                        height="300"
-                        onClick={() => {
-                          handleSelectImage(result);
-                          setSlideShow(true);
-                        }}
-                      />
-                    )}
-                  </motion.div>
-                ))}
-              </motion.div>
-            )
-          )}
-
-        </motion.div>
-      
+      <motion.div
+        id="gallery"
+        onLoad={handleLoad}
+        className="grid grid-cols-4 gap-2 p-4"
+      >
+        {[columns(0), columns(1), columns(2), columns(3), columns(4)].map(
+          (col, idx) => (
+            <motion.div
+              variants={container}
+              whileInView="whileInView"
+              initial="initial"
+              key={idx}
+              className="flex flex-col gap-2"
+            >
+              {col.map((result, rIdx) => (
+                <motion.div
+                  key={rIdx}
+                  variants={item}
+                  whileInView="whileInView"
+                  initial="initial"
+                  className={
+                    isSelected(result) && selectMode
+                      ? "hover:cursor-pointer ring-[8px] ring-green-400 rounded-[5px] scale-95 ease-in-out duration-500 "
+                      : discoveryModeOn
+                      ? `hover:cursor-pointer rounded-[7px] transition ${drkMode} scale-95 ease-in-out duration-500 `
+                      : "hover:cursor-pointer  ease-in-out duration-500"
+                  }
+                >
+                  {selectMode && loaded ? (
+                    <CloudImg
+                      key="result.public_id"
+                      discoveryModeOn={discoveryModeOn}
+                      imageData={result}
+                      alt="image"
+                      width="960"
+                      height="300"
+                      onClick={() => handleSelectImage(result)}
+                    />
+                  ) : (
+                    <CloudImg
+                      key="result.public_id"
+                      discoveryModeOn={discoveryModeOn}
+                      imageData={result}
+                      alt="image"
+                      width="960"
+                      height="300"
+                      onClick={() => {
+                        handleSelectImage(result);
+                        setSlideShow(true);
+                      }}
+                    />
+                  )}
+                </motion.div>
+              ))}
+            </motion.div>
+          )
+        )}
+      </motion.div>
     </section>
   );
 }

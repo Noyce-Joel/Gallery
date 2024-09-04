@@ -26,25 +26,6 @@ export default function ThemeButton() {
         )}
         onClick={handleMode}
       >
-        {/* <div className="relative group inline-block w-12 align-middle select-none transition duration-200 ease-in-out">
-          <input
-            type="checkbox"
-            name="toggle"
-            id="toggle"
-            className="toggle-checkbox hidden group"
-            checked={theme === "dark"}
-            onChange={handleMode}
-          />
-          <label
-            htmlFor="toggle"
-            className={`toggle-label block group overflow-hidden h-6 rounded-full ${drkMode} cursor-pointer`}
-          ></label>
-          <span
-            className={`toggle-switch group absolute inset-y-0 ${
-              theme === "dark" ? "right-0 bg-green-400 duration-400 border-2px border-black" : "left-0 duration-400 bg-green-400 ring-black ring-2px"
-            } w-6 h-6 rounded-full  shadow transition-transform duration-200 ease-in-out`}
-          ></span>
-        </div> */}
         <Switch
           checked={theme === "dark"}
           onChange={handleMode}
@@ -69,7 +50,6 @@ export default function ThemeButton() {
               )}
               aria-hidden="true"
             >
-             
               <MoonIcon className="h-3 w-3 text-gray-400" />
             </span>
             <span
@@ -81,7 +61,7 @@ export default function ThemeButton() {
               )}
               aria-hidden="true"
             >
-             <SunIcon />
+              <SunIcon />
             </span>
           </span>
         </Switch>
