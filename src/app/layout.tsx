@@ -4,7 +4,7 @@ import Nav from "./components/Nav";
 import { fetchData } from "./components/actions";
 import SessionWrapper from "./components/SessionWrapper";
 import { ThemeProvider } from "./context/Context";
-import ScreenShot from "./utils/ScreenShot";
+
 const inter = Inter({ subsets: ["latin"] });
 export type Album = {
   name: string;

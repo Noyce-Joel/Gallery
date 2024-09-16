@@ -201,13 +201,9 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
         discoveryModeOn={discoveryModeOn}
         handleSelectMode={handleSelectMode}
         selectMode={selectMode}
+        handleNavigateToProjects={handleNavigateToProjects}
       />
-      <button
-        onClick={handleNavigateToProjects}
-        className={`absolute top-[25px] right-24 bg-gray-800 hover:bg-[#dddbcb] text-white  hover:text-gray-800 rounded-xl flex-nowrap whitespace-nowrap flex group-hover gap-3 p-2 px-3 text-sm shadow-sm`}
-      >
-        3D
-      </button>
+     
 
       {addToAlbumDialogue ? (
         <AddToAlbum

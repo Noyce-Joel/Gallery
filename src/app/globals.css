@@ -22,7 +22,7 @@ body {
 .open {
   display: flex;
   flex-direction: column;
-  height: 170px;
+  height: 210px;
   transition: 0.5s ease-in-out;
   width: 105px;
   overflow: hidden;
@@ -31,10 +31,19 @@ body {
   border-bottom-left-radius: 20px;
 }
 
+.closed {
+  display: flex;
+  flex-direction: column;
+  height: 170px;
+  width: 105px;
+  transition: 0.5s ease-in-out;
+  overflow: hidden;
+}
+
 .selected {
   display: flex;
   flex-direction: column;
-  height: 320px;
+  height: 345px;
   transition: 0.75s ease-in-out;
   width: 140px;
   overflow: hidden;
@@ -43,14 +52,7 @@ body {
   border-bottom-left-radius: 40px;
 }
 
-.closed {
-  display: flex;
-  flex-direction: column;
-  height: 125px;
-  width: 105px;
-  transition: 0.5s ease-in-out;
-  overflow: hidden;
-}
+
 
 .profile-open {
   display: flex;

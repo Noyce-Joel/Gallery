@@ -9,6 +9,7 @@ import Upload from "./Upload";
 import Theme from "./ThemeButton";
 import { ThemeContext } from "../context/Context";
 import ThemeButton from "./ThemeButton";
+import ThreeDButton from "./ThreeDButton";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -25,6 +26,7 @@ export default function Buttons({
   discoveryModeOn,
   handleSelectMode,
   selectMode,
+  handleNavigateToProjects
 }: {
   selected: any;
   results: any;
@@ -37,6 +39,7 @@ export default function Buttons({
   discoveryModeOn: any;
   handleSelectMode: any;
   selectMode: any;
+  handleNavigateToProjects: any;
 }) {
   const theme = useContext(ThemeContext);
 
@@ -51,14 +54,13 @@ export default function Buttons({
 
 
         <div className="flex flex-col gap-2 justify-start items-end">
-          {/* <Upload /> */}
-          {/* <ColumnsButton /> */}
-          {/* <ScreenShot /> */}
-          
+         
+          <ThemeButton />
+          <ThreeDButton handleNavigateToProjects={handleNavigateToProjects} />
           <DiscoveryModeButton handleDiscoveryMode={handleDiscoveryMode} />
           
           <SelectModeButton handleSelectMode={handleSelectMode} />
-          <ThemeButton />
+          
           <SelectAllButton
             selected={selected}
             images={images}
