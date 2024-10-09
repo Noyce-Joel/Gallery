@@ -1,24 +1,86 @@
-## Photo Gallery 
+# Photo Gallery
 
-The app allows it's users to upload photos, create and add to albums, share images via email/whatsapp; and even transform images using the Cloudinary API.
-The project was borne out of a frustration using whatsapp to look through old photos. 
-Jumping to an old image would often not work on my mac so I was inspired to create the gallery for fun.
+A dynamic and interactive photo gallery web application that allows users to upload, store, and view photos. Users can create albums, add photos, and experience their collections in both 2D and immersive 3D environments.
 
-Cloudinary was a good option to ensure the optimisation, upload and transformation of images was efficient.
-I was able to preload low quality versions of each asset in the gallery to reduce the perceived loading times of images should the user have a large gallery.
-This also made the transition to the slideshow view smoother.
+## Features
 
-The utility-first approach of TailwindCSS allowed me to create and test out a lot of ideas for the UI easily and Framer Motion offered a simple solution to animate the graphically defined components.
+### Photo Upload and Storage
 
-Users can securely log in with Google OAuth credentials, which made sense given that most users will have a Google account. Should I make the gallery available for use by the public, I've coded a server that stores user information in a MongoDB database. For now the data is not saved.
+- **Cloud-Based Storage**: Securely upload and store your photos using Cloudinary.
+- **Album Management**: Create albums to organize your photos efficiently.
 
-I've deployed an example of the app to vercel which you can view here: https://noycephotos.vercel.app 
-(although one should note that users do not have the permission to upload photos or create albums in this example version).
+### Masonry Grid Display
 
-Google photos is an excellent example of how an online gallery should be created. To anyone considering building out their own for fun, I found this article
-extremely insightful and inspiring: https://medium.com/google-design/google-photos-45b714dfbed1
- 
+- **Responsive Design**: Photos are displayed in a masonry grid layout, ensuring a visually appealing arrangement regardless of the image dimensions.
 ![Page Image](/public/page.jpeg)
 
+### Select Mode
 
+- **Bulk Actions**: Select multiple photos to perform actions such as viewing enlarged versions, adding to albums, or deleting.
+- **User-Friendly Interface**: Intuitive controls for managing large collections of photos.
 
+![Page Image](/public/gallery1.png)
+
+### Discovery Mode
+
+- **Enhanced Engagement**: This design encourages users to focus on each photo individually, creating a more immersive viewing experience. Photo frames are initially displayed empty; hovering over them reveals the photo.
+
+![Page Image](/public/gallery2.png)
+
+### 3D Gallery Mode
+
+- **Matrix Carousel Display**: View your album photos in a 3D matrix, offering a unique perspective.
+
+![Page Image](/public/gallery3.png)
+![Page Image](/public/gallery4.png)
+
+- **Keyboard Navigation**: Use arrow keys to navigate through the matrix effortlessly.
+- **Zoom Functionality**: Zoom in on images to see details, with the curved mesh material flattening upon zoom for a better view.
+
+![Page Image](/public/gallery5.png)
+
+### Light and Dark Mode
+
+- **Theme Toggle**: Switch between light and dark modes to suit your viewing preference.
+- **Consistent Aesthetics**: The UI adapts seamlessly to the selected theme.
+
+![Page Image](/public/gallery.png)
+
+### Animations
+
+- **Smooth Transitions**: Enjoy fluid animations that enhance the user experience without compromising performance.
+
+## Installation
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/your-repo-name.git
+   ```
+2. **Navigate to the Project Directory**
+   ```bash
+   cd your-repo-name
+   ```
+3. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+4. **Configure Environment Variables**
+   - Create a `.env` file in the root directory.
+   - Add your Cloudinary API credentials:
+     ```
+     CLOUDINARY_CLOUD_NAME=your_cloud_name
+     CLOUDINARY_API_KEY=your_api_key
+     CLOUDINARY_API_SECRET=your_api_secret
+     ```
+5. **Run the Application**
+   ```bash
+   npm start
+   ```
+6. **Access the Application**
+   - Open your browser and navigate to `http://localhost:3000`.
+
+## Future Improvements
+
+- **Migration to AWS S3**: Plans to move from Cloudinary to AWS S3 for better control over storage and to overcome API usage limits.
+- **Performance Enhancements**: Optimize image loading times and overall application performance.
+- **Feature Expansion**: Add social sharing options and user collaboration features.
