@@ -3,13 +3,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
-import { SearchResult } from "../page";
-import { addToAlbum, createAlbum } from "./actions";
+import { SearchResult } from "../../lib/types";
+import { addToAlbum, createAlbum } from "../../utils/actions";
 import cloudinary from "cloudinary";
-import { Album } from "../layout";
-import { removeHyphens } from "./Nav";
+import { Album } from "../../layout";
+import { removeHyphens } from "../navigation/Nav";
 import { useRouter } from "next/navigation";
-import UploadAlert from "./Alert";
+import UploadAlert from "../../utils/alert";
 
 export default function AddToAlbum({
   rootFolders,

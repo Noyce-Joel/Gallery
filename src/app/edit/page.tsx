@@ -8,7 +8,7 @@ function Edit({
 }: {
   searchParams: { publicId: string };
 }) {
-  const push = null
+  const push = null;
   const [filter, setFilter] = useState<undefined | "fill" | "crop">();
   return (
     <div className="flex relative w-screen h-screen">

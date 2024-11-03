@@ -43,7 +43,6 @@ const KeyGrid = ({
       </div>
     );
   }
-  // Layout for arrow keys
   return (
     <div className="grid grid-cols-3 gap-[0.5vw] w-[10vw]">
       <div className="col-span-1 gap-[0.5vw]"></div>

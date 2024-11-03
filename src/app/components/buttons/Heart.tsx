@@ -1,8 +1,8 @@
 import React, { ComponentProps, useState, useTransition } from "react";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartIconE } from "@heroicons/react/24/outline";
-import tagFavourite from "./actions";
-import { SearchResult } from "../page";
+import { tagFavourite } from "../../utils/actions";
+import { SearchResult } from "../../lib/types";
 import { useRouter } from "next/navigation";
 
 const FullHeart = (props: ComponentProps<"div">) => {

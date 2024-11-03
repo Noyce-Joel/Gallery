@@ -1,7 +1,7 @@
 "use server";
 
 import cloudinary from "cloudinary";
-import { SearchResult } from "../page";
+import { SearchResult } from "../lib/types";
 import { getSession } from "next-auth/react";
 
 export async function createAlbum(album: string, images: SearchResult[]) {
@@ -25,7 +25,7 @@ export async function fetchData() {
     .expression("resource_type:image")
     .sort_by("uploaded_at", "desc")
     .with_field("tags")
-    .max_results(40)
+    .max_results(100)
     .execute()) as { resources: SearchResult[] };
 
   const usage: any = await cloudinary.v2.api.usage().then((result) => result);
@@ -38,10 +38,13 @@ export async function getUserData() {
   return { user };
 }
 
-export default async function tagFavourite(isFavourited: boolean, publicId: string) {
+export async function tagFavourite(
+  isFavourited: boolean,
+  publicId: string
+) {
   if (isFavourited) {
-     await cloudinary.v2.uploader.add_tag('favourite', [publicId])
+    await cloudinary.v2.uploader.add_tag("favourite", [publicId]);
   } else {
-      await cloudinary.v2.uploader.remove_tag('favourite', [publicId])
+    await cloudinary.v2.uploader.remove_tag("favourite", [publicId]);
   }
 }

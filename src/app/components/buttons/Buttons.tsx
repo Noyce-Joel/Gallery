@@ -1,13 +1,11 @@
 import React, { useContext } from "react";
 import SelectAllButton from "./SelectAllButton";
-import AlbumButton from "./Albumbutton";
+import AlbumButton from "../albums/Albumbutton";
 import SlideShowButton from "./SlideShowButton";
 import DeleteButton from "./DeleteButton";
 import DiscoveryModeButton from "./DiscoveryModeButton";
 import SelectModeButton from "./SelectModeButton";
-import Upload from "./Upload";
-import Theme from "./ThemeButton";
-import { ThemeContext } from "../context/Context";
+import { ThemeContext } from "../../context/Context";
 import ThemeButton from "./ThemeButton";
 import ThreeDButton from "./ThreeDButton";
 function classNames(...classes: any) {

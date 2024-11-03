@@ -1,6 +1,6 @@
 import cloudinary from "cloudinary";
-import Gallery from "../components/Gallery";
-import { SearchResult } from "../page";
+import Gallery from "../components/gallery/Gallery";
+import { SearchResult } from "../lib/types";
 
 export default async function Home() {
   const results = (await cloudinary.v2.search

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ThemeContext, ThemeContextProps } from "../context/Context";
+import { ThemeContext, ThemeContextProps } from "../../context/Context";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");

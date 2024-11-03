@@ -6,9 +6,9 @@ import {
   UserPlusIcon,
   Bars3Icon,
 } from "@heroicons/react/20/solid";
-import ShareImage from "./ShareImage";
-import { SearchResult } from "../page";
-import { deleteImage } from "./actions";
+import ShareImage from "../gallery/ShareImage";
+import { SearchResult } from "../../lib/types";
+import { deleteImage } from "../../utils/actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 

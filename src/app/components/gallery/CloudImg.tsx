@@ -1,10 +1,10 @@
 import { CldImage, CldImageProps } from "next-cloudinary";
 import React, { useEffect, useState } from "react";
-import { SearchResult } from "../page";
-import Heart from "./Heart";
-import DropDown from "./DropDown";
+import { SearchResult } from "../../lib/types";
+import Heart from "../buttons/Heart";
+import DropDown from "../buttons/DropDown";
 import { AnimatePresence, motion } from "framer-motion";
-import AlbumTags from "./AlbumTags";
+import AlbumTags from "../albums/AlbumTags";
 
 function CloudImg({
   imageData,

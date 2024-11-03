@@ -3,7 +3,7 @@ import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { CldUploadButton } from "next-cloudinary";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import Alert from "./Alert";
+import Alert from "../../utils/alert";
 
 export default function Upload() {
   const [uploaded, setUploaded] = useState<boolean>(false);

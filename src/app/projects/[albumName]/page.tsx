@@ -3,11 +3,11 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Scroll, ScrollControls } from "@react-three/drei";
-import Rig from "../../components/Carousel";
+import Rig from "../../components/albums/Carousel";
 import { motion } from "framer-motion";
 import NavigationTips from "../../components/navigation/Navigation";
-import { fetchAlbum } from "@/app/lib/fetchAlbum";
-import LoadingSpinner from "@/app/components/LoadingSpinner";
+import { fetchAlbum } from "@/app/utils/fetchAlbum";
+import LoadingSpinner from "@/app/components/loading/LoadingSpinner";
 
 const ThreeDContent = ({ images }: { images: any[] }) => (
   <Canvas dpr={[1, 2]} gl={{ antialias: false }}>

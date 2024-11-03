@@ -1,4 +1,4 @@
-import Gallery from "@/app/components/Gallery";
+import Gallery from "@/app/components/gallery/Gallery";
 import cloudinary from "cloudinary";
 
 export default async function AlbumPage({

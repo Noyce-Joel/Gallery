@@ -1,5 +1,5 @@
 import React, { SetStateAction, useEffect, useState, Fragment } from "react";
-import { SearchResult } from "../page";
+import { SearchResult } from "../../lib/types";
 import CloudImg from "./CloudImg";
 import { Dialog, Transition } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";

@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { SearchResult } from "../page";
+import { SearchResult } from "../../lib/types";
 import { motion } from "framer-motion";
 import CloudImg from "./CloudImg";
-import AddToAlbum from "./AddToAlbum";
+import AddToAlbum from "../albums/AddToAlbum";
 import SlideShow from "./SlideShow";
-import { deleteImage } from "./actions";
+import { deleteImage } from "../../utils/actions";
 import { useSession } from "next-auth/react";
-import Buttons from "./Buttons";
-import Profile from "./Profile";
-import Alert from "./Alert";
+import Buttons from "../buttons/Buttons";
+import Profile from "../Profile";
+import Alert from "../../utils/alert";
 import { usePathname, useRouter } from "next/navigation";
-import Loading from "./Loading";
+import Loading from "../loading/Loading";
 
-import { ThemeContext, ThemeContextProps } from "../context/Context";
+import { ThemeContext, ThemeContextProps } from "../../context/Context";
 
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
   const { data: session, status } = useSession();

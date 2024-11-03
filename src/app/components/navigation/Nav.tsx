@@ -7,11 +7,11 @@ import {
 } from "@heroicons/react/24/solid";
 import {} from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { SearchResult } from "../page";
+import { SearchResult } from "../../lib/types";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useContext, useState } from "react";
-import { ThemeContext, ThemeContextProps } from "../context/Context";
+import { ThemeContext, ThemeContextProps } from "../../context/Context";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");

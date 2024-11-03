@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import { SearchResult } from "../page";
+import { SearchResult } from "../../lib/types";
 import {
   EmailIcon,
   EmailShareButton,

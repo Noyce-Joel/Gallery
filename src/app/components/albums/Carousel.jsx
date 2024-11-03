@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Image } from "@react-three/drei";
-import "./util";
+import "../../utils/bent-plane-geometry";
 import { easing } from "maath";
 import * as THREE from "three";
 import { motion } from "framer-motion";
