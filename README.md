@@ -12,7 +12,7 @@ A dynamic and interactive photo gallery web application that allows users to upl
 ### Masonry Grid Display
 
 - **Responsive Design**: Photos are displayed in a masonry grid layout, ensuring a visually appealing arrangement regardless of the image dimensions.
-![Page Image](/public/page.jpeg)
+  ![Page Image](/public/page.jpeg)
 
 ### Select Mode
 

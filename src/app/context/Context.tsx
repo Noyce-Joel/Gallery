@@ -1,28 +1,24 @@
-"use client";
-import React, {
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useState,
-} from "react";
+'use client'
+
+import React, { Dispatch, SetStateAction, createContext, useState } from 'react'
 
 export interface ThemeContextProps {
-  theme: string;
-  setTheme: Dispatch<SetStateAction<string>>;
+	theme: string
+	setTheme: Dispatch<SetStateAction<string>>
 }
 
 export const ThemeContext = createContext<ThemeContextProps | undefined>(
-  undefined
-);
+	undefined,
+)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const currentHour = new Date().getHours();
-  const isDayTime = currentHour >= 5 && currentHour < 14;
-  const [theme, setTheme] = useState<string>(isDayTime ? "light" : "dark");
+	const currentHour = new Date().getHours()
+	const isDayTime = currentHour >= 5 && currentHour < 14
+	const [theme, setTheme] = useState<string>(isDayTime ? 'light' : 'dark')
 
-  return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+	return (
+		<ThemeContext.Provider value={{ theme, setTheme }}>
+			{children}
+		</ThemeContext.Provider>
+	)
 }

@@ -3,143 +3,141 @@
 @tailwind utilities;
 
 body {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  overflow: hidden;
-  background-color: #dddbcb;
-  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	overflow: hidden;
+	background-color: #dddbcb;
+	transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .dark {
-  background-color: #1f2937;
-  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	background-color: #1f2937;
+	transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .light {
-  background-color: #dddbcb;
-  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	background-color: #dddbcb;
+	transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .open {
-  display: flex;
-  flex-direction: column;
-  height: 210px;
-  transition: 0.5s ease-in-out;
-  width: 105px;
-  overflow: hidden;
-  padding: 7px;
+	display: flex;
+	flex-direction: column;
+	height: 210px;
+	transition: 0.5s ease-in-out;
+	width: 105px;
+	overflow: hidden;
+	padding: 7px;
 
-  border-bottom-left-radius: 20px;
+	border-bottom-left-radius: 20px;
 }
 
 .closed {
-  display: flex;
-  flex-direction: column;
-  height: 170px;
-  width: 105px;
-  transition: 0.5s ease-in-out;
-  overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 170px;
+	width: 105px;
+	transition: 0.5s ease-in-out;
+	overflow: hidden;
 }
 
 .selected {
-  display: flex;
-  flex-direction: column;
-  height: 345px;
-  transition: 0.75s ease-in-out;
-  width: 140px;
-  overflow: hidden;
-  padding: 7px;
+	display: flex;
+	flex-direction: column;
+	height: 345px;
+	transition: 0.75s ease-in-out;
+	width: 140px;
+	overflow: hidden;
+	padding: 7px;
 
-  border-bottom-left-radius: 40px;
+	border-bottom-left-radius: 40px;
 }
 
-
-
 .profile-open {
-  display: flex;
-  flex-direction: column;
-  height: 110px;
-  width: 210px;
-  transition: 0.5s ease-in-out;
-  overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 110px;
+	width: 210px;
+	transition: 0.5s ease-in-out;
+	overflow: hidden;
 }
 
 .profile-closed {
-  display: flex;
-  flex-direction: column;
-  height: 0px;
-  width: 0px;
-  transition: 0.5s ease-in-out;
-  overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 0px;
+	width: 0px;
+	transition: 0.5s ease-in-out;
+	overflow: hidden;
 }
 
 @layer utilities {
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
 
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
 }
 
 @keyframes jump {
-  0%,
-  85%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-30px);
-  }
+	0%,
+	85%,
+	100% {
+		transform: translateY(0);
+	}
+	40% {
+		transform: translateY(-30px);
+	}
 }
 
 .loading {
-  display: flex;
-   /* Gray-800 */
-  border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  margin: 3px;
-  animation: jump 1s ease-in-out infinite;
-  display: inline-block;
+	display: flex;
+	/* Gray-800 */
+	border-radius: 50%;
+	width: 15px;
+	height: 15px;
+	margin: 3px;
+	animation: jump 1s ease-in-out infinite;
+	display: inline-block;
 }
 
 .loading:nth-child(2) {
-  animation-delay: 0.2s;
+	animation-delay: 0.2s;
 }
 
 .loading:nth-child(3) {
-  animation-delay: 0.4s;
+	animation-delay: 0.4s;
 }
 
 @keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.3;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
+	0% {
+		transform: scale(1);
+		opacity: 0.7;
+	}
+	50% {
+		transform: scale(1.2);
+		opacity: 0.3;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 0.7;
+	}
 }
 
 .pulsing-circle {
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  border: 2px solid;
-  animation: pulse 2s ease-in-out infinite;
+	position: absolute;
+	inset: 0;
+	border-radius: 9999px;
+	border: 2px solid;
+	animation: pulse 2s ease-in-out infinite;
 }
 
 .light .pulsing-circle {
-  border-color: #1f2937; /* bg-gray-900 */
+	border-color: #1f2937; /* bg-gray-900 */
 }
 
 .dark .pulsing-circle {
-  border-color: #dddbcb;
+	border-color: #dddbcb;
 }

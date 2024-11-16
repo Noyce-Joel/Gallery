@@ -1,19 +1,8 @@
 export type SearchResult = {
-    [x: string]: any;
-    height(
-      width: (
-        width: number,
-        height: number,
-        screenHeight: number
-      ) => number | `${number}` | undefined,
-      height: number,
-      screenHeight: number
-    ): number | `${number}` | undefined;
-    width(
-      width: number,
-      height: number,
-      screenHeight: number
-    ): number | `${number}` | undefined;
-    public_id: string;
-    tags: string[];
-  };
+    public_id: string
+    tags: string[]
+    height: number // Numeric value for image height
+    width: number  // Numeric value for image width
+    url: string    // URL for the image
+    [key: string]: any // Allow other optional properties if needed
+}

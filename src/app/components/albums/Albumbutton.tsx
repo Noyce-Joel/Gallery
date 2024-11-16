@@ -1,20 +1,19 @@
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation'
 
 export default function AlbumButton({
-  handleAddToAlbum,
+	handleAddToAlbum,
 }: {
-  handleAddToAlbum: () => void;
+	handleAddToAlbum: () => void
 }) {
-  const router = useRouter();
-  return (
-    <>
-      <button
-        onClick={() => handleAddToAlbum()}
-        type="button"
-        className="rounded-xl flex-nowrap whitespace-nowrap flex group-hover gap-3 p-2 px-3 text-sm bg-gray-800 hover:text-gray-800 text-white hover:bg-[#dddbcb] shadow-sm"
-      >
-        Add to Album
-      </button>
-    </>
-  );
+	const router = useRouter()
+	return (
+		<>
+			<button
+				onClick={() => handleAddToAlbum()}
+				type="button"
+				className="group-hover flex flex-nowrap gap-3 whitespace-nowrap rounded-xl bg-gray-800 p-2 px-3 text-sm text-white shadow-sm hover:bg-[#dddbcb] hover:text-gray-800">
+				Add to Album
+			</button>
+		</>
+	)
 }
