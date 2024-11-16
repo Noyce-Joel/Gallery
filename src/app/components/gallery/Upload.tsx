@@ -8,6 +8,7 @@ import { ArrowUpTrayIcon } from '@heroicons/react/24/outline'
 import { CldUploadButton } from 'next-cloudinary'
 
 import Alert from '@/app/lib/utils/alert'
+import { toast } from 'sonner'
 
 export default function Upload() {
 	const [uploaded, setUploaded] = useState<boolean>(false)
@@ -17,15 +18,13 @@ export default function Upload() {
 		<>
 			<CldUploadButton
 				onUpload={() => {
-					// setTimeout(() => {
-					//   router.refresh();
-					// }, 2000);
+					toast('Uploading...')
 				}}
 				onClose={() => {
 					setUploaded(true)
 				}}
 				onSuccess={() => {
-					console.log('success')
+					toast.success('Uploaded successfully')
 				}}
 				uploadPreset="r2qsi3yf"
 				options={{
@@ -46,7 +45,7 @@ export default function Upload() {
 					Upload
 				</div>
 			</CldUploadButton>
-			{uploaded ? <Alert alertType="Successfully uploaded" /> : null}
+			
 		</>
 	)
 }

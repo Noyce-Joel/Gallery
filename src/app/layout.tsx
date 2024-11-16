@@ -9,6 +9,7 @@ import { fetchData } from '@/app/lib/utils/actions'
 import './globals.css'
 import SmoothScroll from './lib/scroll-provider'
 import Lenis from './lib/scroll-provider'
+import { Toaster } from './components/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 export type Album = {
@@ -32,6 +33,7 @@ export default async function RootLayout({
 					</div>
 					<div className="flex h-screen w-screen justify-center overflow-scroll">
 						{children}
+						<Toaster />
 					</div>
 				</body>
 			</html>

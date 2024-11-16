@@ -20,6 +20,7 @@ import Alert from '@/app/lib/utils/alert'
 import Lenis from '@/app/lib/scroll-provider'
 
 import { SearchResult } from '@/lib/types'
+import { toast } from 'sonner'
 
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 	const { theme } = useContext(ThemeContext) as ThemeContextProps
@@ -104,6 +105,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 	}
 
 	const handleAddToAlbum = () => {
+		toast.info('Adding to album...')
 		setAddToAlbumDialogue(true)
 	}
 
@@ -205,9 +207,9 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 					rootFolders={results}
 				/>
 			) : null}
-			{uploaded ? <Alert alertType="added to album" /> : null}
-			{created ? <Alert alertType="created album" /> : null}
-			{deleted ? <Alert alertType="Successfully deleted" /> : null}
+			{uploaded ? toast.success('Added to album successfully') : null}
+			{created ? toast.success('Created album successfully') : null}
+			{deleted ? toast.success('Deleted successfully') : null}
 
 			{slideShow ? (
 				<SlideShow

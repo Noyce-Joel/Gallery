@@ -2,6 +2,7 @@ import router from 'next/router'
 
 import { SearchResult } from '../types'
 import { deleteImage } from './actions'
+import { toast } from 'sonner'
 
 const handleSelectMode = (
 	selectMode: boolean,
@@ -75,10 +76,12 @@ const isAllSelected = (selected: any[], imageIds: SearchResult[]) => {
 }
 
 const handleDelete = (selected: SearchResult[], router: any) => {
+	toast.info('Deleting...')	
 	for (const selectedImage of selected) {
 		deleteImage(selectedImage)
 	}
 	router.refresh()
+	toast.success('Deleted successfully')
 }
 
 const colors = ['red', 'yellow', 'green', 'blue', 'indigo', 'purple', 'pink']
