@@ -16,6 +16,7 @@ import ShareImage from '@/components/gallery/ShareImage'
 import { deleteImage } from '@/app/lib/utils/actions'
 
 import { SearchResult } from '@/lib/types'
+import { toast } from 'sonner'
 
 function classNames(...classes: any) {
 	return classes.filter(Boolean).join(' ')
@@ -27,6 +28,7 @@ export default function DropDown({ imageData }: { imageData: SearchResult }) {
 	const handleDelete = () => {
 		deleteImage(imageData)
 		router.refresh()
+		toast.success('Deleted successfully')
 	}
 	const publicId = imageData.public_id
 	const tags = imageData.tags
@@ -36,7 +38,7 @@ export default function DropDown({ imageData }: { imageData: SearchResult }) {
 			{shareDialogue ? (
 				<ShareImage imageData={imageData} />
 			) : (
-				<div className="absolute left-2 top-2 flex h-6 w-6">
+				<div className="absolute left-2 top-2 flex h-6 w-6 z-50">
 					<Menu as="div" className="relative inline-block text-left">
 						<div>
 							<Menu.Button className="inline-flex h-7 w-7 items-center justify-center gap-x-1.5 rounded-md bg-[#121723] p-1 text-sm font-semibold text-gray-900 shadow-sm">
@@ -56,7 +58,7 @@ export default function DropDown({ imageData }: { imageData: SearchResult }) {
 							leaveTo="transform opacity-0 scale-95">
 							<Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-800 text-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 								<div className="text-white">
-									<Menu.Item>
+									{/* <Menu.Item>
 										{({ active }) => (
 											<Link
 												href={`/edit?publicId=${publicId}`}
@@ -74,7 +76,7 @@ export default function DropDown({ imageData }: { imageData: SearchResult }) {
 												Edit
 											</Link>
 										)}
-									</Menu.Item>
+									</Menu.Item> */}
 									<Menu.Item>
 										{({ active }) => (
 											<div
@@ -96,7 +98,7 @@ export default function DropDown({ imageData }: { imageData: SearchResult }) {
 									<Menu.Item>
 										{({ active }) => (
 											<div
-												onClick={handleDelete}
+												onClick={() => handleDelete()}
 												className={classNames(
 													active ? 'bg-[#dddbcb] text-gray-800' : 'text-white',
 													'group -z-10 flex items-center rounded-b-md px-4 py-2 text-sm',

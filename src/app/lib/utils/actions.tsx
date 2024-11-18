@@ -18,7 +18,9 @@ export async function addToAlbum(album: string, images: SearchResult[]) {
 }
 
 export async function deleteImage(image: SearchResult) {
-	await cloudinary.v2.uploader.destroy(image.public_id)
+	await cloudinary.v2.uploader.destroy(image.public_id).then((result) => {
+		
+	})
 }
 
 export async function fetchData() {

@@ -38,6 +38,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 	const [albumName, setAlbumName] = useState<string>('')
 	const [isLoadingProjects, setIsLoadingProjects] = useState<boolean>(false)
 	const pathname = usePathname()
+	const [photos, setPhotos] = useState<SearchResult[]>(results.resources)
 	const colors = ['red', 'yellow', 'green', 'blue', 'indigo', 'purple', 'pink']
 	useEffect(() => {
 		const album = window.location.href.split('/albums/')[1]
@@ -71,7 +72,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 	}, [theme])
 
 	const columns = (colIdx: number) => {
-		return results.resources.filter((resource, resourceIdx) => {
+		return photos.filter((resource, resourceIdx) => {
 			return resourceIdx % 4 === colIdx
 		})
 	}
@@ -105,7 +106,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 	}
 
 	const handleAddToAlbum = () => {
-		toast.info('Adding to album...')
+		
 		setAddToAlbumDialogue(true)
 	}
 
@@ -139,10 +140,15 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 	}
 
 	const handleDelete = () => {
+
 		for (const selectedImage of selected) {
 			deleteImage(selectedImage)
+			setPhotos((prev) => prev.filter((photo) => photo !== selectedImage))
 		}
-		router.refresh()
+		
+		
+			toast.success('Deleted successfully')
+		
 	}
 
 	const handleDiscoveryMode = () => {
@@ -207,9 +213,9 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 					rootFolders={results}
 				/>
 			) : null}
-			{uploaded ? toast.success('Added to album successfully') : null}
-			{created ? toast.success('Created album successfully') : null}
-			{deleted ? toast.success('Deleted successfully') : null}
+			
+			
+			
 
 			{slideShow ? (
 				<SlideShow

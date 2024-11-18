@@ -75,7 +75,7 @@ export default function Nav({
 
 	return (
 		<div
-			className={`color-black flex flex-col gap-y-5 ${textColor} ${drkMode} z-40 w-[225px] pr-6 transition duration-[0.8s] ease-in-out`}>
+			className={`color-black flex flex-col gap-y-5 ${textColor}  z-40 w-[225px] pr-6  ease-in-out`}>
 			<div className={`flex h-16 shrink-0 gap-2 p-6`}>
 				<h1
 					className={`flex whitespace-nowrap font-bold tracking-wider ${textColor}`}>

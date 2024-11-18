@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 
 import { Dialog, Transition } from '@headlessui/react'
 import { PlusCircleIcon } from '@heroicons/react/24/solid'
+import { toast } from 'sonner'
 
 import { addToAlbum, createAlbum } from '@/app/lib/utils/actions'
 
@@ -41,6 +42,7 @@ export default function AddToAlbum({
 		setOpen(false)
 
 		if (albumName === '') {
+			toast.info('Adding to album...')
 			setTimeout(() => {
 				setUploaded(true)
 				setSelected([])
@@ -55,18 +57,22 @@ export default function AddToAlbum({
 			for (const selectedAlbum of selectedAlbums) {
 				await addToAlbum(selectedAlbum, imageData)
 			}
+			toast.success('Added to album successfully')
 		} else {
+			toast.info('Creating album...')
 			setTimeout(() => {
 				setCreated(true)
 				setSelected([])
 			}, 1500)
 			await createAlbum(albumName, imageData)
+			toast.success('Created album successfully')
 		}
 
 		setAddToAlbumDialogue(false)
 		setUploaded(false)
 		setCreated(false)
 		setAlbumName('')
+
 		router.refresh()
 	}
 
