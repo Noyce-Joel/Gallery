@@ -168,6 +168,8 @@ export default function SlideShow({
                           ) as number
                         }
                         className="z-10"
+                        priority={true}
+                        fetchPriority="high"
                       />
                     </motion.div>
                     <Image
@@ -192,6 +194,8 @@ export default function SlideShow({
                       blurDataURL={imageUrls[index]}
                       quality={1}
                       className=""
+                      priority={true}
+                      fetchPriority="high"
                     />
                     {/* Preload previous image */}
                     <Image
@@ -200,6 +204,8 @@ export default function SlideShow({
                       height={1}
                       alt="preload-prev"
                       className="hidden"
+                      priority={true}
+                      fetchPriority="high"
                     />
                     {/* Preload next image */}
                     <Image
@@ -208,6 +214,8 @@ export default function SlideShow({
                       height={1}
                       alt="preload-next"
                       className="hidden"
+                      priority={true}
+                      fetchPriority="high"
                     />
                   </motion.div>
                 </Dialog.Panel>

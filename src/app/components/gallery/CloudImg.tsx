@@ -47,6 +47,8 @@ function CloudImg({
 						<CldImage
 							className="rounded-[7px] transition-transform duration-500 ease-in-out"
 							onLoad={handleLoad}
+							priority={true}
+							fetchPriority="high"
 							src={imageData?.public_id}
 							{...props}
 						/>

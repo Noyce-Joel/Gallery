@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { motion } from 'framer-motion'
+import { toast } from 'sonner'
 
 import { ThemeContext, ThemeContextProps } from '@/context/Context'
 
@@ -20,7 +21,6 @@ import Alert from '@/app/lib/utils/alert'
 import Lenis from '@/app/lib/scroll-provider'
 
 import { SearchResult } from '@/lib/types'
-import { toast } from 'sonner'
 
 function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 	const { theme } = useContext(ThemeContext) as ThemeContextProps
@@ -106,7 +106,6 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 	}
 
 	const handleAddToAlbum = () => {
-		
 		setAddToAlbumDialogue(true)
 	}
 
@@ -140,15 +139,12 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 	}
 
 	const handleDelete = () => {
-
 		for (const selectedImage of selected) {
 			deleteImage(selectedImage)
 			setPhotos((prev) => prev.filter((photo) => photo !== selectedImage))
 		}
-		
-		
-			toast.success('Deleted successfully')
-		
+
+		toast.success('Deleted successfully')
 	}
 
 	const handleDiscoveryMode = () => {
@@ -213,9 +209,6 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 					rootFolders={results}
 				/>
 			) : null}
-			
-			
-			
 
 			{slideShow ? (
 				<SlideShow
@@ -250,7 +243,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 												? `rounded-[7px] transition hover:cursor-pointer ${drkMode} scale-95 duration-500 ease-in-out`
 												: 'duration-500 ease-in-out hover:cursor-pointer'
 									}>
-									{selectMode && loaded ? (
+									{selectMode ? (
 										<CloudImg
 											key="result.public_id"
 											discoveryModeOn={discoveryModeOn}
@@ -259,6 +252,7 @@ function Gallery({ results }: { results: { resources: SearchResult[] } }) {
 											width="960"
 											height="300"
 											onClick={() => handleSelectImage(result)}
+											onLoad={handleLoad}
 										/>
 									) : (
 										<CloudImg
