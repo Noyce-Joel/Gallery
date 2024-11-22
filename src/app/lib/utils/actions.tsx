@@ -1,8 +1,10 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
+
 import cloudinary from 'cloudinary'
 import { getSession } from 'next-auth/react'
+
 import { SearchResult } from '@/lib/types'
 
 export async function createAlbum(album: string, images: SearchResult[]) {
@@ -34,7 +36,7 @@ export async function fetchData() {
 
 	const usage: any = await cloudinary.v2.api.usage().then((result) => result)
 	const rootFolders = await cloudinary.v2.api.root_folders()
-	
+
 	return { results, usage, rootFolders }
 }
 
