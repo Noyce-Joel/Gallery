@@ -1,10 +1,8 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-
 import cloudinary from 'cloudinary'
 import { getSession } from 'next-auth/react'
-
 import { SearchResult } from '@/lib/types'
 
 export async function createAlbum(album: string, images: SearchResult[]) {
