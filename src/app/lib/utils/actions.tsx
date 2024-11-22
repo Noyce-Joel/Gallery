@@ -2,25 +2,28 @@
 
 import cloudinary from 'cloudinary'
 import { getSession } from 'next-auth/react'
-
+import { revalidatePath } from 'next/cache'
 import { SearchResult } from '@/lib/types'
 
 export async function createAlbum(album: string, images: SearchResult[]) {
 	for (const image of images) {
 		await cloudinary.v2.uploader.add_tag(album, [image.public_id])
 	}
+	 revalidatePath('/')
 }
 
 export async function addToAlbum(album: string, images: SearchResult[]) {
 	for (const image of images) {
 		await cloudinary.v2.uploader.add_tag(album, [image.public_id])
 	}
+	revalidatePath('/')
 }
 
 export async function deleteImage(image: SearchResult) {
 	await cloudinary.v2.uploader.destroy(image.public_id).then((result) => {
 		
 	})
+	revalidatePath('/')
 }
 
 export async function fetchData() {
@@ -47,4 +50,5 @@ export async function tagFavourite(isFavourited: boolean, publicId: string) {
 	} else {
 		await cloudinary.v2.uploader.remove_tag('favourite', [publicId])
 	}
+	revalidatePath('/')
 }

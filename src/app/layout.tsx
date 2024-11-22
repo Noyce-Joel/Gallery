@@ -17,13 +17,14 @@ export type Album = {
 	path: string
 }
 
+
 export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
 	const { results, usage } = await fetchData()
-
+	
 	return (
 		<ThemeProvider>
 			<html lang="en">
