@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath } from 'next/cache'
 
 import cloudinary from 'cloudinary'
 import { getSession } from 'next-auth/react'
