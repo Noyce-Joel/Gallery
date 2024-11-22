@@ -34,6 +34,7 @@ export async function fetchData() {
 
 	const usage: any = await cloudinary.v2.api.usage().then((result) => result)
 	const rootFolders = await cloudinary.v2.api.root_folders()
+	
 	return { results, usage, rootFolders }
 }
 
@@ -45,9 +46,9 @@ export async function getUserData() {
 export async function tagFavourite(isFavourited: boolean, publicId: string) {
 	if (isFavourited) {
 		await cloudinary.v2.uploader.add_tag('favourite', [publicId])
-		revalidatePath('/')
+		revalidatePath('/favourites')
 	} else {
 		await cloudinary.v2.uploader.remove_tag('favourite', [publicId])
-		revalidatePath('/')
+		revalidatePath('/favourites')
 	}
 }
