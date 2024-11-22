@@ -27,7 +27,6 @@ export default function SlideShow({
     setImageUrls(urls);
     setLoadedImages(new Array(selectedImages.length).fill(false));
     
-    // Preload the first 5 images
     urls.slice(0, 5).forEach((url, idx) => {
       const img = new window.Image();
       img.src = url;
