@@ -22,6 +22,7 @@ export async function deleteImage(image: SearchResult) {
 		
 	})
 }
+
 export async function fetchData() {
 	const results = (await cloudinary.v2.search
 		.expression('resource_type:image')
